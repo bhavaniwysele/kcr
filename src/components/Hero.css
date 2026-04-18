@@ -1,0 +1,159 @@
+.hero-section {
+  position: relative;
+  height: 90vh; /* Full screen minus navbar roughly */
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-family: 'Outfit', sans-serif;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 80% 15%; /* Focused more on the top-right to keep the head visible */
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    -90deg,
+    rgba(0, 0, 0, 0) 0%,   /* Fully transparent on right */
+    rgba(0, 0, 0, 0.2) 40%,
+    rgba(0, 0, 0, 0.75) 100% /* Darker on left for text visibility */
+  );
+}
+
+.hero-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 5rem;
+  display: flex;
+  justify-content: flex-start; /* Push content to the LEFT */
+}
+
+.hero-content {
+  max-width: 700px;
+  text-align: left; /* Left align text */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  font-weight: 800;
+  margin: 0 0 0.75rem 0; /* Reduced margin */
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  color: #ffffff !important; /* Force white color for all parts of the title */
+}
+
+.hero-title span {
+  color: var(--accent); /* Brand pink */
+}
+
+.hero-subtitle {
+  font-size: 0.95rem; /* Further decreased size */
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 1.75rem; /* Reduced margin to button */
+  color: rgba(255, 255, 255, 0.9);
+  max-width: none; /* Allow it to span one line */
+}
+
+.hero-btn {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 1rem 3.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 50px;
+  transition: all 0.6s ease-in-out, transform 0.2s ease;
+  border: 1px solid rgba(233, 30, 99, 0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.hero-btn span {
+  position: relative;
+  z-index: 2;
+  transition: color 0.6s ease-in-out;
+}
+
+.hero-btn svg {
+  position: absolute;
+  inset: 0;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 4px;
+  stroke-dasharray: 200 640;
+  stroke-dashoffset: 200;
+  transition: all 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.hero-btn:hover {
+  transform: translateY(-5px);
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 15px 30px rgba(233, 30, 99, 0.4);
+}
+
+.hero-btn:hover span {
+  color: white;
+}
+
+.hero-btn:hover svg {
+  stroke: #ffffff;
+  stroke-dashoffset: -640;
+}
+
+@media (max-width: 1024px) {
+  .hero-container {
+    padding: 0 2rem;
+    justify-content: center;
+  }
+  
+  .hero-content {
+    text-align: center;
+    align-items: center;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: 80vh;
+  }
+  
+  .hero-overlay {
+    background: rgba(0, 0, 0, 0.6); /* Even darker for mobile center text */
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+}

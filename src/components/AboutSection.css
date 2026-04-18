@@ -1,0 +1,195 @@
+.about-section {
+  padding: 6rem 2rem;
+  background: #ffffff;
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
+}
+
+.about-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+/* Book Animation Styles */
+.about-image-column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 2000px;
+}
+
+.book-container {
+  position: relative;
+  width: 450px;
+  height: 550px;
+  cursor: pointer;
+}
+
+.book-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+  border-radius: 8px;
+}
+
+/* When show-next is active, trigger the flip */
+.book-page.show-next {
+  transform: rotateY(-180deg);
+}
+
+/* IMPORTANT: When isFlipping is FALSE, we are in the "reset" phase.
+   We want the switch back to 0deg to be INSTANT so the user doesn't see a "backwards flip".
+*/
+.book-page:not(.show-next) {
+  transition: none; /* Instant reset to 0deg */
+  transform: rotateY(0deg);
+}
+
+/* Re-enable transition only when show-next is applied */
+.book-page.show-next {
+  transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.page-front, .page-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.page-front img, .page-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-back {
+  transform: rotateY(180deg);
+  background: #f0f0f0;
+}
+
+.book-shadow {
+  position: absolute;
+  bottom: -40px;
+  left: 5%;
+  width: 90%;
+  height: 40px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(10px);
+  z-index: -1;
+}
+
+.click-hint {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.6;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+  40% {transform: translateX(-50%) translateY(-10px);}
+  60% {transform: translateX(-50%) translateY(-5px);}
+}
+
+/* Content Styles */
+.about-content {
+  flex: 1;
+}
+
+.section-subtitle {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  color: #1a1a1a;
+  margin-bottom: 2.5rem;
+  font-weight: 900;
+}
+
+.section-title span {
+  color: var(--accent);
+  background: linear-gradient(120deg, var(--accent) 0%, #ff4081 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about-text {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 2rem;
+}
+
+.read-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.read-more-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 4px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.read-more-btn:hover {
+  color: var(--accent);
+}
+
+.read-more-btn:hover::after {
+  width: 100%;
+}
+
+.read-more-btn span {
+  transition: transform 0.3s ease;
+}
+
+.read-more-btn:hover span {
+  transform: translateX(10px);
+}
+
+@media (max-width: 991px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 6rem;
+  }
+}

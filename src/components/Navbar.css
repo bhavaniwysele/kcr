@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --nav-text: #1a1a1a;
+  --nav-accent: var(--accent);
+  --nav-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --nav-blur: 15px;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: var(--nav-bg);
+  backdrop-filter: blur(var(--nav-blur));
+  -webkit-backdrop-filter: blur(var(--nav-blur));
+  box-shadow: var(--nav-shadow);
+  font-family: 'Outfit', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.nav-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2.5rem; /* Slightly increased for better balance */
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-logo img {
+  height: 45px; /* Adjust height to fit navbar */
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover img {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.15rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--nav-text);
+  font-weight: 500;
+  font-size: 0.82rem; /* Decreased */
+  padding: 0.4rem 0;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: var(--nav-accent);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--nav-accent);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.dropdown-icon {
+  font-size: 0.8rem;
+  margin-left: 2px;
+}
+
+/* Dropdown Styles */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(255, 255, 255, 0.95); /* Keep it light but translucent */
+  min-width: 200px;
+  list-style: none;
+  padding: 0.6rem 0;
+  margin: 0;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu li {
+  padding: 4px 12px; /* Spacing for the holographic effect */
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 0.55rem 1rem;
+  color: var(--nav-text);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0); /* default subtle border from request */
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.dropdown-menu li a:hover {
+  background: white;
+  color: #000000; /* A slightly darker cyan for better visibility on white */
+  transform: translateY(-3px) scale(1.02);
+  
+  /* neon border glow remains */
+  border: 1px solid rgb(252, 98, 170);
+  box-shadow:
+    0 0 5px rgb(235, 60, 159),
+    0 0 10px rgba(0, 0,0);
+}
+
+/* Shared Animation Button Styles */
+.nav-contact-btn,
+.nav-join-btn {
+  position: relative;
+  overflow: hidden;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.6s ease-in-out, transform 0.2s ease !important;
+  font-weight: 600;
+  font-size: 0.8rem; /* Decreased */
+  padding: 0.55rem 1.4rem; /* Balanced size */
+  border-radius: 50px;
+}
+
+.nav-contact-btn,
+.nav-join-btn {
+  background: #ffffff;
+  color: var(--nav-accent) !important;
+  border: 1px solid rgba(233, 30, 99, 0.2);
+}
+
+.nav-contact-btn span,
+.nav-join-btn span {
+  position: relative;
+  z-index: 2;
+  transition: color 0.6s ease-in-out;
+}
+
+/* Shared SVG animation setup */
+.nav-contact-btn svg,
+.nav-join-btn svg {
+  position: absolute;
+  inset: 0;
+  fill: none;
+  stroke-width: 3px;
+  transition: all 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.nav-contact-btn svg,
+.nav-join-btn svg {
+  stroke: var(--nav-accent);
+  stroke-dasharray: 140 540;
+  stroke-dashoffset: 140;
+}
+
+.nav-contact-btn:hover,
+.nav-join-btn:hover {
+  transform: translateY(-2px);
+  color: white !important;
+}
+
+.nav-contact-btn:hover,
+.nav-join-btn:hover {
+  background: var(--nav-accent);
+  border-color: transparent;
+}
+
+.nav-contact-btn:hover span,
+.nav-join-btn:hover span {
+  color: white;
+}
+
+.nav-contact-btn:hover svg,
+.nav-join-btn:hover svg {
+  stroke: #ffffff;
+  stroke-dashoffset: -540;
+}
+
+.nav-join-btn::after {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .nav-links {
+    display: none; /* Mobile menu logic would go here */
+  }
+}

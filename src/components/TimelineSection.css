@@ -1,0 +1,207 @@
+.timeline-section {
+  padding: 2rem 2rem 6rem;
+  background: #fdfdfd;
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
+}
+
+.timeline-container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.timeline-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.timeline-header .subtitle {
+  color: var(--accent); /* Pink */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-header .title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+
+.timeline-header .title span {
+  color: var(--accent);
+}
+
+/* Timeline Wrapper for buttons */
+.timeline-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.timeline-scroll-container {
+  overflow-x: auto;
+  padding: 2rem 0 4rem 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  flex-grow: 1;
+  scroll-behavior: smooth;
+}
+
+.timeline-scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.timeline-flow {
+  display: flex;
+  gap: 2%; /* Responsive gap */
+  padding: 0 1rem;
+}
+
+.timeline-item {
+  width: 23.5%; /* This leaves room for 4 items with gap */
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline-box {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  border-bottom: 4px solid #333; /* Black accent instead of green */
+  display: flex;
+  flex-direction: column;
+  height: 310px; /* Increased height to fit content without touching edges */
+  transition: transform 0.3s ease;
+}
+
+.timeline-item:hover .timeline-box {
+  transform: translateY(-5px);
+}
+
+.timeline-year-header {
+  background: var(--accent); /* Pink header */
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.timeline-box-content {
+  padding: 1.5rem 1.2rem; /* Consistent padding */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Start at same position in every box */
+  text-align: center;
+  overflow: hidden; 
+}
+
+.timeline-box-content h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.timeline-box-content p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #555;
+  margin: 0;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: var(--accent);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.nav-btn:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(233, 30, 99, 0.2);
+}
+
+.nav-btn:active {
+  transform: scale(0.95);
+}
+
+/* Connector Section */
+.timeline-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.connector-line {
+  width: 3px;
+  height: 60px;
+  background: #e0e0e0; /* Subtle line */
+  transition: background 0.3s ease;
+}
+
+.timeline-item:hover .connector-line {
+  background: var(--accent);
+}
+
+.connector-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: #999;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover .connector-icon {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: #fff0f5; /* Very light pink background */
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .nav-btn {
+    display: none; /* Use native scroll on mobile for better UX */
+  }
+  
+  .timeline-scroll-container {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .timeline-header .title {
+    font-size: 2.2rem;
+  }
+}

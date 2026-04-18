@@ -1,0 +1,275 @@
+.leadership-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--bg);
+  font-family: var(--sans);
+  padding: 4rem 5% 4rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.leadership-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  z-index: 10;
+  max-width: 800px;
+}
+
+.leadership-header h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgb(239, 39, 106);
+  margin-bottom: 0.8rem;
+  letter-spacing: -1px;
+}
+
+.leadership-header p {
+  color: rgb(0, 0, 0);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.infographic-wrapper {
+  position: relative;
+  width: 900px;
+  height: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.center-node {
+  width: 320px;
+  height: 320px;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 15px 40px var(--accent-bg);
+  z-index: 5;
+  padding: 2.5rem;
+  overflow: hidden;
+}
+
+.center-content {
+  width: 100%;
+}
+
+.center-trait-detail h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-h);
+}
+
+.center-trait-detail p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--text);
+  margin: 0;
+}
+
+.center-trait-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: center;
+}
+
+.trait-node {
+  position: absolute;
+  width: 135px;
+  height: 135px;
+  background: var(--bg);
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.trait-node:hover {
+  border-color: var(--accent);
+  transform: scale(1.1);
+  box-shadow: 0 20px 40px var(--accent-bg);
+}
+
+.trait-icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.6rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trait-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-h);
+  line-height: 1.2;
+}
+
+.connector-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--border) 100%);
+  transform-origin: left center;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* Tooltip Styles */
+/* Old tooltips removed for Center Hub system */
+
+/* Principles Section */
+.principles-section {
+  max-width: 1200px;
+  width: 100%;
+  margin: 6rem auto 2rem;
+  padding: 0 5%;
+}
+
+.section-intro {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-intro span {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.section-intro h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-h);
+  margin: 1rem 0;
+}
+
+.section-intro p {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.principle-card {
+  background: var(--bg);
+  padding: 2.5rem;
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.principle-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent);
+  box-shadow: 0 20px 40px var(--accent-bg);
+}
+
+.p-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.principle-card h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-h);
+  margin-bottom: 1rem;
+}
+
+.principle-card p {
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mobile Adjustments for Principles */
+@media (max-width: 900px) {
+  .principles-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile Layout */
+@media (max-width: 850px) {
+  .leadership-container {
+    padding-top: 4rem;
+  }
+
+  .infographic-wrapper {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+    margin-top: 3rem;
+  }
+
+  .center-node {
+    grid-column: 1 / -1;
+    margin: 0 auto 3rem;
+    width: 180px;
+    height: 180px;
+  }
+
+  .trait-node {
+    position: static;
+    transform: none !important;
+    width: 100%;
+    height: auto;
+    min-height: 180px;
+    border-radius: 15px;
+    padding: 1.5rem;
+  }
+
+  .connector-line {
+    display: none;
+  }
+
+  .tooltip-card {
+    position: static;
+    transform: none;
+    width: 100%;
+    opacity: 1;
+    background: transparent;
+    color: var(--text);
+    padding: 0.4rem 0 0;
+    box-shadow: none;
+    text-align: center;
+  }
+
+  .leadership-header h2 {
+    font-size: 2.2rem;
+  }
+}

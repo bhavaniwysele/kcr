@@ -1,0 +1,162 @@
+.political-career-container {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #000000;
+  font-family: var(--sans);
+  padding-bottom: 5rem;
+}
+
+.career-hero {
+  background: rgba(233, 30, 99, 0.05);
+  border-radius: 40px;
+  margin: 2rem 4%;
+  padding: 4rem 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.hero-left {
+  flex: 1.2;
+}
+
+.hero-right {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-right img {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.career-label {
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.career-hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #000000;
+  margin-bottom: 1.5rem;
+}
+
+.career-hero p {
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+.career-intro {
+  margin: 5rem 4%;
+  display: flex;
+  gap: 5rem;
+  align-items: flex-start;
+}
+
+.intro-left {
+  flex: 1;
+}
+
+.intro-left h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #000000;
+}
+
+.intro-right {
+  flex: 1;
+}
+
+.intro-right p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.8;
+}
+
+.career-gallery {
+  margin: 0 4%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.2rem;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 25px;
+  overflow: hidden;
+  height: 360px;
+}
+
+.gallery-item:nth-child(1), .gallery-item:nth-child(5) { grid-column: span 2; }
+.gallery-item:nth-child(2), .gallery-item:nth-child(6) { grid-column: span 3; }
+.gallery-item:nth-child(3) { grid-column: span 3; }
+.gallery-item:nth-child(4) { grid-column: span 2; }
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: #ffffff;
+}
+
+.gallery-overlay h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.gallery-overlay p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 1024px) {
+  .career-hero {
+    flex-direction: column;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  
+  .career-hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .career-intro {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .career-gallery {
+    grid-template-columns: 1fr;
+  }
+  
+  .gallery-item {
+    height: 300px;
+  }
+}
