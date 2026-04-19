@@ -1,6 +1,7 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
+import { Link } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -18,32 +19,38 @@ const achievements = [
   {
     title: "Irrigation & Infrastructure",
     description: "Building world-class dams and irrigation networks like Kaleshwaram Project.",
-    image: irrigation
+    image: irrigation,
+    slug: "irrigation"
   },
   {
     title: "Agriculture & Farmers",
     description: "Empowering farmers through Rythu Bandhu and 24x7 free electricity.",
-    image: agriculture
+    image: agriculture,
+    slug: "agriculture"
   },
   {
     title: "Welfare Schemes",
     description: "Transforming lives through Aasara pensions and welfare-centric governance.",
-    image: welfare
+    image: welfare,
+    slug: "welfare"
   },
   {
     title: "Health & Women Empowerment",
     description: "Championing healthcare with KCR Kit and robust medical infrastructure.",
-    image: health
+    image: health,
+    slug: "health"
   },
   {
     title: "Economic Growth",
     description: "Driving TS-iPASS and making Telangana a global destination for investment.",
-    image: economic
+    image: economic,
+    slug: "economic"
   },
   {
     title: "Culture & Heritage",
     description: "Restoring and celebrating the unique identity and festivals of Telangana.",
-    image: culture
+    image: culture,
+    slug: "culture"
   }
 ];
 
@@ -79,7 +86,7 @@ const AchievementsSlider = () => {
                   <div className="content-inner">
                     <h3>{item.title}</h3>
                     <p>{item.description}</p>
-                    <button className="learn-more-btn">Learn More</button>
+                    <Link to={`/achievements/${item.slug}`} className="learn-more-btn">Learn More</Link>
                   </div>
                 </div>
               </div>
