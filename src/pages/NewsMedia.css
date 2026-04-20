@@ -141,6 +141,7 @@
 .press-kit-section h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  color: #e91e63;
 }
 
 .press-grid {
@@ -152,26 +153,80 @@
 
 .press-kit-card {
   background: #fff;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .press-kit-icon {
-  font-size: 3rem;
+  font-size: 2.5rem;
+}
+
+.press-kit-card h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.press-kit-card p {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0;
 }
 
 .download-btn {
-  padding: 0.8rem 2rem;
-  background: var(--accent);
-  color: #fff;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 2.2rem;
+  background: #ffffff;
+  color: #e91e63;
   border-radius: 50px;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.6s ease-in-out, transform 0.2s ease;
+  border: 1px solid rgba(233, 30, 99, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.download-btn span {
+  position: relative;
+  z-index: 2;
+  transition: color 0.6s ease-in-out;
+}
+
+.download-btn svg {
+  position: absolute;
+  inset: 0;
+  fill: none;
+  stroke: #e91e63;
+  stroke-width: 4px;
+  stroke-dasharray: 200 640;
+  stroke-dashoffset: 200;
+  transition: all 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.download-btn:hover {
+  transform: translateY(-3px);
+  background: #e91e63;
+  color: #ffffff;
+  box-shadow: 0 10px 20px rgba(233, 30, 99, 0.2);
+}
+
+.download-btn:hover span {
+  color: #ffffff;
+}
+
+.download-btn:hover svg {
+  stroke: #ffffff;
+  stroke-dashoffset: -640;
 }
 
 @media (max-width: 1024px) {

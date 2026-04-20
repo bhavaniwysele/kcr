@@ -10,7 +10,7 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 4rem;
+  gap: 3rem;
 }
 
 /* Book Animation Styles */
@@ -24,8 +24,8 @@
 
 .book-container {
   position: relative;
-  width: 450px;
-  height: 550px;
+  width: 400px;
+  height: 500px;
   cursor: pointer;
 }
 
@@ -124,10 +124,10 @@
 }
 
 .section-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
   line-height: 1.1;
   color: #1a1a1a;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   font-weight: 900;
 }
 
@@ -139,10 +139,10 @@
 }
 
 .about-text {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   line-height: 1.8;
   color: #444;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .read-more-btn {

@@ -144,6 +144,81 @@
   font-size: 1.1rem;
   line-height: 1.8;
   color: #555;
+  margin-bottom: 20px;
+}
+
+/* Premium Button Styles for Rythu Bandhu */
+.agri-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  color: #e91e63;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 700;
+  text-decoration: none;
+  gap: 12px;
+  margin-top: 10px;
+  transition: all 0.6s ease-in-out, transform 0.2s ease;
+  border: 1px solid rgba(233, 30, 99, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  font-size: 0.95rem;
+}
+
+.agri-btn span {
+  position: relative;
+  z-index: 2;
+  transition: color 0.6s ease-in-out;
+}
+
+.agri-btn svg {
+  position: absolute;
+  inset: 0;
+  fill: none;
+  stroke: #e91e63;
+  stroke-width: 4px;
+  stroke-dasharray: 200 640;
+  stroke-dashoffset: 200;
+  transition: all 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.agri-btn:hover {
+  transform: translateY(-5px);
+  background: #e91e63;
+  color: #ffffff;
+  box-shadow: 0 10px 20px rgba(233, 30, 99, 0.3);
+}
+
+.agri-btn:hover span {
+  color: #ffffff;
+}
+
+.agri-btn:hover svg {
+  stroke: #ffffff;
+  stroke-dashoffset: -640;
+}
+
+.agri-btn-icon {
+  position: relative;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  background: #e91e63;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: all 0.4s ease;
+}
+
+.agri-btn:hover .agri-btn-icon {
+  background: #ffffff;
+  color: #e91e63;
 }
 
 .agri-card.full-width {

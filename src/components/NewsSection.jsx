@@ -65,7 +65,6 @@ const NewsSection = () => {
     <section id="news-media" className="news-section">
       <div className="news-container">
         <div className="news-header">
-          <h4 className="subtitle">Latest Updates</h4>
           <h2 className="title">News & <span>Media</span></h2>
         </div>
 

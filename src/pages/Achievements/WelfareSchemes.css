@@ -1,0 +1,207 @@
+.welfare-page {
+  background-color: #fffbfc;
+  padding: 40px 5%;
+  font-family: 'Inter', sans-serif;
+}
+
+.welfare-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.welfare-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.welfare-subtitle {
+  color: #e91e63;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 0px;
+}
+
+.welfare-title {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  color: #1a1a1a;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-top: 0px;
+}
+
+/* Card Styles based on reference */
+.welfare-card {
+  background: #ffffff;
+  border-radius: 50px;
+  padding: 60px;
+  margin-bottom: 25px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welfare-card.cream {
+  background: #fce7ef;
+}
+
+.welfare-card-content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.welfare-card-content h2 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.welfare-card-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 40px;
+}
+
+/* Button styles from reference */
+.welfare-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  color: #e91e63;
+  padding: 15px 35px;
+  border-radius: 50px;
+  font-weight: 700;
+  text-decoration: none;
+  gap: 15px;
+  transition: all 0.6s ease-in-out, transform 0.2s ease;
+  border: 1px solid rgba(233, 30, 99, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.welfare-btn span {
+  position: relative;
+  z-index: 2;
+  transition: color 0.6s ease-in-out;
+}
+
+.welfare-btn svg {
+  position: absolute;
+  inset: 0;
+  fill: none;
+  stroke: #e91e63;
+  stroke-width: 4px;
+  stroke-dasharray: 200 640;
+  stroke-dashoffset: 200;
+  transition: all 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.welfare-btn:hover {
+  transform: translateY(-5px);
+  background: #e91e63;
+  color: #ffffff;
+  box-shadow: 0 10px 20px rgba(233, 30, 99, 0.3);
+}
+
+.welfare-btn:hover span {
+  color: #ffffff;
+}
+
+.welfare-btn:hover svg {
+  stroke: #ffffff;
+  stroke-dashoffset: -640;
+}
+
+.welfare-btn-icon {
+  position: relative;
+  z-index: 2;
+  width: 35px;
+  height: 35px;
+  background: #e91e63;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.4s ease;
+}
+
+.welfare-btn:hover .welfare-btn-icon {
+  background: #ffffff;
+  color: #e91e63;
+}
+
+.welfare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.welfare-grid .welfare-card {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 35px;
+  border-radius: 40px;
+}
+
+.welfare-grid .welfare-card h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.welfare-grid .welfare-card p {
+  font-size: 1.05rem;
+  margin-bottom: 25px;
+}
+
+.welfare-grid .welfare-card .welfare-btn {
+  margin-top: 30px;
+}
+
+.welfare-grid .welfare-card .welfare-image {
+  height: 180px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.welfare-image img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.welfare-card.full-width .welfare-image {
+  flex: 0 0 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .welfare-card {
+    flex-direction: column;
+    padding: 40px;
+    border-radius: 30px;
+  }
+  .welfare-card-content h2 {
+    font-size: 2.5rem;
+  }
+  .welfare-grid {
+    grid-template-columns: 1fr;
+  }
+}

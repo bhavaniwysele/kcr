@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
-import AboutSection from '../components/AboutSection';
+import NewsSection from '../components/NewsSection';
 import AchievementsSlider from '../components/AchievementsSlider';
 import TimelineSection from '../components/TimelineSection';
+import GallerySection from '../components/GallerySection';
 
 const Home = () => {
   const { hash } = useLocation();
@@ -22,9 +23,10 @@ const Home = () => {
   return (
     <div className="home-page">
       <Hero />
-      <AboutSection />
       <AchievementsSlider />
       <TimelineSection />
+      <NewsSection />
+      <GallerySection />
       {/* Additional sections can be added here */}
     </div>
   );

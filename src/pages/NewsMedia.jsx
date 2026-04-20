@@ -92,22 +92,48 @@ const NewsMedia = () => {
         <p>Official assets for media and press organizations.</p>
         <div className="press-grid">
           <div className="press-kit-card">
-            <span className="press-kit-icon">🖼️</span>
-            <h3>Official Photos</h3>
-            <p>High-resolution portraits and event photography.</p>
-            <a href="#" className="download-btn">Download Kit</a>
+            <span className="press-kit-icon">📸</span>
+            <h3>Photos</h3>
+            <p>Official high-resolution photography and portraits.</p>
+            <a href="#" className="download-btn">
+              <span>View Photos</span>
+              <svg width="100%" height="100%">
+                <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
+              </svg>
+            </a>
           </div>
           <div className="press-kit-card">
-            <span className="press-kit-icon">📄</span>
-            <h3>Press Releases</h3>
-            <p>Archived official statements and news releases.</p>
-            <a href="#" className="download-btn">View Archive</a>
+            <span className="press-kit-icon">🎥</span>
+            <h3>Videos</h3>
+            <p>Archive of video footage and campaign media.</p>
+            <a href="#" className="download-btn">
+              <span>View Videos</span>
+              <svg width="100%" height="100%">
+                <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
+              </svg>
+            </a>
           </div>
           <div className="press-kit-card">
-            <span className="press-kit-icon">🎭</span>
-            <h3>Brand Assets</h3>
-            <p>Logos, color palettes, and brand guidelines.</p>
-            <a href="#" className="download-btn">Download Assets</a>
+            <span className="press-kit-icon">🏛️</span>
+            <h3>Public Appearances</h3>
+            <p>Chronicles of presence at public forums and rallies.</p>
+            <a href="#" className="download-btn">
+              <span>View Log</span>
+              <svg width="100%" height="100%">
+                <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
+              </svg>
+            </a>
+          </div>
+          <div className="press-kit-card">
+            <span className="press-kit-icon">📅</span>
+            <h3>Major Events</h3>
+            <p>Media kits for significant political milestones.</p>
+            <a href="#" className="download-btn">
+              <span>See Events</span>
+              <svg width="100%" height="100%">
+                <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
+              </svg>
+            </a>
           </div>
         </div>
       </section>

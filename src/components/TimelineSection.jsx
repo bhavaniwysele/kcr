@@ -116,17 +116,28 @@ const TimelineSection = () => {
               {timelineData.map((item, index) => (
                 <div className="timeline-item" key={index}>
                   <div className="timeline-box">
-                    <div className="timeline-year-header">{item.year}</div>
-                    <div className="timeline-box-content">
-                      <h4>{item.title}</h4>
-                      <p>{item.description}</p>
+                    <div className="timeline-box-inner">
+                      {/* Front: Year & Title */}
+                      <div className="timeline-box-front">
+                        <div className="timeline-year-header">{item.year}</div>
+                        <div className="timeline-front-content">
+                          <i className={`fas ${item.icon} main-icon`}></i>
+                          <h4>{item.title}</h4>
+                        </div>
+                      </div>
+                      
+                      {/* Back: Description */}
+                      <div className="timeline-box-back">
+                        <div className="timeline-year-header back-year">{item.year}</div>
+                        <div className="timeline-back-content">
+                          <p>{item.description}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="timeline-connector">
                     <div className="connector-line"></div>
-                    <div className="connector-icon">
-                      <i className={`fas ${item.icon}`}></i>
-                    </div>
+                    <div className="connector-dot"></div>
                   </div>
                 </div>
               ))}

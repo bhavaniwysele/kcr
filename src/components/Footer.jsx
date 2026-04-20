@@ -29,9 +29,6 @@ const Footer = () => {
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram">
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="YouTube">
-                <i className="fab fa-youtube"></i>
-              </a>
             </div>
           </div>
 

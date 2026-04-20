@@ -56,6 +56,15 @@ const AgricultureFarmers = () => {
           <p>
             Launched as the first-of-its-kind investment support scheme in India, Rythu Bandhu provides ₹10,000 per acre per year to farmers. It eliminates the clutches of private moneylenders and empowers farmers to purchase seeds and fertilizers on time.
           </p>
+          <a href="#" className="agri-btn">
+            <span>Know More</span>
+            <div className="agri-btn-icon">
+              <i className="fa-solid fa-arrow-right"></i>
+            </div>
+            <svg width="100%" height="100%">
+              <rect x="0" y="0" width="100%" height="100%" rx="30" ry="30"/>
+            </svg>
+          </a>
         </div>
 
         <div className="agri-card">

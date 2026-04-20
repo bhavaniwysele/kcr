@@ -8,7 +8,6 @@ import VisionMission from './pages/VisionMission';
 import Achievements from './pages/Achievements';
 import Schemes from './pages/Schemes';
 import NewsMedia from './pages/NewsMedia';
-import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import JoinUs from './pages/JoinUs';
 import Overview from './pages/About/Overview';
@@ -17,6 +16,7 @@ import LeadershipStyle from './pages/About/LeadershipStyle';
 import Timeline from './pages/About/Timeline';
 import AchievementDetail from './pages/Achievements/IrrigationNInfrastructure';
 import AgricultureFarmers from './pages/Achievements/AgricultureFarmers';
+import WelfareSchemes from './pages/Achievements/WelfareSchemes';
 import './App.css';
 
 function App() {
@@ -35,10 +35,10 @@ function App() {
             <Route path="/vision-mission" element={<VisionMission />} />
             <Route path="/achievements" element={<Navigate to="/achievements/irrigation" replace />} />
             <Route path="/achievements/agriculture" element={<AgricultureFarmers />} />
+            <Route path="/achievements/welfare" element={<WelfareSchemes />} />
             <Route path="/achievements/:category" element={<AchievementDetail />} />
             <Route path="/schemes" element={<Navigate to="/schemes/rythu-bandhu" replace />} />
             <Route path="/news-media" element={<NewsMedia />} />
-            <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/join-us" element={<JoinUs />} />
           </Routes>
