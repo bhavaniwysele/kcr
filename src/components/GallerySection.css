@@ -35,7 +35,7 @@
   flex-direction: column;
   gap: 0.25rem;
   /* Gap between rows */
-  background: var(--accent);
+  background: white;
   /* Red/Pink divider color from image */
   padding: 0.25rem 0;
 }

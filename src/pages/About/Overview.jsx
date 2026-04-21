@@ -1,78 +1,201 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import './Overview.css';
-import overviewImg from '../../assets/overview.jpg';
+
+// Image Imports
+import topBanner from '../../assets/overview_top_edited.jpg';
+import main3 from '../../assets/overview_main3.jpg';
+import main4 from '../../assets/overview_main4.jpg';
+import main5 from '../../assets/overview_main5.jpg';
+import unionMin from '../../assets/Union Ministry.jpg';
+import youngKcr from '../../assets/young kcr.webp';
+import main6 from '../../assets/overview_main6.jpg';
+
+// Navigation Section Images
+import politicalImg from '../../assets/overview_main2.jpg';
+import leadershipImg from '../../assets/about_kcr4.jpg';
+import timelineImg from '../../assets/overview.jpg';
 
 const Overview = () => {
+  const navigate = useNavigate();
   return (
-    <div className="overview-container">
-      <section className="overview-hero">
-        <div className="overview-content">
-          <span className="overview-badge">Leader | Visionary | Statesman</span>
-          <h1 className="overview-title">Kalvakuntla Chandrashekar Rao</h1>
-          <p className="overview-subtitle">
-            The visionary architect of modern Telangana and the relentless force behind its statehood.
-          </p>
-          <div className="bio-section summary-text">
-            <p>
-              Kalvakuntla Chandrashekar Rao (KCR) is a transformative figure who redefined the political landscape of South India. As the founding leader of Bharat Rashtra Samithi (BRS), he led a peaceful agitation that culminated in the formation of Telangana in 2014.
-            </p>
+    <div className="overview-page">
+      {/* Top Banner (Already requested in previous turns) */}
+      <section className="overview-header">
+        <img src={topBanner} alt="KCR Overview Header" className="header-bg-image" />
+      </section>
+
+      <main className="overview-container">
+        {/* Intro Section - Inspired by the layout reference */}
+        <section className="intro-block">
+          <div className="intro-image-container">
+            <div className="decoration-circle top-left">
+              <i className="fas fa-leaf"></i>
+            </div>
+            <img src={youngKcr} alt="Young KCR" className="main-intro-img" />
+            <div className="decoration-circle bottom-right">
+              <i className="fas fa-seedling"></i>
+            </div>
           </div>
-        </div>
-        <div className="overview-image-wrapper">
-          <img src={overviewImg} alt="KCR Portrait" className="overview-image" />
-        </div>
-      </section>
-
-      <section className="overview-highlights">
-        <div className="highlight-card">
-          <div className="highlight-icon">🏗️</div>
-          <h3>Statehood Architect</h3>
-          <p>Led a peaceful agitation to achieve the dream of a separate Telangana in 2014.</p>
-        </div>
-        <div className="highlight-card">
-          <div className="highlight-icon">🏛️</div>
-          <h3>First Chief Minister</h3>
-          <p>Served as the inaugural CM (2014–2023), laying the foundation for systemic development.</p>
-        </div>
-        <div className="highlight-card">
-          <div className="highlight-icon">🚀</div>
-          <h3>Model for Development</h3>
-          <p>Pioneered schemes like Rythu Bandhu and the Kaleshwaram Lift Irrigation Project.</p>
-        </div>
-        <div className="highlight-card">
-          <div className="highlight-icon">✨</div>
-          <h3>Bangaru Telangana</h3>
-          <p>Envisioned a "Golden Telangana" focused on self-reliance and inclusive growth.</p>
-        </div>
-      </section>
-
-      <div className="content-grid">
-        <section className="bio-section detail-text">
-          <h2>The Vision of 'Bangaru Telangana'</h2>
-          <p>
-            KCR's governance was anchored in the vision of <strong>Bangaru Telangana</strong> (Golden Telangana)—a holistic model aimed at transforming the state into a prosperous, welfare-oriented society. This vision was not just about economic growth but about 100% literacy, quality healthcare, and irrigation for every arable acre of land.
-          </p>
-          <p>
-            The Light Gold color in the official state emblem symbolizes this intent—reflecting an outlook of continuous progress and positive, integrated development for every citizen.
-          </p>
+          <div className="intro-content">
+            <h2 className="section-title">The Journey of a Visionary</h2>
+            <div className="narrative-text">
+              <p>
+                Born in the quiet village of Chintamadaka in Medak district, Kalvakuntla Chandrashekar Rao—fondly known as KCR—was shaped by the very soil and culture of Telangana. Growing up in a traditional family, he developed a deep-rooted connection to the land and its people from a very young age.
+              </p>
+              <p>
+                As a child, he was often found with a book in his hand, showing a keen interest in literature and the history of his land. His school days in Dubbak and Siddipet were not just about academics; they were formative years where he developed his articulate nature and a strong sense of justice that would later define his leadership.
+              </p>
+              <div className="intro-actions">
+                <button className="btn-primary">Learn More</button>
+                <button className="btn-secondary">View Life</button>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <section className="bio-section detail-text">
-          <h2>Governance & Impact</h2>
-          <ul className="achievements-list">
-            <li><strong>Mission Bhagiratha:</strong> Providing safe, piped drinking water to every household across the state.</li>
-            <li><strong>Power Surplus:</strong> Transformed Telangana from a power-deficient state to a power-surplus one with 24/7 free electricity for farmers.</li>
-            <li><strong>Social Welfare:</strong> Landmark schemes like Kalyana Lakshmi, Shaadi Mubarak, and Dalit Bandhu have set a national benchmark for inclusive governance.</li>
-            <li><strong>Global IT Hub:</strong> Fortified Hyderabad's position as a global leader in IT, innovation, and pharmaceutical industries.</li>
-          </ul>
-        </section>
-      </div>
+        {/* Story Grid - Narrative Chapters */}
+        <section className="story-grid-section">
+          <h2 className="grid-main-title">A Life Dedicated to Public Service</h2>
+          <div className="story-grid-viewport">
+            <div className="story-grid">
+              {/* Chapter 1: Early Interests */}
+              <div className="story-card">
+                <span className="card-number">01</span>
+                <div className="card-img-wrap">
+                  <img src={main3} alt="Early Interests" />
+                </div>
+                <div className="card-content">
+                  <h3 className="card-title">Early Foundations</h3>
+                  <p>
+                    Before stepping into the public eye, he was a young man with a vision, briefly working in the recruitment sector. It was here that he first witnessed the stark challenges faced by ordinary citizens.
+                  </p>
+                  <button className="card-btn">Know More</button>
+                </div>
+              </div>
 
-      <section className="bio-section quote-section">
-        <p className="quote-text">
-          "The formation of Telangana is not just a political destination, but a beginning of a journey towards self-respect and prosperity for every Telanganite."
-        </p>
-      </section>
+              {/* Chapter 2: Entry into Public Life */}
+              <div className="story-card">
+                <span className="card-number">02</span>
+                <div className="card-img-wrap">
+                  <img src={main4} alt="Public Life Entry" />
+                </div>
+                <div className="card-content">
+                  <h3 className="card-title">A Heart for the People</h3>
+                  <p>
+                    His official journey began with a simple but powerful desire: to give his people a voice. Initially working behind the scenes, he realized his heart beat solely for the cause of statehood.
+                  </p>
+                  <button className="card-btn">Know More</button>
+                </div>
+              </div>
+
+              {/* Chapter 3: National Arena */}
+              <div className="story-card">
+                <span className="card-number">03</span>
+                <div className="card-img-wrap">
+                  <img src={unionMin} alt="Union Ministry" />
+                </div>
+                <div className="card-content">
+                  <h3 className="card-title">National Influence</h3>
+                  <p>
+                    His tenure in the national arena was a masterclass in diplomacy. Using his platform in Delhi, he relentlessly championed the identity of his people, building necessary alliances.
+                  </p>
+                  <button className="card-btn">Know More</button>
+                </div>
+              </div>
+
+              {/* Chapter 4: Key Turning Points */}
+              <div className="story-card">
+                <span className="card-number">04</span>
+                <div className="card-img-wrap">
+                  <img src={main5} alt="Turning Points" />
+                </div>
+                <div className="card-content">
+                  <h3 className="card-title">Uniting a Region</h3>
+                  <p>
+                    The true turning point came when he dedicated his life to the statehood movement. Through his gift for oratory, he united a fragmented dream into a powerful mass movement.
+                  </p>
+                  <button className="card-btn">Know More</button>
+                </div>
+              </div>
+
+              {/* Chapter 5: Defining Identity */}
+              <div className="story-card">
+                <span className="card-number">05</span>
+                <div className="card-img-wrap">
+                  <img src={main6} alt="Present Identity" />
+                </div>
+                <div className="card-content">
+                  <h3 className="card-title">Architect of Progress</h3>
+                  <p>
+                    Today, he is recognized as the architect of a new beginning. He remains a father figure to many, guiding with a unique blend of intellectual depth and deep-rooted compassion.
+                  </p>
+                  <button className="card-btn">Know More</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Navigation Section - Custom Layout for Further Exploration */}
+        <section className="about-navigation">
+          <div className="nav-header">
+            <h2 className="nav-main-title">Continuous Dedication</h2>
+            <p className="nav-subtitle">Explore the deeper dimensions of a life committed to statehood and growth</p>
+          </div>
+
+          <div className="nav-connector-line">
+            <div className="conn-dot"></div>
+            <div className="conn-dot"></div>
+            <div className="conn-dot"></div>
+          </div>
+
+          <div className="nav-grid">
+            {/* Political Career Link */}
+            <div className="nav-card-item">
+              <span className="nav-index">01</span>
+              <div className="nav-card-inner">
+                <div className="nav-img-box">
+                  <img src={politicalImg} alt="Political Career" />
+                </div>
+                <h4 className="nav-link-title">Political Career</h4>
+                <button className="nav-link-btn" onClick={() => navigate('/about-kcr/political-career')}>
+                  Know More
+                </button>
+              </div>
+            </div>
+
+            {/* Leadership Style Link */}
+            <div className="nav-card-item">
+              <span className="nav-index">02</span>
+              <div className="nav-card-inner">
+                <div className="nav-img-box">
+                  <img src={leadershipImg} alt="Leadership Style" />
+                </div>
+                <h4 className="nav-link-title">Leadership Style</h4>
+                <button className="nav-link-btn" onClick={() => navigate('/about-kcr/leadership-style')}>
+                  Know More
+                </button>
+              </div>
+            </div>
+
+            {/* Timeline Link */}
+            <div className="nav-card-item">
+              <span className="nav-index">03</span>
+              <div className="nav-card-inner">
+                <div className="nav-img-box">
+                  <img src={timelineImg} alt="Timeline" />
+                </div>
+                <h4 className="nav-link-title">Timeline & Milestones</h4>
+                <button className="nav-link-btn" onClick={() => navigate('/about-kcr/timeline')}>
+                  Know More
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 };

@@ -10,6 +10,7 @@ import inclusiveImg from '../../assets/agriculture.jpg';
 import welfareImg from '../../assets/Mission_Bhagiratha.jpg';
 import strategicImg from '../../assets/Kaleshwaram Project.webp';
 import missionKakatiyaImg from '../../assets/mission_kakatiya.jpg';
+import leadershipTopImg from '../../assets/leardership_topmain.png';
 
 const traits = [
   {
@@ -92,14 +93,27 @@ const LeadershipStyle = () => {
 
   return (
     <div className="leadership-container">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="leadership-header"
-      >
-        <h2>Leadership Philosophy</h2>
-        <p>A multidimensional approach to governance, combining empathy with decisive strategic action.</p>
-      </motion.div>
+      <div className="leadership-hero-wrap">
+        <div className="hero-left">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="leadership-header"
+          >
+            <h2>Leadership Philosophy</h2>
+            <p>A multidimensional approach to governance, combining empathy with decisive strategic action.</p>
+          </motion.div>
+        </div>
+        <div className="hero-right">
+          <motion.img 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            src={leadershipTopImg} 
+            alt="Leadership" 
+            className="hero-main-img"
+          />
+        </div>
+      </div>
 
       <div className="infographic-wrapper">
         <motion.div 
