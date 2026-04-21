@@ -1,93 +1,146 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import './PoliticalCareer.css';
 
-// Importing images
-import heroImg from '../../assets/Birth of TRS.jpg';
-import preludeImg from '../../assets/Political Prelude.jpg';
-import movementImg from '../../assets/The Great Fast.webp';
-import cmImg from '../../assets/kcr The First CM.jpg';
-import nationalImg from '../../assets/National Vision.webp';
-import adminImg from '../../assets/Mission_Bhagiratha.jpg';
-import cultureImg from '../../assets/cultureNheritage.jpg';
+// Import assets
+import archImg from '../../assets/about_kcr.png';
+import mainImg3 from '../../assets/political_main3_final.jpg';
+import mainImg4 from '../../assets/political_main4.jpg';
+import welfareIcon from '../../assets/healthandwelfare.webp';
+import infraIcon from '../../assets/Growth & Infrastructure.jpg';
+import cultureIcon from '../../assets/cultureNheritage.jpg';
 
 const PoliticalCareer = () => {
   return (
-    <div className="political-career-container">
-      <section className="career-hero">
-        <div className="hero-left">
-          <span className="career-label">Our Journey</span>
-          <h1>Dynamic Leadership & A Relentless Career</h1>
+    <div className="political-career-new">
+      {/* Hero Section */}
+      <section className="hero-geometric">
+        <motion.div 
+          className="hero-text-side"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h1>The Journey of a Visionary Architect</h1>
           <p>
-            From a grassroots activist to the visionary architect of a state, KCR's political career is a masterclass in resilience, strategic brilliance, and unwavering commitment to the people.
+            Redefining the political landscape of a nation through resilience, 
+            strategic brilliance, and the unwavering pursuit of a people's dream.
           </p>
-        </div>
-        <div className="hero-right">
-          <img src={heroImg} alt="Political Leadership" />
+        </motion.div>
+
+        <div className="hero-image-side">
+          <motion.div 
+            className="arch-shape"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
+            <img src={archImg} alt="KCR Arch" />
+          </motion.div>
+          <div className="circle-shape"></div>
         </div>
       </section>
 
-      <section className="career-intro">
-        <div className="intro-left">
-          <h2>Embracing Challenges & Forging Innovation</h2>
-        </div>
-        <div className="intro-right">
-          <p>
-            KCR's journey is defined by his ability to see opportunities where others saw obstacles. His political philosophy is rooted in the belief that true development only occurs when the most marginalized are empowered. Through decades of struggle and leadership, he has transformed the political landscape of Telangana.
-          </p>
+      {/* Main Image Section */}
+      <section className="career-full-width-image">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+        >
+          <img src={mainImg3} alt="Political Career Journey" />
+        </motion.div>
+      </section>
+
+      {/* Path to Statehood Section */}
+      <section className="career-stepper-minimal">
+        <div className="stepper-minimal-container">
+          <motion.div 
+            className="stepper-left"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.img 
+              src={mainImg4} 
+              alt="Historical context" 
+              className="stepper-title-image"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+            />
+            <h2>The Path to Telangana <br/> Statehood</h2>
+          </motion.div>
+          
+          <div className="stepper-right">
+            <motion.div 
+              className="vertical-line"
+              initial={{ height: 0 }}
+              whileInView={{ height: '100%' }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+            ></motion.div>
+            {[
+              { label: 'The Foundation', title: '2001: TRS Founding', desc: 'Resigned as Deputy Speaker to float TRS with a single-point agenda.' },
+              { label: 'The Agitation', title: '2009: The Historic Fast', desc: 'Undertook a fast unto death, forcing national focus on the demand.' },
+              { label: 'The Breakthrough', title: '2013: Cabinet Approval', desc: 'The Union Cabinet finally approves the formation of the new state.' },
+              { label: 'The Vision Realized', title: '2014: State Formation', desc: 'Telangana is officially formed, and KCR takes oath as the first CM.' }
+            ].map((item, idx) => (
+              <motion.div 
+                className="minimal-step-item" 
+                key={idx}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.5 }}
+                transition={{ duration: 0.6, delay: idx * 0.3 }}
+              >
+                <h3>{item.label}</h3>
+                <p><strong>{item.title}</strong> - {item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="career-gallery">
-        <div className="gallery-row">
-          <div className="gallery-item narrow">
-            <img src={preludeImg} alt="Early Years" />
-            <div className="gallery-overlay">
-              <h3>Early Political Years</h3>
-              <p>Laying the foundation of grassroots activism and regional leadership.</p>
-            </div>
+      {/* Core Pillars Section - Pill Layout */}
+      <section className="career-pillars-pill">
+        <motion.div 
+          className="pill-background-bar"
+          initial={{ opacity: 0, scaleX: 0.8 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+        >
+          <div className="pillars-container">
+            {[
+              { img: welfareIcon, title: 'Welfare First', desc: 'Revolutionizing social safety nets through innovative schemes.' },
+              { img: infraIcon, title: 'Growth & Infra', desc: 'Building world-class infrastructure for a modern Telangana.' },
+              { img: cultureIcon, title: 'Cultural Identity', desc: 'Restoring regional pride and cultural self-respect.' }
+            ].map((pillar, idx) => (
+              <motion.div 
+                className="pillar-item" 
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 + (idx * 0.2) }}
+              >
+                <motion.div 
+                  className="pillar-circle"
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 45px rgba(0,0,0,0.15)" }}
+                >
+                  <img src={pillar.img} alt={pillar.title} />
+                </motion.div>
+                <h4>{pillar.title}</h4>
+                <p>{pillar.desc}</p>
+              </motion.div>
+            ))}
           </div>
-          <div className="gallery-item wide">
-            <img src={movementImg} alt="The Struggle" />
-            <div className="gallery-overlay">
-              <h3>The Telangana Agitation</h3>
-              <p>Leading the historic peaceful movement that captured the soul of a nation.</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="gallery-row">
-          <div className="gallery-item wide">
-            <img src={cmImg} alt="Chief Minister" />
-            <div className="gallery-overlay">
-              <h3>The Visionary Architect</h3>
-              <p>Serving as the first Chief Minister and building a modern, welfare-heavy state.</p>
-            </div>
-          </div>
-          <div className="gallery-item narrow">
-            <img src={adminImg} alt="Administration" />
-            <div className="gallery-overlay">
-              <h3>Governance Excellence</h3>
-              <p>Pioneering world-class infrastructure and life-changing administrative reforms.</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="gallery-row">
-          <div className="gallery-item narrow">
-            <img src={nationalImg} alt="National Vision" />
-            <div className="gallery-overlay">
-              <h3>BRS & National Impact</h3>
-              <p>Expanding the Telangana model of development to the national stage.</p>
-            </div>
-          </div>
-          <div className="gallery-item wide">
-            <img src={cultureImg} alt="Cultural Legacy" />
-            <div className="gallery-overlay">
-              <h3>Cultural Renaissance</h3>
-              <p>Restoring the identity and heritage of a proud people through cultural transformation.</p>
-            </div>
-          </div>
-        </div>
+        </motion.div>
       </section>
     </div>
   );

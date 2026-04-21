@@ -13,8 +13,8 @@ const AgricultureFarmers = () => {
       <section className="agri-hero">
         <img src={agriHeroImg} alt="Telangana Agriculture" />
         <div className="agri-hero-content">
-          <p>The Backbone of Telangana</p>
-          <h1>Agriculture & Farmers</h1>
+          <p>Cultivating Prosperity</p>
+          <h1>Agriculture Development</h1>
         </div>
       </section>
 

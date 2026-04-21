@@ -93,12 +93,12 @@ const Navbar = () => {
             <li className="nav-item dropdown">
               <span className="nav-link">Achievements <span className="dropdown-icon">▾</span></span>
               <ul className="dropdown-menu">
+                <li><Link to="/achievements/statehood-leadership">State Formation</Link></li>
                 <li><Link to="/achievements/irrigation">Irrigation & Infrastructure</Link></li>
-                <li><Link to="/achievements/agriculture">Agriculture & Farmers</Link></li>
-                <li><Link to="/achievements/welfare">Welfare Schemes</Link></li>
-                <li><Link to="/achievements/health">Health & Women Empowerment</Link></li>
-                <li><Link to="/achievements/economic">Economic Growth</Link></li>
-                <li><Link to="/achievements/culture">Culture & Heritage</Link></li>
+                <li><Link to="/achievements/agriculture">Agricultural Development</Link></li>
+                <li><Link to="/achievements/welfare">Welfare Impact</Link></li>
+                <li><Link to="/achievements/economic">Economic Development</Link></li>
+                <li><Link to="/achievements/culture">Cultural Revival</Link></li>
               </ul>
             </li>
             <li className="nav-item dropdown">

@@ -17,37 +17,37 @@ import culture from '../assets/cultureNheritage.jpg';
 
 const achievements = [
   {
+    title: "State Formation & Leadership",
+    description: "Leading the historic movement for Telangana statehood and visionary governance.",
+    image: health, // Using health image for now as a placeholder for statehood if specific one doesn't exist
+    slug: "statehood-leadership"
+  },
+  {
     title: "Irrigation & Infrastructure",
     description: "Building world-class dams and irrigation networks like Kaleshwaram Project.",
     image: irrigation,
     slug: "irrigation"
   },
   {
-    title: "Agriculture & Farmers",
+    title: "Agriculture Development",
     description: "Empowering farmers through Rythu Bandhu and 24x7 free electricity.",
     image: agriculture,
     slug: "agriculture"
   },
   {
-    title: "Welfare Schemes",
+    title: "Welfare Impact",
     description: "Transforming lives through Aasara pensions and welfare-centric governance.",
     image: welfare,
     slug: "welfare"
   },
   {
-    title: "Health & Women Empowerment",
-    description: "Championing healthcare with KCR Kit and robust medical infrastructure.",
-    image: health,
-    slug: "health"
-  },
-  {
-    title: "Economic Growth",
+    title: "Economic Development",
     description: "Driving TS-iPASS and making Telangana a global destination for investment.",
     image: economic,
     slug: "economic"
   },
   {
-    title: "Culture & Heritage",
+    title: "Cultural Revival",
     description: "Restoring and celebrating the unique identity and festivals of Telangana.",
     image: culture,
     slug: "culture"

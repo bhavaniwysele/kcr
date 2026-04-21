@@ -1,132 +1,155 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './IrrigationNInfrastructure.css';
 
-// Import Kaleshwaram images
-import kaleshwaram1 from '../../assets/kaleshwaram1.jpg';
-import kaleshwaram2 from '../../assets/kaleshwaram2.jpg';
-import kaleshwaram3 from '../../assets/kaleshwaram3.jpg';
-import kaleshwaram4 from '../../assets/kaleshwaram4.jpg';
-import kaleshwaram5 from '../../assets/kaleshwaram5.jpg';
+// Import images from assets
+import kaleshwaramImg from '../../assets/kaleshwaram.png';
+import hyderabadImg from '../../assets/hyderabad_infra.png';
+import bhagirathaImg from '../../assets/mission_bhagiratha.png';
+import lakeImg from '../../assets/lake_restoration.png';
+import heroBg from '../../assets/kaleshwaram_main_final.jpg';
 
-const AchievementDetail = () => {
-  const { category } = useParams();
-  
-  const contentMap = {
-    irrigation: {
-      title: "Irrigation & Infrastructure",
-      description: "Building world-class dams and irrigation networks like the Kaleshwaram Project, transforming the landscape of Telangana."
-    },
-    agriculture: {
-      title: "Agriculture & Farmers",
-      description: "Revolutionizing agriculture through schemes like Rythu Bandhu, providing 24x7 free electricity, and ensuring irrigation for every acre."
-    },
-    welfare: {
-      title: "Welfare Schemes",
-      description: "Touching every life through Aasara pensions, Kalyana Lakshmi, Shadi Mubarak, and various other welfare-centric initiatives."
-    },
-    health: {
-      title: "Health & Women Empowerment",
-      description: "Strengthening healthcare with KCR Kits, Basti Dawakhanas, and advanced medical infrastructure across the state."
-    },
-    economic: {
-      title: "Economic Growth",
-      description: "Driving unprecedented economic growth through TS-iPASS, making Telangana a destination of choice for global industries."
-    },
-    culture: {
-      title: "Culture & Heritage",
-      description: "Restoring the glory of Telangana's culture, heritage, and festivals like Bathukamma and Bonalu to the global stage."
-    }
+const IrrigationNInfrastructure = () => {
+  const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
   };
 
-  const currentItem = contentMap[category] || { title: "Achievement", description: "Details coming soon..." };
-
-  // Specific layout for Irrigation
-  if (category === 'irrigation') {
-    return (
-      <div className="achievement-detail-page">
-        <div className="irrigation-layout">
-          <div className="irrigation-hero">
-            <img src={kaleshwaram2} alt="Kaleshwaram Project View" />
-          </div>
-
-          <h1 className="section-main-title">Irrigation Up Close</h1>
-
-          <div className="content-row-split">
-            <div className="text-content">
-              <p>
-                The Kaleshwaram Lift Irrigation Project (KLIP) is not just an engineering accomplishment; it is the lifeline of Telangana. Conceived by KCR, it stands as the world's largest multi-stage lift irrigation system, a testament to human ingenuity and political will.
-              </p>
-              <p>
-                By lifting water from the Godavari River at Medigadda and channeling it through a complex network of 20 reservoirs, 19 pumping stations, and over 1,500 kilometers of canals, the project has ensured that drought is a thing of the past for millions of farmers.
-              </p>
-              <p>
-                This massive infrastructure has not only secured irrigation for one crore acres of land but has also revitalized the ecosystem. Groundwater levels across the state have risen significantly, and the project now provides essential drinking water to thousands of villages and the burgeoning metropolitan hub of Hyderabad.
-              </p>
-            </div>
-            <div className="side-image">
-              <img src={kaleshwaram4} alt="Technical Detail" />
-            </div>
-          </div>
-
-          <div className="dot-separator">
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="dot"></div>
-          </div>
-
-          <div className="blue-highlight-box">
-            <div className="decorative-grid grid-top-right"></div>
-            <div className="decorative-grid grid-bottom-left"></div>
-            
-            <div className="highlight-content">
-              <h2 className="highlight-title">Popular Marvel</h2>
-              <div className="two-column-text">
-                <p>
-                  The project has been hailed globally for its scale and speed of execution. It involves the construction of three barrages, dozens of pumping stations, and the world's longest irrigation tunnel. The impact is visible in the rising groundwater levels and the lush green fields that now define the state's horizon.
-                </p>
-                <p>
-                  Beyond irrigation, the project provides drinking water to Hyderabad and other industrial hubs, securing the future of the state's economy and its people. It serves as a testament to the "Telangana Speed" – the ability to deliver world-class infrastructure in record time.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bottom-hero">
-            <img src={kaleshwaram5} alt="Panoramic Landscape" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Fallback for other categories (can be expanded later)
   return (
-    <div className="achievement-detail-page" style={{ padding: '10rem 2rem', maxWidth: '1000px', margin: '0 auto', minHeight: '80vh' }}>
-      <header style={{ borderBottom: '1px solid #eee', paddingBottom: '2rem', marginBottom: '3rem' }}>
-        <h1 style={{ fontSize: '3.5rem', fontWeight: '800', color: '#000', marginBottom: '1rem' }}>{currentItem.title}</h1>
-        <div style={{ height: '4px', width: '80px', background: '#e91e63' }}></div>
-      </header>
-      
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
-        <p style={{ fontSize: '1.4rem', lineHeight: '1.8', color: '#444', fontWeight: '300' }}>
-          {currentItem.description}
+    <div className="achievement-detail-page">
+      {/* Hero Section */}
+      <motion.section 
+        className="irrigation-hero"
+        style={{ backgroundImage: `url(${heroBg})` }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <h1>
+          <span>Modern</span>
+          <span className="accent-text">Irrigation</span>
+        </h1>
+        <p style={{ marginTop: '1.5rem', fontSize: '1rem', color: '#fff', letterSpacing: '4px', textTransform: 'uppercase', opacity: 0.8 }}>
+          Building the backbone of Telangana
         </p>
-        <div style={{ background: '#f9f9f9', padding: '3rem', borderRadius: '8px', marginTop: '2rem' }}>
-          <h3 style={{ marginBottom: '1.5rem', color: '#333' }}>Key Highlights</h3>
-          <p style={{ color: '#666', lineHeight: '1.6' }}>
-            Detailed information about this section is being curated. Stay tuned for an in-depth look at how this initiative has shaped the state of Telangana.
-          </p>
+      </motion.section>
+
+      {/* Topic 1: Major Irrigation Projects (Ref 1 Pattern) */}
+      <section className="ref1-pattern">
+        <motion.div className="ref1-visual" {...fadeInUp}>
+          <div className="ref1-img-box">
+            <img src={kaleshwaramImg} alt="Kaleshwaram" />
+          </div>
+          <div className="ref1-overlay">
+            <span className="label">Total Area</span>
+            <span className="value">45L+</span>
+          </div>
+        </motion.div>
+        
+        <div className="ref1-content">
+          <motion.div className="ref1-item" {...fadeInUp}>
+            <div className="ref1-icon">
+              <svg viewBox="0 0 24 24"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z" /></svg>
+            </div>
+            <div className="ref1-text">
+              <h3>Kaleshwaram (KLIP)</h3>
+              <p>The world's largest multi-stage lift irrigation project, ensuring water for 37+ lakh acres across the state.</p>
+            </div>
+          </motion.div>
+
+          <motion.div className="ref1-item" {...fadeInUp}>
+            <div className="ref1-icon">
+              <svg viewBox="0 0 24 24"><path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" /></svg>
+            </div>
+            <div className="ref1-text">
+              <h3>Palamuru-Rangareddy</h3>
+              <p>Eliminating drought in South Telangana by providing sustainable irrigation to 12 lakh+ acres of upland areas.</p>
+            </div>
+          </motion.div>
         </div>
-      </div>
+      </section>
+
+      {/* Topic 2: Water Supply Initiatives (Ref 2/3 Ticket Pattern) */}
+      <section className="ticket-section">
+        <motion.div className="ticket-header" {...fadeInUp}>
+          <h2>Water Supply initiatives</h2>
+        </motion.div>
+
+        <div className="ticket-grid">
+          <motion.div className="ticket-card" {...fadeInUp} whileHover={{ y: -10 }}>
+            <div className="ticket-card-img">
+              <img src={bhagirathaImg} alt="Mission Bhagiratha" />
+            </div>
+            <div className="ticket-info">
+              <p style={{ color: '#e91e63', fontWeight: '800', marginBottom: '0.5rem' }}>MISSION BHAGIRATHA</p>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: '800', marginBottom: '1rem' }}>Safe Water to Every Home</h3>
+              <p style={{ color: '#666' }}>Providing treated, piped drinking water to 23,968 habitations across the state.</p>
+            </div>
+          </motion.div>
+
+          <motion.div className="ticket-card" {...fadeInUp} whileHover={{ y: -10 }}>
+            <div className="ticket-info" style={{ paddingLeft: '0' }}>
+              <p style={{ color: '#e91e63', fontWeight: '800', marginBottom: '0.5rem' }}>EVALUATION</p>
+              <h3 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '1rem' }}>Fluoride Free Telangana</h3>
+              <p style={{ color: '#666' }}>Recognized by NITI Aayog for achieving 100% household drinking water connectivity.</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Topic 3 & 4: Management & Infrastructure (Modern Split) */}
+      <section className="management-row">
+        <motion.div className="m-box" {...fadeInUp}>
+          <div style={{ height: '150px', background: '#eee', borderRadius: '20px', marginBottom: '2rem' }}>
+            <img src={lakeImg} alt="Mission Kakatiya" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '20px' }} />
+          </div>
+          <h4>Mission Kakatiya</h4>
+          <p>Restoring 46,500 minor irrigation tanks to revive groundwater and ancient storage systems.</p>
+        </motion.div>
+
+        <motion.div className="m-box pink" {...fadeInUp}>
+          <h4 style={{ color: '#fff' }}>Urban Expansion</h4>
+          <div style={{ padding: '1.5rem 0' }}>
+            <div style={{ fontSize: '3.2rem', fontWeight: '800' }}>SRDP</div>
+            <p style={{ marginTop: '0.8rem', opacity: 0.9 }}>Transforming Hyderabad landscape with flyovers, skywalks, and underpasses.</p>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Topic 5: Power Support (Ref 4 Stats Banner) */}
+      <section className="stats-banner">
+        <motion.div className="stats-container" {...fadeInUp}>
+          <div className="big-stat">
+            <span className="number">24/7</span>
+            <span className="label">Free Power Supply</span>
+          </div>
+          <div className="big-stat">
+            <span className="number">27L+</span>
+            <span className="label">Benefitted Farmers</span>
+          </div>
+          <div className="big-stat">
+            <span className="number">100%</span>
+            <span className="label">Power Quality</span>
+          </div>
+        </motion.div>
+        
+        <motion.div style={{ marginTop: '4rem', opacity: 0.7 }} {...fadeInUp}>
+          <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
+            Telangana is the only state in India providing round-the-clock free power to agricultural sector, ensuring irrigation stability across all seasons.
+          </p>
+        </motion.div>
+      </section>
+
+      <footer style={{ textAlign: 'center', padding: '3rem 0' }}>
+        <div style={{ width: '100px', height: '4px', background: '#e91e63', margin: '0 auto 1.5rem' }}></div>
+        <p style={{ textTransform: 'uppercase', letterSpacing: '3px', fontSize: '0.65rem', fontWeight: '800' }}>
+          Excellence in infrastructure & water management
+        </p>
+      </footer>
     </div>
   );
 };
 
-export default AchievementDetail;
+export default IrrigationNInfrastructure;

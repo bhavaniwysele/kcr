@@ -15,7 +15,7 @@ const WelfareSchemes = () => {
         
         <header className="welfare-header">
           <p className="welfare-subtitle">Compassionate Governance</p>
-          <h1 className="welfare-title">Welfare Schemes</h1>
+          <h1 className="welfare-title">Welfare Impact</h1>
         </header>
 
         {/* Main Highlight Card - Aasara Pensions */}

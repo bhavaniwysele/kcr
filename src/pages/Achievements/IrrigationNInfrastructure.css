@@ -1,190 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+:root {
+  --pink: #e91e63;
+  --black: #000000;
+  --white: #ffffff;
+  --bg-pink: #ffe4ed;
+}
+
 .achievement-detail-page {
-  padding-top: 0;
-  background-color: #fff;
-  color: #333;
-  line-height: 1.6;
+  font-size: 0.85rem; /* Base reduction */
+  background-color: var(--white);
+  color: var(--black);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+  padding-bottom: 5rem;
 }
 
-.irrigation-layout {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 2rem 0rem 2rem;
-}
-
+/* Hero Section */
 .irrigation-hero {
-  width: 100vw;
-  height: 420px; /* Reduced by 30% from 600px */
-  overflow: hidden;
-  margin-bottom: 2rem;
-  margin-left: -50vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-}
-
-.irrigation-hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.section-main-title {
-  text-align: center;
-  font-family: 'Playfair Display', serif; /* Or system serif */
-  font-size: 4rem;
-  font-weight: 900;
-  margin: 2rem 0 3rem 0;
-  color: #000000;
-  letter-spacing: -2px;
-}
-
-.content-row-split {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr; /* Further expanded text width */
-  gap: 2.5rem;
-  align-items: center;
-  margin-bottom: 3rem;
-}
-
-.text-content {
-  padding-top: 1rem;
-}
-
-.text-content p {
-  font-size: 1.1rem;
-  line-height: 2;
-  color: #555;
-  margin-bottom: 2rem;
-  font-weight: 300;
-}
-
-.side-image {
-  width: 100%;
-  height: 85%;
-  aspect-ratio: 1;
-  overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-}
-
-.side-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.dot-separator {
+  min-height: 50vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 2rem;
-  margin: 4rem 0;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  background-size: cover;
+  background-position: center 20%;
+  background-attachment: fixed;
+  color: var(--white);
+  padding: 4rem 2rem;
 }
 
-.dot {
-  width: 8px;
-  height: 8px;
-  background-color: #000;
+.irrigation-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+  z-index: 1;
+}
+
+.irrigation-hero h1, .irrigation-hero p {
+  position: relative;
+  z-index: 2;
+}
+
+.irrigation-hero h1 {
+  font-size: clamp(2.5rem, 8vw, 6.5rem); /* Reduced by ~20% */
+  font-weight: 800;
+  margin: 0;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.irrigation-hero span {
+  display: block;
+}
+
+.accent-text {
+  color: var(--pink);
+}
+
+/* Reference 1 Pattern: Image + Overlay + Side Items */
+.ref1-pattern {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2rem;
+}
+
+.ref1-visual {
+  position: relative;
+  flex: 1;
+}
+
+.ref1-img-box {
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f0f0f0;
+}
+
+.ref1-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+.ref1-overlay {
+  position: absolute;
+  left: -2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--pink);
+  color: var(--white);
+  padding: 3rem 2rem;
+  min-width: 200px;
+  text-align: center;
+  box-shadow: 20px 20px 40px rgba(0,0,0,0.1);
+}
+
+.ref1-overlay .label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.ref1-overlay .value {
+  font-size: 2.4rem;
+  font-weight: 800;
+}
+
+.ref1-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.ref1-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.ref1-icon {
+  width: 70px;
+  height: 70px;
+  background: var(--pink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 10px 20px rgba(233, 30, 99, 0.2);
+}
+
+.ref1-icon svg {
+  width: 30px;
+  height: 30px;
+  fill: white;
+}
+
+.ref1-text h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.ref1-text p {
+  color: #666;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+/* Reference 2 Pattern: Ticket Style Section */
+.ticket-section {
+  background: var(--bg-pink);
+  margin: 2rem 2rem;
+  padding: 3rem 3rem;
+  border-radius: 60px;
+  position: relative;
+}
+
+.ticket-header {
+  margin-bottom: 2rem;
+}
+
+.ticket-header h2 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  background: var(--pink);
+  color: white;
+  display: inline-block;
+  padding: 0.4rem 1.6rem;
+  border-radius: 100px;
+}
+
+.ticket-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.ticket-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 40px;
+  position: relative;
+  display: flex;
+  gap: 2rem;
+}
+
+/* The semi-circle cutouts */
+.ticket-section::before,
+.ticket-section::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 60px;
+  background: var(--white);
   border-radius: 50%;
 }
 
-.blue-highlight-box {
-  background-color: #e3f2fd;
-  padding: 2.5rem 0;
-  margin: 2rem -50vw 0.5rem -50vw; /* Small gap instead of zero */
-  position: relative;
-  left: 50%;
-  right: 50%;
-  width: 100vw;
+.ticket-section::before { left: -30px; transform: translateY(-50%); }
+.ticket-section::after { right: -30px; transform: translateY(-50%); }
+
+.ticket-card-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
-.highlight-content {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.highlight-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 4.5rem;
-  font-weight: 900;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.two-column-text {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-}
-
-.two-column-text p {
-  font-size: 1.15rem;
-  line-height: 2;
-  color: #444;
-  font-weight: 400;
-}
-
-.decorative-grid {
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  background-image: radial-gradient(#90a4ae 1.5px, transparent 1.5px);
-  background-size: 20px 20px;
-  opacity: 0.6;
-}
-
-.grid-top-right {
-  top: 40px;
-  right: 5%;
-}
-
-.grid-bottom-left {
-  bottom: 40px;
-  left: 5%;
-}
-
-.bottom-hero {
-  width: 100vw;
-  height: 420px; /* Reduced by 30% from 700px */
-  margin-top: 0rem;
-  margin-bottom: 3rem;
-  margin-left: -50vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-}
-
-
-.bottom-hero img {
+.ticket-card-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-@media (max-width: 992px) {
-  .section-main-title { font-size: 4rem; }
-  .highlight-title { font-size: 3.5rem; }
-  .content-row-split, .two-column-text { gap: 3rem; }
+/* Reference 4 Pattern: Full width black/pink stats */
+.stats-banner {
+  background: var(--black);
+  color: var(--white);
+  padding: 5rem 2rem;
+  margin-top: 2rem;
+  text-align: center;
 }
 
-@media (max-width: 768px) {
-  .content-row-split, .two-column-text {
+.stats-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  gap: 4rem;
+}
+
+.big-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.big-stat .number {
+  font-size: 4.8rem;
+  font-weight: 800;
+  color: var(--pink);
+  line-height: 1;
+}
+
+.big-stat .label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #ffffff;
+  opacity: 0.6;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+/* Layout for Water Resource Management */
+.management-row {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.m-box {
+  flex: 1;
+  background: #f8f8f8;
+  border-radius: 40px;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.m-box.pink {
+  background: var(--pink);
+  color: var(--white);
+}
+
+.m-box h4 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+.m-box p {
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 968px) {
+  .ref1-pattern, .ticket-grid, .management-row, .stats-container {
+    flex-direction: column;
     grid-template-columns: 1fr;
   }
-  
-  .section-main-title { font-size: 3rem; }
-  .highlight-title { font-size: 2.5rem; }
-  
-  .irrigation-hero, .bottom-hero {
-    height: 400px;
-  }
-  
-  .blue-highlight-box {
-    margin: 4rem 0;
-    width: 100%;
-    left: 0;
-    right: 0;
-    padding: 4rem 1rem;
-  }
+  .ref1-visual { width: 100%; }
+  .ref1-overlay { left: 0; bottom: -2rem; top: auto; transform: none; width: auto; margin: 0 2rem; }
+  .ticket-card { flex-direction: column; }
+  .ticket-card-img { width: 100%; height: 200px; }
 }

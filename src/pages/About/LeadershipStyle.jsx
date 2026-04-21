@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useInView, animate } from 'framer-motion';
 import './LeadershipStyle.css';
 import visionaryImg from '../../assets/National Vision.webp';
 import peopleImg from '../../assets/about_kcr.png';
@@ -87,9 +87,43 @@ const traits = [
   }
 ];
 
+const StatCounter = ({ value, label, icon, suffix = "", delay = 0 }) => {
+  const [count, setCount] = React.useState(0);
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const isNumeric = typeof value === 'number';
+
+  React.useEffect(() => {
+    if (isInView && isNumeric) {
+      const controls = animate(0, value, {
+        duration: 2,
+        delay: delay,
+        onUpdate: (latest) => setCount(Math.floor(latest))
+      });
+      return () => controls.stop();
+    }
+  }, [isInView, value, delay, isNumeric]);
+
+  return (
+    <motion.div 
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, delay }}
+      className="highlight-card"
+    >
+      <div className="h-icon">{icon}</div>
+      <div className="h-number">
+        {isNumeric ? `${count}${suffix}` : value}
+      </div>
+      <div className="h-label">{label}</div>
+    </motion.div>
+  );
+};
+
 const LeadershipStyle = () => {
   const [hoveredTrait, setHoveredTrait] = React.useState(null);
-  const radius = 300; // Optimal radius for visibility and structure
+  const radius = 260; // Reduced radius for a tighter, more cohesive look
 
   return (
     <div className="leadership-container">
@@ -116,6 +150,7 @@ const LeadershipStyle = () => {
       </div>
 
       <div className="infographic-wrapper">
+        <div className="bg-watermark">LEADERSHIP</div>
         <motion.div 
           className="center-node"
           style={{ 
@@ -224,39 +259,111 @@ const LeadershipStyle = () => {
         </div>
 
         <div className="principles-grid">
-          <div className="principle-card">
-            <div className="p-icon">⚖️</div>
-            <h4>Empathetic Governance</h4>
-            <p>Understanding the pulse of the common man and crafting policies that prioritize human welfare above mere statistics.</p>
-          </div>
-          <div className="principle-card">
-            <div className="p-icon">⚡</div>
-            <h4>Strategic Speed</h4>
-            <p>Moving from conception to implementation with clinical precision, ensuring that large-scale projects are completed in record time.</p>
-          </div>
-          <div className="principle-card">
-            <div className="p-icon">🌱</div>
-            <h4>Rooted Innovation</h4>
-            <p>Blending modern technological advancements with traditional wisdom to solve local problems with global standards.</p>
-          </div>
+          {[
+            {
+              icon: '⚖️',
+              title: 'Empathetic Governance',
+              desc: 'Understanding the pulse of the common man and crafting policies that prioritize human welfare above mere statistics.',
+              initial: { x: -250, scale: 0.6, opacity: 0 },
+              delay: 0.15
+            },
+            {
+              icon: '⚡',
+              title: 'Strategic Speed',
+              desc: 'Moving from conception to implementation with clinical precision, ensuring that large-scale projects are completed in record time.',
+              initial: { y: 100, scale: 0.5, opacity: 0 },
+              delay: 0
+            },
+            {
+              icon: '🌱',
+              title: 'Rooted Innovation',
+              desc: 'Blending modern technological advancements with traditional wisdom to solve local problems with global standards.',
+              initial: { x: 250, scale: 0.6, opacity: 0 },
+              delay: 0.15
+            }
+          ].map((item, i) => (
+            <motion.div 
+              key={i}
+              initial={item.initial}
+              whileInView={{ 
+                x: 0, 
+                y: 0,
+                scale: 1, 
+                opacity: 1
+              }}
+              viewport={{ once: false, amount: 0.4 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 200,
+                damping: 15,
+                mass: 1,
+                delay: item.delay
+              }}
+              whileHover="hover"
+              variants={{
+                hover: { 
+                  scale: 1.05, 
+                  y: -5,
+                  transition: { duration: 0.3, ease: "easeOut" }
+                }
+              }}
+              className="principle-card"
+            >
+              <motion.div 
+                variants={{
+                  hover: { 
+                    scale: 1.4, 
+                    rotate: [0, -20, 20, 0],
+                    transition: { duration: 0.4, ease: "easeInOut" }
+                  }
+                }}
+                className="p-icon"
+              >
+                {item.icon}
+              </motion.div>
+              <h4>{item.title}</h4>
+              <p>{item.desc}</p>
+            </motion.div>
+          ))}
         </div>
       </motion.section>
 
-      <motion.section 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="bio-section quote-section"
-        style={{ marginTop: '6rem', width: '100%' }}
-      >
-        <p className="quote-text">
-          "Governance is not just about rules; it's about the welfare of the last person in the line. Our style is defined by results, not rhetoric."
-        </p>
-      </motion.section>
+      <section className="highlights-section">
+        <div className="highlights-grid">
+          <StatCounter 
+            icon="📜" 
+            value={30} 
+            suffix="+" 
+            label="Years in Public Service" 
+            delay={0.1}
+          />
+          <StatCounter 
+            icon="⚖️" 
+            value={10} 
+            suffix="+" 
+            label="Years in Leadership" 
+            delay={0.2}
+          />
+          <StatCounter 
+            icon="💡" 
+            value={50} 
+            suffix="+" 
+            label="Key Initiatives" 
+            delay={0.3}
+          />
+          <StatCounter 
+            icon="🤝" 
+            value="Millions" 
+            label="Lives Impacted" 
+            delay={0.4}
+          />
+        </div>
+      </section>
     </div>
   );
 };
 
 
-export default LeadershipStyle;
 
+
+export default LeadershipStyle;
