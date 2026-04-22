@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import AboutKCR from './pages/AboutKCR';
 import VisionMission from './pages/VisionMission';
@@ -18,11 +19,13 @@ import AchievementDetail from './pages/Achievements/IrrigationNInfrastructure';
 import AgricultureFarmers from './pages/Achievements/AgricultureFarmers';
 import WelfareSchemes from './pages/Achievements/WelfareSchemes';
 import EconomicDevelopment from './pages/Achievements/EconomicDevelopment';
+import CulturalRevival from './pages/Achievements/CulturalRevival';
 import './App.css';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="App">
         <Navbar />
         <main>
@@ -35,10 +38,13 @@ function App() {
             <Route path="/about-kcr/timeline" element={<Timeline />} />
             <Route path="/vision-mission" element={<VisionMission />} />
             <Route path="/achievements" element={<Navigate to="/achievements/irrigation" replace />} />
+            <Route path="/achievements/irrigation" element={<AchievementDetail />} />
             <Route path="/achievements/agriculture" element={<AgricultureFarmers />} />
             <Route path="/achievements/welfare" element={<WelfareSchemes />} />
             <Route path="/achievements/economic" element={<EconomicDevelopment />} />
-            <Route path="/achievements/:category" element={<AchievementDetail />} />
+            <Route path="/achievements/culture" element={<CulturalRevival />} />
+            {/* Catch-all for achievements */}
+            <Route path="/achievements/:category" element={<Navigate to="/achievements/irrigation" replace />} />
             <Route path="/schemes" element={<Navigate to="/schemes/rythu-bandhu" replace />} />
             <Route path="/news-media" element={<NewsMedia />} />
             <Route path="/contact" element={<Contact />} />

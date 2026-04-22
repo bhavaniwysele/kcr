@@ -6,6 +6,7 @@ import './EconomicDevelopment.css';
 import industrialImg from '../../assets/ts_ipass_industrial_park.png';
 import thubImg from '../../assets/thub_innovation_campus.png';
 import itCorridorImg from '../../assets/it_corridor_hyderabad.png';
+import economicBg from '../../assets/economicdevelopement_bg.jpg';
 
 const EconomicDevelopment = () => {
     const fadeIn = {
@@ -19,7 +20,12 @@ const EconomicDevelopment = () => {
         <div className="economic-page editorial-layout">
             
             {/* HERO SECTION - Inspired by Starbucks (Image 1) */}
-            <section className="hero-section">
+            <section 
+                className="hero-section"
+                style={{ 
+                    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${economicBg})` 
+                }}
+            >
                 <div className="hero-header">
                     <motion.h1 
                         initial={{ opacity: 0, y: -20 }}
