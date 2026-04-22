@@ -17,6 +17,7 @@ import Timeline from './pages/About/Timeline';
 import AchievementDetail from './pages/Achievements/IrrigationNInfrastructure';
 import AgricultureFarmers from './pages/Achievements/AgricultureFarmers';
 import WelfareSchemes from './pages/Achievements/WelfareSchemes';
+import EconomicDevelopment from './pages/Achievements/EconomicDevelopment';
 import './App.css';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path="/achievements" element={<Navigate to="/achievements/irrigation" replace />} />
             <Route path="/achievements/agriculture" element={<AgricultureFarmers />} />
             <Route path="/achievements/welfare" element={<WelfareSchemes />} />
+            <Route path="/achievements/economic" element={<EconomicDevelopment />} />
             <Route path="/achievements/:category" element={<AchievementDetail />} />
             <Route path="/schemes" element={<Navigate to="/schemes/rythu-bandhu" replace />} />
             <Route path="/news-media" element={<NewsMedia />} />
