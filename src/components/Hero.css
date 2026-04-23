@@ -1,16 +1,21 @@
 .hero-section {
   position: relative;
-  height: 85vh; /* Increased from 80vh */
+  height: 90vh;
   width: 100%;
   overflow: hidden;
-  display: block; /* Swiper needs block for full containers */
+  display: block;
   color: white;
   font-family: 'Outfit', sans-serif;
+  background-color: #0f172a; /* Deep navy background */
 }
 
 .hero-swiper {
   width: 100%;
   height: 100%;
+}
+
+.hero-swiper .swiper-wrapper {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .hero-slide-content {
@@ -34,12 +39,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center; /* Default, will be overridden by inline styles */
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55); /* Uniform black transparent overlay */
+  background: none; /* Removed overlay as requested */
+  z-index: 1;
 }
 
 .hero-container {
@@ -68,24 +75,35 @@
 
 .hero-title {
   font-size: clamp(2.5rem, 4.5vw, 3.8rem);
-  line-height: 1.1;
+  line-height: 1; /* Tighter line height for lines */
   font-weight: 800;
-  margin: 0 0 0.75rem 0; /* Reduced margin */
+  margin: 0 0 0.75rem 0;
   text-transform: uppercase;
-  letter-spacing: -2px;
-  color: #ffffff !important; /* Force white color for all parts of the title */
+  color: #ffffff !important; /* Reverted to white */
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Added shadow for legibility without overlay */
+  display: flex;
+  flex-direction: column;
+  align-items: inherit;
 }
 
-.hero-title span {
+.hero-title-line {
+  display: block;
+  opacity: 0;
+  white-space: nowrap;
+  letter-spacing: -2px; /* Default starting point */
+}
+
+.hero-title .accent-text {
   color: var(--accent); /* Brand pink */
 }
 
 .hero-subtitle {
   font-size: 0.9rem; /* Further decreased size */
   line-height: 1.6;
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 1.75rem; /* Reduced margin to button */
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.9); /* Reverted to white */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Added shadow for legibility without overlay */
   max-width: none; /* Allow it to span one line */
 }
 
@@ -211,31 +229,26 @@
   left: 2.5rem !important;
 }
 
-/* Animations for slide content */
-.swiper-slide-active .hero-title {
-  animation: fadeInUp 0.8s ease forwards 0.2s;
-  opacity: 0;
+.hero-person-img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: auto;
+  z-index: 2;
+  pointer-events: none;
+  object-fit: contain;
+  object-position: bottom right;
 }
 
-.swiper-slide-active .hero-subtitle {
-  animation: fadeInUp 0.8s ease forwards 0.4s;
-  opacity: 0;
+/* Base styles for Framer Motion elements */
+.hero-title-line {
+  display: block;
+  white-space: nowrap;
 }
 
-.swiper-slide-active .hero-cta {
-  animation: fadeInUp 0.8s ease forwards 0.6s;
-  opacity: 0;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.hero-subtitle, .hero-btn {
+  /* Initial state is handled by motion props, but we keep base styles */
 }
 
 @media (max-width: 1024px) {
@@ -251,10 +264,22 @@
   
   .hero-title {
     font-size: 3rem;
+    align-items: center; /* Ensure lines center on mobile */
+  }
+
+  .hero-person-img {
+    height: 60%;
+    right: 5%;
+    opacity: 0.4;
+    z-index: 1;
   }
 }
 
 @media (max-width: 768px) {
+  .hero-person-img {
+    display: none;
+  }
+  
   .hero-section {
     height: 80vh;
   }
