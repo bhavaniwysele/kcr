@@ -211,3 +211,45 @@
 .swiper-pagination-bullet-active {
   background: var(--accent) !important;
 }
+
+/* Large Screens (1440px - 1919px) */
+@media (min-width: 1440px) {
+  .slider-container {
+    max-width: 100%;
+    padding: 0 4rem;
+  }
+  
+  .achievement-modern-card {
+    height: 460px;
+  }
+  
+  .section-header .title {
+    font-size: 2.8rem;
+  }
+}
+
+/* Extra Large Screens (1920px+) */
+@media (min-width: 1920px) {
+  .slider-container {
+    max-width: 100%;
+    padding: 0 6rem;
+  }
+  
+  .achievement-modern-card {
+    height: 500px;
+  }
+  
+  .section-header .title {
+    font-size: 3.5rem;
+  }
+  
+  .section-header .subtitle {
+    font-size: 1rem;
+    letter-spacing: 4px;
+  }
+  
+  .swiper-button-next,
+  .swiper-button-prev {
+    transform: scale(0.8);
+  }
+}

@@ -429,3 +429,92 @@
     display: none; /* Mobile menu logic would go here */
   }
 }
+
+/* Large Screens (1440px - 1919px) */
+@media (min-width: 1440px) {
+  .nav-top-container,
+  .nav-container {
+    max-width: 100%;
+    padding: 0 2rem;
+  }
+  
+  .navbar-scrolled .nav-container {
+    padding: 0.5rem 2rem;
+  }
+  
+  .nav-links {
+    gap: 2.2rem;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+  }
+  
+  .logo-text {
+    font-size: 2rem;
+  }
+}
+
+/* Extra Large Screens (1920px+) */
+@media (min-width: 1920px) {
+  .nav-top-container,
+  .nav-container {
+    max-width: 100%;
+    padding: 0 2.5rem;
+  }
+
+  .navbar-scrolled .nav-container {
+    padding: 0.7rem 2.5rem;
+  }
+  
+  .nav-links {
+    gap: 3.5rem; /* Increased gap slightly more */
+  }
+  
+  .nav-link {
+    font-size: 1rem;
+  }
+  
+  .logo-text {
+    font-size: 2.2rem;
+  }
+  
+  .nav-logo img {
+    height: 52px;
+  }
+  
+  .navbar-scrolled .logo-text {
+    font-size: 1.4rem !important;
+  }
+  
+  .navbar-scrolled .sticky-logo img {
+    height: 34px !important;
+  }
+  
+  .language-bar {
+    font-size: 0.95rem;
+    gap: 1.8rem;
+  }
+  
+  .nav-social-link {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+  
+  .dropdown-menu {
+    min-width: 280px;
+    padding: 0.8rem 0;
+  }
+  
+  .dropdown-menu li a {
+    font-size: 0.9rem;
+    padding: 0.7rem 1.2rem;
+  }
+  
+  .nav-contact-btn,
+  .nav-join-btn {
+    font-size: 0.85rem;
+    padding: 0.6rem 1.6rem;
+  }
+}

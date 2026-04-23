@@ -73,6 +73,8 @@ const AchievementsSlider = () => {
           breakpoints={{
             768: { slidesPerView: 2 },
             1024: { slidesPerView: 3 },
+            1440: { slidesPerView: 4, spaceBetween: 40 },
+            1920: { slidesPerView: 5, spaceBetween: 50 },
           }}
           className="achievement-swiper"
         >
