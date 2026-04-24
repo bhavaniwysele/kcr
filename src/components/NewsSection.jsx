@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import './NewsSection.css';
 
 // Import images
@@ -70,7 +71,13 @@ const NewsSection = () => {
 
         <div className="news-grid">
           {/* Main Featured Card (Center/Large) */}
-          <div className="news-card featured">
+          <motion.div 
+            className="news-card featured"
+            initial={{ y: -120, opacity: 0, filter: "blur(6px)" }}
+            whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div className="card-image">
               <img src={newsData[0].image} alt={newsData[0].title} />
               <span className="badge">{newsData[0].category}</span>
@@ -84,10 +91,16 @@ const NewsSection = () => {
                 <span className="comments"><i className="far fa-comment"></i> 0</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Other Cards */}
-          <div className="news-card secondary-1">
+          <motion.div 
+            className="news-card secondary-1"
+            initial={{ x: -60, opacity: 0, filter: "blur(4px)" }}
+            whileInView={{ x: 0, opacity: 1, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div className="card-image">
               <img src={newsData[1].image} alt={newsData[1].title} />
               <span className="badge">{newsData[1].category}</span>
@@ -99,9 +112,15 @@ const NewsSection = () => {
                 <span className="date">{newsData[1].date}</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="news-card secondary-2">
+          <motion.div 
+            className="news-card secondary-2"
+            initial={{ x: 60, opacity: 0, filter: "blur(4px)" }}
+            whileInView={{ x: 0, opacity: 1, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div className="card-image">
               <img src={newsData[2].image} alt={newsData[2].title} />
               <span className="badge">{newsData[2].category}</span>
@@ -113,9 +132,15 @@ const NewsSection = () => {
                 <span className="date">{newsData[2].date}</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="news-card secondary-3">
+          <motion.div 
+            className="news-card secondary-3"
+            initial={{ x: -60, opacity: 0, filter: "blur(4px)" }}
+            whileInView={{ x: 0, opacity: 1, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div className="card-image">
               <img src={newsData[3].image} alt={newsData[3].title} />
               <span className="badge">{newsData[3].category}</span>
@@ -127,9 +152,15 @@ const NewsSection = () => {
                 <span className="date">{newsData[3].date}</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="news-card secondary-4">
+          <motion.div 
+            className="news-card secondary-4"
+            initial={{ x: 60, opacity: 0, filter: "blur(4px)" }}
+            whileInView={{ x: 0, opacity: 1, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div className="card-image">
               <img src={newsData[4].image} alt={newsData[4].title} />
               <span className="badge">{newsData[4].category}</span>
@@ -141,7 +172,7 @@ const NewsSection = () => {
                 <span className="date">{newsData[4].date}</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

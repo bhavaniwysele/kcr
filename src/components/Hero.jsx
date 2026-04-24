@@ -17,7 +17,7 @@ import backgroundSliding2 from '../assets/background_sliding2.png';
 import personCutout from '../assets/landinpage_extended-removebg.png';
 import sliding2Person from '../assets/sliding2_img-removebg-preview.png';
 import slide3Person from '../assets/slide3_removebg.png';
-import backgroundSlide3 from '../assets/leardership_topmain.png';
+import backgroundSlide3 from '../assets/slide3_bg.jpg';
 
 const Hero = () => {
   const slides = [
@@ -45,8 +45,8 @@ const Hero = () => {
     },
     {
       id: 3,
-      image: null, // Removed background image as requested
-      bgColor: '#5d1a33', // Lightened berry base
+      image: backgroundSlide3, // Applied new background image
+      bgColor: '#5d1a33', // Keeping as fallback
       personImage: slide3Person,
       lines: ["Building Telangana", "Stronger Every Day"],
       subtitle: "Transforming lives through bold initiatives and sustainable development programs.",
@@ -55,7 +55,7 @@ const Hero = () => {
       personDuration: 2.0,
       subtitleDelay: 1.0,
       personRight: '8%', // Shifting left to avoid overlapping arrow
-      overlay: 'linear-gradient(to right, #5d1a33 0%, #e91e63 100%)' // Lightened rich pink-to-berry gradient
+      overlay: 'linear-gradient(to right, rgba(93, 26, 51, 0.85) 0%, rgba(93, 26, 51, 0.4) 45%, transparent 90%)' // Transparent gradient to show background image
     }
   ];
 
