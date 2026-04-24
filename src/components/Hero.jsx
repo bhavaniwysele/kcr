@@ -13,29 +13,49 @@ import './Hero.css';
 
 import heroBackground from '../assets/background.png';
 import sliding2Img from '../assets/sliding2_img.png';
+import backgroundSliding2 from '../assets/background_sliding2.png';
 import personCutout from '../assets/landinpage_extended-removebg.png';
+import sliding2Person from '../assets/sliding2_img-removebg-preview.png';
+import slide3Person from '../assets/slide3_removebg.png';
+import backgroundSlide3 from '../assets/leardership_topmain.png';
 
 const Hero = () => {
   const slides = [
     {
       id: 1,
       image: heroBackground,
-      lines: ["SHAPING THE", "FUTURE OF", "TELANGANA"],
-      subtitle: "Delivering progress through strong leadership and visionary governance.",
+      personImage: personCutout,
+      lines: ["Visionary Leadership", "For a Progressive", "Telangana"],
+      subtitle: "Driving growth, welfare, and innovation for every citizen across the state.",
       align: 'left',
-      position: 'center 15%'
+      position: 'center 10%',
+      overlay: 'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 45%, transparent 90%)' // Lightened Black for Slide 1
     },
     {
       id: 2,
-      image: sliding2Img,
-      lines: ["EMPOWERING", "EVERY WOMAN", "ACROSS THE STATE"],
-      subtitle: "Upholding dignity and prosperity through transformative social welfare.",
+      image: backgroundSliding2,
+      personImage: sliding2Person,
+      lines: ["For the People", "For the Future"],
+      subtitle: "Committed to inclusive development and the welfare of every community.",
       align: 'left',
-      position: 'right bottom',
-      width: '45%', // Decreased size as requested
-      height: '80%',
-      fit: 'contain',
-      bgColor: '#4a3131' // Matches the brownish background of the image
+      position: 'center 10%',
+      personDuration: 2.5, // Slower person entrance
+      subtitleDelay: 1.2,    // Delayed subtitle for better pacing
+      overlay: 'linear-gradient(to right, rgba(45, 10, 26, 0.7) 0%, rgba(45, 10, 26, 0.3) 45%, transparent 90%)' // Lightened Pink for Slide 2
+    },
+    {
+      id: 3,
+      image: null, // Removed background image as requested
+      bgColor: '#5d1a33', // Lightened berry base
+      personImage: slide3Person,
+      lines: ["Building Telangana", "Stronger Every Day"],
+      subtitle: "Transforming lives through bold initiatives and sustainable development programs.",
+      align: 'left',
+      position: 'center center',
+      personDuration: 2.0,
+      subtitleDelay: 1.0,
+      personRight: '8%', // Shifting left to avoid overlapping arrow
+      overlay: 'linear-gradient(to right, #5d1a33 0%, #e91e63 100%)' // Lightened rich pink-to-berry gradient
     }
   ];
 
@@ -44,7 +64,7 @@ const Hero = () => {
       <Swiper
         modules={[Autoplay, EffectCreative, Pagination, Navigation]}
         effect="creative"
-        speed={1000}
+        speed={1500} /* Ultra smooth slow transition */
         creativeEffect={{
           prev: {
             translate: ['-20%', 0, 0],
@@ -94,20 +114,25 @@ const Hero = () => {
                       }}
                     />
                   )}
-                    <div className="hero-overlay"></div>
+                    <div className="hero-overlay" style={{ background: slide.overlay }}></div>
                   </div>
                   
                   <AnimatePresence>
-                    {isActive && slide.id === 1 && (
+                    {isActive && slide.personImage && (
                       <motion.img 
-                        key="hero-person-img"
-                        src={personCutout} 
-                        alt="KCR" 
+                        key={`hero-person-${slide.id}`}
+                        src={slide.personImage} 
+                        alt="Portrait" 
                         className="hero-person-img"
                         initial={{ y: "100%", opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: "100%", opacity: 0 }}
-                        transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ 
+                          duration: slide.personDuration || 1.5, 
+                          delay: 0.2, 
+                          ease: [0.16, 1, 0.3, 1] 
+                        }}
+                        style={{ right: slide.personRight || 0 }}
                       />
                     )}
                   </AnimatePresence>
@@ -140,9 +165,9 @@ const Hero = () => {
                                     filter: "blur(0px)" 
                                   }}
                                   transition={{ 
-                                    duration: 1.2,
+                                    duration: 2.2,
                                     delay: lIndex * 0.2 + 0.1,
-                                    ease: [0.16, 1, 0.3, 1]
+                                    ease: [0.22, 1, 0.36, 1]
                                   }}
                                 >
                                   {line === "FUTURE OF" || line === "EVERY WOMAN" || (line === "TELANGANA" && slide.id === 3) ? (
@@ -155,22 +180,37 @@ const Hero = () => {
                             </h1>
                             <motion.p 
                               className="hero-subtitle"
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+                              initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+                              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                              transition={{ duration: 1.8, delay: slide.subtitleDelay || 0.8, ease: [0.22, 1, 0.36, 1] }}
                             >
                               {slide.subtitle}
                             </motion.p>
-                            <motion.div
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 1, delay: 1.0, ease: "easeOut" }}
+                            <motion.div 
+                              className="hero-quick-links-inline"
+                              initial={{ y: 50, opacity: 0, filter: "blur(8px)" }}
+                              animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                              transition={{ duration: 1.8, delay: (slide.subtitleDelay || 0.8) + 0.2, ease: [0.22, 1, 0.36, 1] }}
                             >
-                              <Link to="/about" className="hero-btn">
-                                <span>EXPLORE JOURNEY</span>
-                                <svg viewBox="0 0 200 60">
-                                  <rect x="0" y="0" width="200" height="60" rx="30" ry="30" />
-                                </svg>
+                              <Link 
+                                to="/about" 
+                                className="quick-link-card"
+                              >
+                                <div className="card-content">
+                                  <span className="card-tag">Candidate</span>
+                                  <h3 className="card-title">Biography</h3>
+                                  <span className="card-link">Know More</span>
+                                </div>
+                              </Link>
+                              <Link 
+                                to="/achievements" 
+                                className="quick-link-card"
+                              >
+                                <div className="card-content">
+                                  <span className="card-tag">Program</span>
+                                  <h3 className="card-title">Highlights</h3>
+                                  <span className="card-link">View More</span>
+                                </div>
                               </Link>
                             </motion.div>
                           </motion.div>

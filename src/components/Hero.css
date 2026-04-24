@@ -6,7 +6,7 @@
   display: block;
   color: white;
   font-family: 'Outfit', sans-serif;
-  background-color: #0f172a; /* Deep navy background */
+  background-color: #2d0a1a; /* Deep plum/pink background */
 }
 
 .hero-swiper {
@@ -15,7 +15,7 @@
 }
 
 .hero-swiper .swiper-wrapper {
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1) !important; /* Extremely smooth ease-in-out */
 }
 
 .hero-slide-content {
@@ -45,7 +45,6 @@
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: none; /* Removed overlay as requested */
   z-index: 1;
 }
 
@@ -74,8 +73,8 @@
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 4.5vw, 3.8rem);
-  line-height: 1; /* Tighter line height for lines */
+  font-size: clamp(1.5rem, 2.8vw, 2.4rem); /* More reduction as requested */
+  line-height: 1.1; /* Slightly more space for better readability at smaller size */
   font-weight: 800;
   margin: 0 0 0.75rem 0;
   text-transform: uppercase;
@@ -98,7 +97,7 @@
 }
 
 .hero-subtitle {
-  font-size: 0.9rem; /* Further decreased size */
+  font-size: 1.2rem; /* Increased for better legibility */
   line-height: 1.6;
   font-weight: 400;
   margin-bottom: 1.75rem; /* Reduced margin to button */
@@ -239,6 +238,8 @@
   pointer-events: none;
   object-fit: contain;
   object-position: bottom right;
+  image-rendering: -webkit-optimize-contrast; /* Sharpens images in some browsers */
+  filter: contrast(1.05) brightness(1.02) drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
 }
 
 /* Base styles for Framer Motion elements */
@@ -290,5 +291,130 @@
   
   .hero-subtitle {
     font-size: 1.1rem;
+  }
+}
+
+/* Inline Quick Links */
+.hero-quick-links-inline {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 650px;
+}
+
+.hero-quick-links-inline .quick-link-card {
+  flex: 1;
+  height: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-quick-links-inline .card-title {
+  font-size: 1.2rem;
+}
+
+.hero-quick-links-inline .card-content {
+  padding: 1.5rem;
+  justify-content: center;
+}
+
+/* Hero Quick Links (Removed from bottom) */
+
+.quick-link-card {
+  position: relative;
+  height: 120px; /* Decreased size as requested */
+  border: 1px solid rgba(233, 30, 99, 0.3); /* Pink border */
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(233, 30, 99, 0.15); /* Vibrant pink glass for all slides */
+  backdrop-filter: blur(15px);
+}
+
+.quick-link-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Removed card-bg styles */
+
+.card-content {
+  position: relative;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  z-index: 2;
+}
+
+.card-tag {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.3rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+.card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 0.6rem 0;
+  line-height: 1.2;
+  font-family: 'Outfit', sans-serif;
+}
+
+.card-link {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+}
+
+.card-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.quick-link-card:hover .card-link::after {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .hero-quick-links {
+    padding: 0 2rem 2rem;
+    gap: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-quick-links {
+    grid-template-columns: 1fr;
+    position: relative;
+    transform: none;
+    left: 0;
+    padding: 2rem;
+    background: #0f172a;
+  }
+  
+  .quick-link-card {
+    height: 120px;
   }
 }
