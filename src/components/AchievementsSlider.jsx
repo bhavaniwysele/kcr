@@ -1,10 +1,6 @@
 import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { Link } from 'react-router-dom';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import { motion } from 'framer-motion';
 import './AchievementsSlider.css';
 
 // Importing images
@@ -55,46 +51,103 @@ const achievements = [
 ];
 
 const AchievementsSlider = () => {
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    }
+  };
+
   return (
     <section className="achievements-section">
-      <div className="section-header">
-        <h4 className="subtitle">Milestones</h4>
-        <h2 className="title">Major <span>Achievements</span></h2>
-      </div>
-      
-      <div className="slider-container">
-        <Swiper
-          modules={[Pagination, Navigation, Autoplay]}
-          spaceBetween={30}
-          slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
-          breakpoints={{
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-            1440: { slidesPerView: 4, spaceBetween: 40 },
-            1920: { slidesPerView: 5, spaceBetween: 50 },
-          }}
-          className="achievement-swiper"
+      <div className="achievements-container">
+        <motion.div 
+          className="section-header-compact"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="main-section-title">ACHIEVEMENTS</h2>
+        </motion.div>
+
+        {/* Featured Section (Split Layout) */}
+        <div className="featured-achievement">
+          {/* Picture coming from the right */}
+          <motion.div 
+            className="featured-image-side"
+            initial={{ x: 100, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <img src={achievements[0].image} alt="Featured Achievement" />
+          </motion.div>
+
+          {/* Content coming from the left */}
+          <motion.div 
+            className="featured-content-side"
+            initial={{ x: -100, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="content-inner-sticky">
+              <h2 className="featured-title">DRIVING PROGRESS & <span>PROSPERITY</span></h2>
+              <p className="featured-desc">
+                The journey of Telangana has been one of unprecedented growth and vision. 
+                From pioneering irrigation projects to revolutionary welfare schemes, 
+                every initiative is designed to empower the people and build a sustainable future.
+              </p>
+              <p className="featured-desc">
+                Our commitment to excellence has made Telangana a role model for the nation, 
+                combining modern infrastructure with deep-rooted cultural heritage and social justice.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Achievements Grid (Box Layout) with staggered animation */}
+        <motion.div 
+          className="achievements-boxes-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
         >
           {achievements.map((item, index) => (
-            <SwiperSlide key={index}>
-              <div className="achievement-modern-card">
-                <div className="card-image-wrap">
-                  <img src={item.image} alt={item.title} />
-                </div>
-                <div className="card-content-wrap">
-                  <div className="content-inner">
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                    <Link to={`/achievements/${item.slug}`} className="learn-more-btn">Learn More</Link>
-                  </div>
-                </div>
+            <motion.div 
+              key={index} 
+              variants={itemVariants}
+              className="achievement-box-item"
+            >
+              <div className="box-image">
+                <img src={item.image} alt={item.title} />
               </div>
-            </SwiperSlide>
+              <div className="box-content">
+                <h3 className="box-amount">{item.title}</h3>
+                <p className="box-desc">{item.description}</p>
+                <Link to={`/achievements/${item.slug}`} className="box-cta">
+                  KNOW MORE <span>→</span>
+                </Link>
+              </div>
+            </motion.div>
           ))}
-        </Swiper>
+        </motion.div>
       </div>
     </section>
   );

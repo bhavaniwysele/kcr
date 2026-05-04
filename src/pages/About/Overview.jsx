@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import './Overview.css';
 
@@ -17,8 +17,90 @@ import politicalImg from '../../assets/overview_main2.jpg';
 import leadershipImg from '../../assets/about_kcr4.jpg';
 import timelineImg from '../../assets/overview.jpg';
 
+const StoryStep = ({ item, onInView }) => {
+  const ref = React.useRef(null);
+  // Using a margin to trigger activation when the card enters the center area of the viewport
+  const isInView = useInView(ref, { 
+    margin: "-30% 0px -30% 0px",
+    amount: 0.2
+  });
+
+  React.useEffect(() => {
+    if (isInView) {
+      onInView();
+    }
+  }, [isInView, onInView]);
+
+  return (
+    <motion.div
+      ref={ref}
+      className="story-card-v"
+      initial={{ opacity: 0, x: 50 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0.3, x: 20 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <div className="card-v-img-container">
+        <img src={item.img} alt={item.title} />
+      </div>
+      <div className="card-v-content">
+        <h3 className="card-v-title">{item.title}</h3>
+        <p className="card-v-text">{item.text}</p>
+        <button className="card-v-btn">Know More</button>
+      </div>
+    </motion.div>
+  );
+};
+
+const ActiveNumber = ({ number, active }) => {
+  return (
+    <motion.div
+      className={`active-number-wrap ${active ? 'is-active' : ''}`}
+      initial={false}
+      animate={active ? { y: 0, opacity: 1, scale: 1.2 } : { y: 20, opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.4, ease: "backOut" }}
+      style={{ position: active ? 'relative' : 'absolute' }}
+    >
+      <span className="count-number">{number < 10 ? `0${number}` : number}</span>
+    </motion.div>
+  );
+};
+
 const Overview = () => {
   const navigate = useNavigate();
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const storyData = [
+    {
+      id: 1,
+      title: "Early Foundations",
+      img: main3,
+      text: "Before stepping into the public eye, he was a young man with a vision, briefly working in the recruitment sector. It was here that he first witnessed the stark challenges faced by ordinary citizens."
+    },
+    {
+      id: 2,
+      title: "A Heart for the People",
+      img: main4,
+      text: "His official journey began with a simple but powerful desire: to give his people a voice. Initially working behind the scenes, he realized his heart beat solely for the cause of statehood."
+    },
+    {
+      id: 3,
+      title: "National Influence",
+      img: unionMin,
+      text: "His tenure in the national arena was a masterclass in diplomacy. Using his platform in Delhi, he relentlessly championed the identity of his people, building necessary alliances."
+    },
+    {
+      id: 4,
+      title: "Uniting a Region",
+      img: main5,
+      text: "The true turning point came when he dedicated his life to the statehood movement. Through his gift for oratory, he united a fragmented dream into a powerful mass movement."
+    },
+    {
+      id: 5,
+      title: "Architect of Progress",
+      img: main6,
+      text: "Today, he is recognized as the architect of a new beginning. He remains a father figure to many, guiding with a unique blend of intellectual depth and deep-rooted compassion."
+    }
+  ];
   return (
     <div className="overview-page">
       {/* Top Banner (Already requested in previous turns) */}
@@ -55,85 +137,35 @@ const Overview = () => {
           </div>
         </section>
 
-        {/* Story Grid - Narrative Chapters */}
-        <section className="story-grid-section">
+        {/* Story Section - Vertical Sticky Scroll Layout */}
+        <section className="story-scroll-section">
           <h2 className="grid-main-title">A Life Dedicated to Public Service</h2>
-          <div className="story-grid-viewport">
-            <div className="story-grid">
-              {/* Chapter 1: Early Interests */}
-              <div className="story-card">
-                <span className="card-number">01</span>
-                <div className="card-img-wrap">
-                  <img src={main3} alt="Early Interests" />
-                </div>
-                <div className="card-content">
-                  <h3 className="card-title">Early Foundations</h3>
-                  <p>
-                    Before stepping into the public eye, he was a young man with a vision, briefly working in the recruitment sector. It was here that he first witnessed the stark challenges faced by ordinary citizens.
-                  </p>
-                  <button className="card-btn">Know More</button>
+          
+          <div className="story-scroll-container">
+            {/* Left Side: Sticky Counter */}
+            <div className="story-counter-sticky">
+              <div className="counter-wrapper">
+                <div className="active-number-display">
+                  {storyData.map((item, index) => (
+                    <ActiveNumber 
+                      key={item.id} 
+                      number={item.id} 
+                      active={activeStep === index} 
+                    />
+                  ))}
                 </div>
               </div>
+            </div>
 
-              {/* Chapter 2: Entry into Public Life */}
-              <div className="story-card">
-                <span className="card-number">02</span>
-                <div className="card-img-wrap">
-                  <img src={main4} alt="Public Life Entry" />
-                </div>
-                <div className="card-content">
-                  <h3 className="card-title">A Heart for the People</h3>
-                  <p>
-                    His official journey began with a simple but powerful desire: to give his people a voice. Initially working behind the scenes, he realized his heart beat solely for the cause of statehood.
-                  </p>
-                  <button className="card-btn">Know More</button>
-                </div>
-              </div>
-
-              {/* Chapter 3: National Arena */}
-              <div className="story-card">
-                <span className="card-number">03</span>
-                <div className="card-img-wrap">
-                  <img src={unionMin} alt="Union Ministry" />
-                </div>
-                <div className="card-content">
-                  <h3 className="card-title">National Influence</h3>
-                  <p>
-                    His tenure in the national arena was a masterclass in diplomacy. Using his platform in Delhi, he relentlessly championed the identity of his people, building necessary alliances.
-                  </p>
-                  <button className="card-btn">Know More</button>
-                </div>
-              </div>
-
-              {/* Chapter 4: Key Turning Points */}
-              <div className="story-card">
-                <span className="card-number">04</span>
-                <div className="card-img-wrap">
-                  <img src={main5} alt="Turning Points" />
-                </div>
-                <div className="card-content">
-                  <h3 className="card-title">Uniting a Region</h3>
-                  <p>
-                    The true turning point came when he dedicated his life to the statehood movement. Through his gift for oratory, he united a fragmented dream into a powerful mass movement.
-                  </p>
-                  <button className="card-btn">Know More</button>
-                </div>
-              </div>
-
-              {/* Chapter 5: Defining Identity */}
-              <div className="story-card">
-                <span className="card-number">05</span>
-                <div className="card-img-wrap">
-                  <img src={main6} alt="Present Identity" />
-                </div>
-                <div className="card-content">
-                  <h3 className="card-title">Architect of Progress</h3>
-                  <p>
-                    Today, he is recognized as the architect of a new beginning. He remains a father figure to many, guiding with a unique blend of intellectual depth and deep-rooted compassion.
-                  </p>
-                  <button className="card-btn">Know More</button>
-                </div>
-              </div>
+            {/* Right Side: Scrolling Cards */}
+            <div className="story-cards-scroll">
+              {storyData.map((item, index) => (
+                <StoryStep 
+                  key={item.id} 
+                  item={item} 
+                  onInView={() => setActiveStep(index)} 
+                />
+              ))}
             </div>
           </div>
         </section>

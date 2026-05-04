@@ -1,0 +1,111 @@
+.stay-connected-section {
+  padding: 3.5rem 5%;
+  background: #fdfdfd;
+  font-family: 'Outfit', sans-serif;
+  color: #333;
+}
+
+.stay-connected-container {
+  max-width: 1150px; /* Expanded to remove empty side space */
+  margin: 0 auto;
+}
+
+.stay-connected-header {
+  text-align: center;
+  margin-bottom: 2.8rem;
+}
+
+.stay-connected-header .title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #b80a42; /* Crimson Pink */
+  margin-bottom: 0.8rem;
+}
+
+.stay-connected-header .subtitle {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.stay-connected-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; /* Re-added gap for wider layout */
+}
+
+.connected-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2.2rem 1.6rem; /* Slightly wider padding for balanced look */
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.connected-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+.card-icon-wrapper {
+  width: 64px; /* Increased slightly from 56px to match wider card */
+  height: 64px;
+  border-radius: 50%;
+  background-color: #fce6ef; /* Light pink */
+  color: #b80a42; /* Primary pink for icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.8rem auto; /* Horizontally center icon */
+}
+
+.card-icon-wrapper svg {
+  stroke-width: 2.2;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #b80a42;
+  margin-bottom: 0.6rem;
+  text-align: left;
+}
+
+.card-divider {
+  width: 28px;
+  height: 3px;
+  background-color: #f3aebf; /* Soft pink line */
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+
+.card-desc {
+  font-size: 0.75rem;
+  color: #444;
+  line-height: 1.6;
+  text-align: left;
+  margin: 0;
+}
+
+/* Responsive Scaling */
+@media (max-width: 1024px) {
+  .stay-connected-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .stay-connected-grid {
+    grid-template-columns: 1fr;
+  }
+  .stay-connected-header .title {
+    font-size: 1.6rem;
+  }
+  .stay-connected-header .subtitle {
+    font-size: 0.8rem;
+  }
+}

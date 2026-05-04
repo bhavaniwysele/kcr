@@ -1,255 +1,312 @@
 .achievements-section {
-  padding: 2rem 2rem 2rem;
-  background: #f5f5f5; /* Light background as requested */
+  padding: 2.5rem 1.5rem 4rem; /* Reduced top padding to move title up */
+  background: #ffffff;
   font-family: 'Outfit', sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.section-header {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.section-header .subtitle {
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-}
-
-.section-header .title {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: #1a1a1a;
-}
-
-.section-header .title span {
-  color: var(--accent);
-}
-
-.slider-container {
+.achievements-container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 80px; /* Increased gutter for arrows */
-  position: relative;
-}
-
-/* Modern Card Layout */
-.achievement-modern-card {
-  background: #ffffff;
-  border-radius: 8px; /* Standard 'sm' rounding */
-  overflow: hidden;
-  position: relative;
-  height: 420px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.card-image-wrap {
   width: 100%;
-  height: 82%; /* Even more image, very little text space */
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform-origin: top center;
+  box-sizing: border-box;
 }
 
-.card-image-wrap img {
+.section-header-compact {
+  text-align: center;
+  margin-bottom: 4.5rem; /* Increased gap between main title and content */
+}
+
+.main-section-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #1a237e;
+  letter-spacing: 4px;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+}
+
+.main-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: #e91e63;
+}
+
+/* Featured Section */
+.featured-achievement {
+  display: flex;
+  gap: 5rem;
+  margin-bottom: 3rem;
+  align-items: flex-start; /* Precise top alignment */
+  flex-wrap: nowrap; /* Keep on the same line for desktop */
+}
+
+.featured-image-side {
+  flex: 1 1 400px;
+  min-height: 400px; /* Use min-height to allow stretching */
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+}
+
+.featured-image-side img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all 0.5s ease;
 }
 
-.card-content-wrap {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 18%; /* Minimal space for title only */
-  background: #ffffff;
-  padding: 0.75rem 1.5rem; /* Drastically reduced padding */
+.featured-content-side {
+  flex: 1 1 400px;
+  padding: 0; /* Removed padding to align with image top */
   display: flex;
-  align-items: flex-start;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 2;
+  flex-direction: column;
+  justify-content: flex-start; /* Align to the top */
 }
 
-.content-inner {
-  width: 100%;
-  transition: all 0.5s ease;
+.featured-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #1a237e;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
 }
 
-.content-inner h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0;
-  transition: transform 0.5s ease;
-  line-height: 1.4;
-  display: block;
+.featured-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: #3b71ca;
 }
 
-.content-inner p {
+.featured-title span {
+  color: #1a237e;
+}
+
+.featured-desc {
   font-size: 0.95rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* Boxes Grid */
+.achievements-boxes-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.achievement-box-item {
+  background: #ffffff;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.box-image {
+  width: 100%;
+  height: 90px; /* Further decreased image height */
+  overflow: hidden;
+}
+
+.box-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.box-content {
+  padding: 0.75rem 0.6rem; /* Further decreased padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.box-amount {
+  font-size: 0.85rem; /* Further decreased font size */
+  font-weight: 800;
+  color: #1a237e;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+  min-height: 2.6em; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-desc {
+  font-size: 0.7rem; /* Further decreased font size */
   color: #666;
   line-height: 1.5;
-  opacity: 0.7; /* Soft look */
-  margin-bottom: 0.8rem;
-  max-height: 0; /* Hidden initially */
-  overflow: hidden;
-  transition: all 0.5s ease;
-  transform: translateY(20px);
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.box-cta {
   width: 100%;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limit to 3 lines but allow expansion on hover if needed */
-  -webkit-box-orient: vertical;
-}
-
-.learn-more-btn {
-  background: transparent;
-  color: var(--accent);
-  border: 1.5px solid var(--accent);
-  padding: 0.6rem 1.4rem;
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease;
-  cursor: pointer;
-}
-
-/* 🔥 Hover Animations */
-
-.achievement-modern-card:hover {
-  transform: translateY(-12px); /* Card slightly lifts */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); /* Shadow increase */
-}
-
-/* Image remains largely visible on hover */
-.achievement-modern-card:hover .card-image-wrap {
-  height: 60%;
-  transform: scale(0.98);
-  border-radius: 8px;
-  margin-top: 5px;
-}
-
-/* Content section slides upward comfortably */
-.achievement-modern-card:hover .card-content-wrap {
-  height: 48%; 
-  padding-bottom: 1.5rem; /* Ensure button doesn't touch bottom */
-}
-
-/* Description fades and slides up */
-.achievement-modern-card:hover .content-inner p {
-  opacity: 1;
-  max-height: 500px; /* Very large to avoid cropping */
-  transform: translateY(0);
-  margin-top: 10px;
-  -webkit-line-clamp: unset; /* Remove line clamp on hover */
-}
-
-/* Button fades and slides up */
-.achievement-modern-card:hover .learn-more-btn {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.learn-more-btn:hover {
-  background: var(--accent);
+  padding: 0.4rem; /* Further decreased padding */
+  background: #e91e63;
   color: white;
-}
-
-/* Swiper Styling */
-.achievement-swiper {
-  padding: 2rem 0 3.5rem !important;
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-  color: var(--accent) !important;
-  transform: scale(0.6);
-  background: white;
-  width: 50px !important;
-  height: 50px !important;
-  border-radius: 50%;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  top: 50% !important;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.65rem; /* Further decreased font size */
+  letter-spacing: 1px;
   transition: all 0.3s ease;
-  border: 1px solid #eee;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-  background: var(--accent);
-  color: white !important;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+.box-cta span {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
 }
 
-.swiper-button-next::after,
-.swiper-button-prev::after {
-  font-size: 1.2rem !important;
-  font-weight: bold;
+.box-cta:hover span {
+  transform: translateX(5px);
 }
 
-.swiper-button-next {
-  right: 15px !important; 
+.box-cta:hover {
+  background: #c2185b;
+  transform: translateY(-2px);
 }
 
-.swiper-button-prev {
-  left: 15px !important;
+/* Hover Effects */
+.achievement-box-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.swiper-pagination-bullet-active {
-  background: var(--accent) !important;
+.achievement-box-item:hover .box-image img {
+  transform: scale(1.1);
+}
+
+/* Responsiveness */
+@media (max-width: 1200px) {
+  .achievements-boxes-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .featured-achievement {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .featured-title {
+    font-size: 2rem;
+  }
+  .featured-image-side {
+    height: 350px;
+    flex-basis: 100%;
+  }
+  .featured-content-side {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-section-title {
+    font-size: 1.8rem;
+  }
+  .featured-achievement {
+    gap: 2rem;
+  }
+  .achievements-boxes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .featured-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .achievements-boxes-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Large Screens (1440px - 1919px) */
 @media (min-width: 1440px) {
-  .slider-container {
-    max-width: 100%;
-    padding: 0 4rem;
+  .achievements-container {
+    max-width: 1380px; /* Filling more of the 1440px width */
   }
-  
-  .achievement-modern-card {
-    height: 460px;
+  .featured-title {
+    font-size: 3.2rem;
   }
-  
-  .section-header .title {
-    font-size: 2.8rem;
+  .featured-image-side {
+    min-height: 500px;
+  }
+  .box-amount {
+    font-size: 1rem;
   }
 }
 
 /* Extra Large Screens (1920px+) */
 @media (min-width: 1920px) {
-  .slider-container {
-    max-width: 100%;
-    padding: 0 6rem;
+  .achievements-container {
+    max-width: 1800px; /* Significantly filling the 1920px width */
   }
-  
-  .achievement-modern-card {
-    height: 500px;
+  .featured-achievement {
+    gap: 10rem; /* Massive gap for XL screens */
+    margin-bottom: 6rem;
   }
-  
-  .section-header .title {
-    font-size: 3.5rem;
+  .featured-title {
+    font-size: 4rem;
   }
-  
-  .section-header .subtitle {
-    font-size: 1rem;
-    letter-spacing: 4px;
+  .featured-desc {
+    font-size: 1.2rem;
   }
-  
-  .swiper-button-next,
-  .swiper-button-prev {
-    transform: scale(0.8);
+  .featured-image-side {
+    min-height: 650px;
+    flex-basis: 900px; /* Making the image side much wider on XL */
+  }
+  .featured-content-side {
+    flex-basis: 700px;
+  }
+  .box-amount {
+    font-size: 1.2rem;
+  }
+  .box-desc {
+    font-size: 0.9rem;
+  }
+  .box-image {
+    height: 140px;
+  }
+  .main-section-title {
+    font-size: 4rem;
+    letter-spacing: 8px;
+    margin-bottom: 2rem;
+  }
+  .section-header-compact {
+    margin-bottom: 6rem;
+  }
+  .achievements-section {
+    padding: 6rem 4rem 8rem;
   }
 }

@@ -1,25 +1,23 @@
-.timeline-section {
-  padding: 4rem 0.5rem 3rem !important; /* Reduced bottom from 6rem */
-  background: #fdfdfd;
+.landing-timeline-section {
+  padding: 3rem 0 2rem; /* Reduced vertical padding */
+  background: #ffffff;
   font-family: 'Outfit', sans-serif;
   overflow: hidden;
 }
 
-
-.timeline-container {
-  max-width: none !important;
-  width: 100% !important;
+.landing-timeline-container {
+  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
 }
 
-.timeline-header {
+.landing-timeline-header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem; /* Reduced from 2.5rem */
 }
 
-.timeline-header .subtitle {
-  color: var(--accent);
-  /* Pink */
+.landing-timeline-header .subtitle {
+  color: #ff5722; /* Accent color */
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 700;
@@ -27,388 +25,238 @@
   margin-bottom: 0.5rem;
 }
 
-.timeline-header .title {
+.landing-timeline-header .title {
   font-size: 3rem;
   font-weight: 800;
   color: #1a1a1a;
 }
 
-.timeline-header .title span {
-  color: var(--accent);
+.landing-timeline-header .title span {
+  color: #ff5722;
 }
 
-/* Timeline Wrapper for buttons */
 .timeline-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  width: 100% !important;
-}
-
-@media (min-width: 1280px) {
-  .timeline-wrapper {
-    gap: 2rem;
-  }
+  width: 100%;
+  padding: 0 45px; /* Creates a clean gap between arrows and boxes */
+  box-sizing: border-box;
 }
 
 .timeline-scroll-container {
+  display: flex;
   overflow-x: auto;
-  padding: 0 0 3rem 0;
   scrollbar-width: none;
-  /* Firefox */
   -ms-overflow-style: none;
-  /* IE/Edge */
-  flex-grow: 1;
   scroll-behavior: smooth;
+  width: 100%;
 }
 
 .timeline-scroll-container::-webkit-scrollbar {
   display: none;
-  /* Chrome/Safari */
 }
 
-.timeline-flow {
-  display: flex;
-  gap: 1.5rem;
-  padding: 1rem 0.5rem;
+/* Global Fixed Line */
+.timeline-line-fixed {
+  position: absolute;
+  /* Top value calculated to align exactly with the segment line.
+     Image is 180px. timeline-line-segment height is 40px, line is at 50% = 20px.
+     So top: 180px + 20px = 200px. */
+  top: 200px; 
+  left: 45px; 
+  right: 45px;
+  height: 1px;
+  background-color: #dcdcdc; /* Faint grey line */
+  z-index: 1;
+  pointer-events: none; /* Let clicks pass through if any */
 }
 
-@media (min-width: 1280px) {
-  .timeline-flow {
-    gap: 1.5rem;
-  }
+/* Faint arrows on the line ends */
+.line-arrow-left, .line-arrow-right {
+  position: absolute;
+  top: -12px; /* Center text vertically with line */
+  color: #b0b0b0;
+  font-size: 16px;
+  background: #ffffff; /* hide line behind arrow */
+  padding: 0 4px;
 }
 
-@media (min-width: 1536px) {
-  .timeline-flow {
-    gap: 1.5rem;
-  }
+.line-arrow-left {
+  left: 0px;
+}
+
+.line-arrow-right {
+  right: 0px;
 }
 
 .timeline-item {
-  width: 280px;
-  flex-shrink: 0;
+  flex: 0 0 25%; /* exactly 4 items */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  transition: all 0.4s ease;
-}
-
-/* Timeline item width for desktop is handled in the range-specific media query at the bottom */
-
-@media (min-width: 1280px) {
-  .timeline-item {
-    /* 5 items with 1.5rem gap */
-    width: calc((100% - (4 * 1.5rem)) / 5);
-  }
-}
-
-@media (min-width: 1536px) {
-  .timeline-item {
-    /* 5 items with 1.5rem gap */
-    width: calc((100% - (4 * 1.5rem)) / 5);
-  }
-}
-
-.timeline-box {
-  width: 100%;
-  height: 320px; /* Increased from 280px */
-  perspective: 1000px;
-  background: transparent;
-  box-shadow: none;
-  border-bottom: none;
-  position: relative; /* Added */
-}
-
-@media (min-width: 1280px) {
-  .timeline-box {
-    height: 380px; /* Increased from 260px */
-  }
-}
-
-.connector-dot {
-  position: absolute;
-  bottom: -8px; /* Sitting on the bottom edge */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #ddd;
-  transition: all 0.3s ease;
-  z-index: 20;
-  border: 4px solid #fff;
-  box-shadow: 0 0 0 2px #eee;
-}
-
-.timeline-item:hover .connector-dot {
-  background: var(--accent);
-  transform: translateX(-50%) scale(1.4);
-  box-shadow: 0 0 0 4px var(--accent-bg);
-  animation: pulse-dot 2s infinite;
-}
-
-.timeline-box-inner {
   position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
+  padding: 0 1px; /* Minimal gap between images to maximize their width */
+  box-sizing: border-box;
 }
 
-.timeline-item:hover .timeline-box-inner {
-  transform: rotateY(180deg);
-}
-
-.timeline-box-front,
-.timeline-box-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.timeline-box-front {
-  background-color: #ffffff;
-  color: #1a1a1a;
-  border-bottom: 4px solid var(--accent);
-}
-
-.timeline-box-back {
-  background-color: #1a1a1a;
-  color: #ffffff;
-  transform: rotateY(180deg);
-  border-bottom: 4px solid var(--accent);
-}
-
-.timeline-year-header {
-  background: var(--accent);
-  color: white;
-  padding: 0.75rem;
-  font-weight: 800;
-  font-size: 1.1rem;
-  z-index: 2;
-}
-
+/* Image */
 .timeline-img-wrapper {
-  width: 100%;
-  flex-grow: 1;
-  overflow: hidden;
-  position: relative;
+  width: 100%; /* Full width of the padded item container */
+  height: 180px; /* Reduced height gives a wider landscape aspect ratio */
 }
 
 .timeline-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  display: block;
 }
 
-.timeline-item:hover .timeline-card-img {
-  transform: scale(1.1);
-}
-
-.back-year {
-  opacity: 0.9;
-}
-
-.timeline-card-info {
-  margin-top: 1.5rem;
-  text-align: center;
-  padding: 0 1rem;
+/* Line Segment & Marker */
+.timeline-line-segment {
   width: 100%;
+  height: 40px; /* Reduced from 60px to decrease vertical empty space */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.timeline-card-info h4 {
-  font-size: 1.2rem;
+/* Ensure the local line is hidden since we use the fixed global line, 
+   but keep the segment div for vertical spacing and marker centering */
+
+.connector-square {
+  width: 8px;
+  height: 8px;
+  background-color: #ea580c; /* Orange marker */
+  position: relative;
+  z-index: 2;
+}
+
+/* Content */
+.landing-timeline-content {
+  padding: 0 1rem 1rem; /* Reduced from 2rem to decrease vertical empty space */
+  text-align: center;
+}
+
+.landing-timeline-year {
+  color: #ea580c; /* Orange */
   font-weight: 700;
+  font-size: 1.4rem; /* Significantly increased year size */
+  margin-bottom: 0.4rem;
+}
+
+.landing-timeline-title {
   color: #1a1a1a;
+  font-weight: 800;
+  font-size: 0.7rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.landing-timeline-desc {
+  color: #666;
+  font-size: 0.6rem;
   line-height: 1.4;
   margin: 0;
-  transition: color 0.3s ease;
 }
 
-.timeline-item:hover .timeline-card-info h4 {
-  color: var(--accent);
-}
-
-.timeline-back-content {
-  padding: 1.5rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.flip-hint {
-  font-size: 0.7rem;
-  color: #999;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: auto;
-}
-
-.timeline-back-content p {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #eee;
-  margin: 0;
-}
-
-/* Navigation Buttons */
+/* Overlay Navigation buttons */
 .nav-btn {
-  width: 50px;
-  height: 50px;
+  position: absolute;
+  top: 90px; /* Centered vertically over the 180px image */
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  font-size: 0.7rem;
   border-radius: 50%;
-  border: 1px solid #e0e0e0;
-  background: white;
-  color: var(--accent);
-  font-size: 1rem;
+  border: none;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  font-size: 1.2rem;
   cursor: pointer;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  z-index: 10;
-  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
 }
 
 .nav-btn:hover {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-  transform: scale(1.1);
-  box-shadow: 0 6px 15px rgba(233, 30, 99, 0.2);
+  background: white;
+  color: #ff5722;
+  transform: translateY(-50%) scale(1.1);
 }
 
-.nav-btn:active {
-  transform: scale(0.95);
+.nav-btn.left {
+  left: 5px;
 }
 
-/* Connector Section */
-.timeline-connector {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-top: 2rem;
+.nav-btn.right {
+  right: 5px;
 }
 
-.connector-line {
-  width: 2px;
-  height: 40px;
-  background: #eee;
-}
-
-.timeline-item:hover .connector-line {
-  background: var(--accent);
-}
-
-@keyframes pulse-dot {
-  0% {
-    box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.4);
-  }
-
-  70% {
-    box-shadow: 0 0 0 10px rgba(233, 30, 99, 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(233, 30, 99, 0);
-  }
-}
-
-.main-icon {
-  font-size: 3rem;
-  color: var(--accent);
-  margin-bottom: 1.5rem;
-  opacity: 0.1;
-  transition: all 0.5s ease;
-}
-
-.timeline-item:hover .main-icon {
-  opacity: 0.3;
-  transform: scale(1.2) translateY(-10px);
-}
-
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .timeline-section {
-    padding: 4rem 1rem 3.2rem !important;
-  }
-  
-  .timeline-header {
-    margin-bottom: 2rem;
-  }
-
-  .timeline-header .title {
-    font-size: 2.4rem;
-  }
-
+/* Responsive Scaling */
+@media (max-width: 1024px) {
   .timeline-item {
-    /* Maintain 4 items layout with 20% reduced scaling */
-    width: calc((100% - (3 * 1.5rem)) / 4);
-  }
-
-  .timeline-box {
-    height: 260px;
-  }
-
-  .timeline-card-info {
-    margin-top: 1.2rem;
-  }
-
-  .timeline-card-info h4 {
-    font-size: 1.1rem;
-  }
-
-  .timeline-connector {
-    margin-top: 1.6rem;
-  }
-
-  .connector-line {
-    height: 32px;
-  }
-
-  .timeline-scroll-container {
-    padding-bottom: 2.4rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .timeline-section {
-    padding: 6rem 1.5rem 5rem !important;
-  }
-}
-
-@media (min-width: 1536px) {
-  .timeline-section {
-    padding: 7rem 2rem 6rem !important;
+    flex: 0 0 50%; /* 2 items */
   }
 }
 
 @media (max-width: 768px) {
+  .timeline-item {
+    flex: 0 0 100%; /* 1 item */
+  }
   .nav-btn {
-    display: none;
-    /* Use native scroll on mobile for better UX */
+    display: none; /* Hide on mobile */
   }
+}
 
-  .timeline-scroll-container {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+/* Responsive for Large Screens (1440px+) */
+@media (min-width: 1440px) {
+  .timeline-img-wrapper {
+    height: 240px;
   }
+  .timeline-line-fixed {
+    top: 260px; /* 240 + 20 */
+  }
+  .nav-btn {
+    top: 120px;
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  .landing-timeline-year {
+    font-size: 1.6rem;
+  }
+  .landing-timeline-title {
+    font-size: 0.85rem;
+  }
+  .landing-timeline-desc {
+    font-size: 0.75rem;
+  }
+}
 
-  .timeline-header .title {
-    font-size: 2.2rem;
+/* Responsive for Extra Large Screens (1920px+) */
+@media (min-width: 1920px) {
+  .timeline-img-wrapper {
+    height: 320px;
+  }
+  .timeline-line-fixed {
+    top: 340px; /* 320 + 20 */
+  }
+  .nav-btn {
+    top: 160px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+  .landing-timeline-year {
+    font-size: 1.8rem;
+  }
+  .landing-timeline-title {
+    font-size: 1rem;
+  }
+  .landing-timeline-desc {
+    font-size: 0.9rem;
   }
 }

@@ -43,7 +43,7 @@ const GallerySection = () => {
         <div className="marquee-container">
           <motion.div 
             className="marquee-track"
-            animate={{ x: [0, -1500] }}
+            animate={{ x: [0, -1200] }}
             transition={{ 
               x: { repeat: Infinity, duration: 60, ease: 'linear' }
             }}
@@ -63,7 +63,7 @@ const GallerySection = () => {
         <div className="marquee-container row-reverse">
           <motion.div 
             className="marquee-track"
-            animate={{ x: [-1500, 0] }}
+            animate={{ x: [-1200, 0] }}
             transition={{ 
               x: { repeat: Infinity, duration: 55, ease: 'linear' }
             }}

@@ -22,7 +22,7 @@ const TimelineSection = () => {
   const scroll = (direction) => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollAmount = clientWidth; // Scroll by full view width (variable items based on viewport)
+      const scrollAmount = clientWidth; // Scroll by full view width
       const targetScroll = direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount;
       
       scrollRef.current.scrollTo({
@@ -114,57 +114,43 @@ const TimelineSection = () => {
   ];
 
   return (
-    <section className="timeline-section">
-      <div className="timeline-container">
-        <div className="timeline-header">
+    <section className="landing-timeline-section">
+      <div className="landing-timeline-container">
+        <div className="landing-timeline-header">
           <h4 className="subtitle">Milestones</h4>
           <h2 className="title">Telangana <span>Growth Timeline</span></h2>
         </div>
 
         <div className="timeline-wrapper">
+          <div className="timeline-line-fixed">
+            <span className="line-arrow-left">←</span>
+            <span className="line-arrow-right">→</span>
+          </div>
+
+          <div className="timeline-scroll-container" ref={scrollRef}>
+            {timelineData.map((item, index) => (
+              <div className="timeline-item" key={index}>
+                <div className="timeline-img-wrapper">
+                  <img src={item.image} alt={item.title} className="timeline-card-img" />
+                </div>
+                
+                <div className="timeline-line-segment">
+                  <div className="connector-square"></div>
+                </div>
+                
+                <div className="landing-timeline-content">
+                  <div className="landing-timeline-year">{item.year}</div>
+                  <h4 className="landing-timeline-title">{item.title}</h4>
+                  <p className="landing-timeline-desc">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation overlay buttons for easier scrolling on desktop */}
           <button className="nav-btn left" onClick={() => scroll('left')} aria-label="Scroll Left">
             <i className="fas fa-chevron-left"></i>
           </button>
-          
-          <div className="timeline-scroll-container" ref={scrollRef}>
-            <div className="timeline-flow">
-              {timelineData.map((item, index) => (
-                <div className="timeline-item" key={index}>
-                  <div className="timeline-box">
-                    <div className="timeline-box-inner">
-                      {/* Front: Year & Full Image */}
-                      <div className="timeline-box-front">
-                        <div className="timeline-year-header">{item.year}</div>
-                        <div className="timeline-img-wrapper">
-                          <img src={item.image} alt={item.title} className="timeline-card-img" />
-                        </div>
-                      </div>
-                      
-                      {/* Back: Description */}
-                      <div className="timeline-box-back">
-                        <div className="timeline-year-header back-year">{item.year}</div>
-                        <div className="timeline-back-content">
-                          <p>{item.description}</p>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Glowing Dot at the bottom of the box */}
-                    <div className="connector-dot"></div>
-                  </div>
-                  
-                  {/* Outside Info */}
-                  <div className="timeline-card-info">
-                    <h4>{item.title}</h4>
-                  </div>
-
-                  <div className="timeline-connector">
-                    <div className="connector-line"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
           <button className="nav-btn right" onClick={() => scroll('right')} aria-label="Scroll Right">
             <i className="fas fa-chevron-right"></i>
           </button>

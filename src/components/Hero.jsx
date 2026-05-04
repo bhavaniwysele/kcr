@@ -10,12 +10,13 @@ import 'swiper/css/effect-creative';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './Hero.css';
+import BorderGlow from './BorderGlow';
 
 import heroBackground from '../assets/background.png';
 import sliding2Img from '../assets/sliding2_img.png';
 import backgroundSliding2 from '../assets/background_sliding2.png';
-import personCutout from '../assets/landinpage_extended-removebg.png';
-import sliding2Person from '../assets/sliding2_img-removebg-preview.png';
+import personCutout from '../assets/final_landing-removebg-preview.png';
+import sliding2Person from '../assets/slide2_mainimg_final-removebg-preview.png';
 import slide3Person from '../assets/slide3_removebg.png';
 import backgroundSlide3 from '../assets/slide3_bg.jpg';
 
@@ -29,6 +30,7 @@ const Hero = () => {
       subtitle: "Driving growth, welfare, and innovation for every citizen across the state.",
       align: 'left',
       position: 'center 10%',
+      personDuration: 3.5, // Slower person entrance
       overlay: 'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 45%, transparent 90%)' // Lightened Black for Slide 1
     },
     {
@@ -39,7 +41,7 @@ const Hero = () => {
       subtitle: "Committed to inclusive development and the welfare of every community.",
       align: 'left',
       position: 'center 10%',
-      personDuration: 2.5, // Slower person entrance
+      personDuration: 3.5, // Slower person entrance
       subtitleDelay: 1.2,    // Delayed subtitle for better pacing
       overlay: 'linear-gradient(to right, rgba(45, 10, 26, 0.7) 0%, rgba(45, 10, 26, 0.3) 45%, transparent 90%)' // Lightened Pink for Slide 2
     },
@@ -52,7 +54,7 @@ const Hero = () => {
       subtitle: "Transforming lives through bold initiatives and sustainable development programs.",
       align: 'left',
       position: 'center center',
-      personDuration: 2.0,
+      personDuration: 3.5,
       subtitleDelay: 1.0,
       personRight: '8%', // Shifting left to avoid overlapping arrow
       overlay: 'linear-gradient(to right, rgba(93, 26, 51, 0.85) 0%, rgba(93, 26, 51, 0.4) 45%, transparent 90%)' // Transparent gradient to show background image
@@ -192,26 +194,49 @@ const Hero = () => {
                               animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                               transition={{ duration: 1.8, delay: (slide.subtitleDelay || 0.8) + 0.2, ease: [0.22, 1, 0.36, 1] }}
                             >
-                              <Link 
-                                to="/about" 
-                                className="quick-link-card"
+                             <BorderGlow
+                                edgeSensitivity={20}
+                                glowColor="340 100 80"
+                                backgroundColor="rgba(255, 255, 255, 0.15)"
+                                borderRadius={12}
+                                glowRadius={50}
+                                glowIntensity={1.2}
+                                coneSpread={30}
+                                animated={false}
+                                colors={['#ff4d94', '#ff7eb3', '#ff0066']}
+                                className="quick-link-glow-wrapper"
                               >
-                                <div className="card-content">
-                                  <span className="card-tag">Candidate</span>
-                                  <h3 className="card-title">Biography</h3>
-                                  <span className="card-link">Know More</span>
-                                </div>
-                              </Link>
-                              <Link 
-                                to="/achievements" 
-                                className="quick-link-card"
+                                <Link 
+                                  to="/news-media" 
+                                  className="quick-link-card"
+                                >
+                                  <div className="card-content">
+                                    <h3 className="card-title">Our Events <span className="card-arrow">→</span></h3>
+                                  </div>
+                                </Link>
+                              </BorderGlow>
+                              
+                              <BorderGlow
+                                edgeSensitivity={20}
+                                glowColor="340 100 80"
+                                backgroundColor="rgba(255, 255, 255, 0.15)"
+                                borderRadius={12}
+                                glowRadius={50}
+                                glowIntensity={1.2}
+                                coneSpread={30}
+                                animated={false}
+                                colors={['#ff4d94', '#ff7eb3', '#ff0066']}
+                                className="quick-link-glow-wrapper"
                               >
-                                <div className="card-content">
-                                  <span className="card-tag">Program</span>
-                                  <h3 className="card-title">Highlights</h3>
-                                  <span className="card-link">View More</span>
-                                </div>
-                              </Link>
+                                <Link 
+                                  to="/contact" 
+                                  className="quick-link-card"
+                                >
+                                  <div className="card-content">
+                                    <h3 className="card-title">Contact Us <span className="card-arrow">→</span></h3>
+                                  </div>
+                                </Link>
+                              </BorderGlow>
                             </motion.div>
                           </motion.div>
                         )}
