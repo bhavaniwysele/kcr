@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero';
+import ElectionCampaignSection from '../components/ElectionCampaignSection';
 import NewsSection from '../components/NewsSection';
 import AchievementsSlider from '../components/AchievementsSlider';
 import TimelineSection from '../components/TimelineSection';
@@ -25,6 +26,7 @@ const Home = () => {
     <div className="home-page">
       <Hero />
       <AchievementsSlider />
+      <ElectionCampaignSection />
       <NewsSection />
       <TimelineSection />
       <GallerySection />

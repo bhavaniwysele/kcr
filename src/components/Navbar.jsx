@@ -1,34 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../assets/logo_kcr.png';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScroll = window.scrollY;
-      
-      // Navbar sticky state with hysteresis
-      if (!scrolled && currentScroll > 80) {
-        setScrolled(true);
-      } else if (scrolled && currentScroll < 30) {
-        setScrolled(false);
-      }
-
-      // Show Join Us button after passing Hero CTA (~600px)
-      if (currentScroll > 600) {
-        setScrolledPastHero(true);
-      } else {
-        setScrolledPastHero(false);
-      }
+      setScrolled(window.scrollY > 80);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrolled]);
+  }, []);
 
   return (
     <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
