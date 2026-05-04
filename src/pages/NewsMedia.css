@@ -54,6 +54,7 @@
 }
 
 .news-articles-grid {
+  position: relative;
   max-width: 1300px;
   margin: 0 auto;
   display: grid;
@@ -67,12 +68,9 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: transform 0.3s ease;
   border: 1px solid var(--border);
-}
-
-.news-item-card:hover {
-  transform: translateY(-10px);
+  will-change: transform, opacity, filter;
+  transform-origin: center center;
 }
 
 .news-card-img {

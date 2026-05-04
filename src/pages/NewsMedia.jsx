@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './NewsMedia.css';
 
 // Import images
@@ -70,22 +71,42 @@ const NewsMedia = () => {
         ))}
       </section>
 
-      <main className="news-articles-grid">
-        {filteredNews.map(item => (
-          <article key={item.id} className="news-item-card">
-            <img src={item.image} alt={item.title} className="news-card-img" />
-            <div className="news-card-body">
-              <div className="news-meta">
-                <span className="news-category">{item.category}</span>
-                <span className="news-date">{item.date}</span>
+      <motion.main layout className="news-articles-grid">
+        <AnimatePresence mode="popLayout">
+          {filteredNews.map((item, index) => (
+            <motion.article 
+              layout
+              key={item.id} 
+              initial={{ opacity: 0, scale: 0.95, filter: "blur(8px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, scale: 0.95, filter: "blur(8px)" }}
+              whileHover={{ 
+                y: -6, 
+                boxShadow: "0 15px 30px rgba(0,0,0,0.12)",
+                transition: { duration: 0.3, ease: "easeOut", delay: 0 } 
+              }}
+              transition={{
+                duration: 0.5,
+                ease: [0.25, 1, 0.5, 1],
+                delay: index * 0.05,
+                layout: { duration: 0.5, ease: [0.25, 1, 0.5, 1], delay: index * 0.04 }
+              }}
+              className="news-item-card"
+            >
+              <img src={item.image} alt={item.title} className="news-card-img" />
+              <div className="news-card-body">
+                <div className="news-meta">
+                  <span className="news-category">{item.category}</span>
+                  <span className="news-date">{item.date}</span>
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.excerpt}</p>
+                <a href="#" className="read-more-link">Read Full Report →</a>
               </div>
-              <h3>{item.title}</h3>
-              <p>{item.excerpt}</p>
-              <a href="#" className="read-more-link">Read Full Report →</a>
-            </div>
-          </article>
-        ))}
-      </main>
+            </motion.article>
+          ))}
+        </AnimatePresence>
+      </motion.main>
 
       <section className="press-kit-section">
         <h2>Press Resources</h2>
@@ -142,3 +163,4 @@ const NewsMedia = () => {
 };
 
 export default NewsMedia;
+
