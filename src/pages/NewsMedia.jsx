@@ -56,7 +56,6 @@ const NewsMedia = () => {
     <div className="news-media-page">
       <header className="news-media-hero">
         <h1>News & Media</h1>
-        <p>Stay updated with the latest reports, press releases, and media insights.</p>
       </header>
 
       <section className="news-filter-container">

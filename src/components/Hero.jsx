@@ -10,7 +10,6 @@ import 'swiper/css/effect-creative';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './Hero.css';
-import BorderGlow from './BorderGlow';
 
 import heroBackground from '../assets/background.png';
 import sliding2Img from '../assets/sliding2_img.png';
@@ -194,49 +193,19 @@ const Hero = () => {
                               animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
                               transition={{ duration: 1.8, delay: (slide.subtitleDelay || 0.8) + 0.2, ease: [0.22, 1, 0.36, 1] }}
                             >
-                             <BorderGlow
-                                edgeSensitivity={20}
-                                glowColor="340 100 80"
-                                backgroundColor="rgba(255, 255, 255, 0.15)"
-                                borderRadius={12}
-                                glowRadius={50}
-                                glowIntensity={1.2}
-                                coneSpread={30}
-                                animated={false}
-                                colors={['#ff4d94', '#ff7eb3', '#ff0066']}
-                                className="quick-link-glow-wrapper"
-                              >
-                                <Link 
-                                  to="/news-media" 
-                                  className="quick-link-card"
-                                >
-                                  <div className="card-content">
-                                    <h3 className="card-title">Our Events <span className="card-arrow">→</span></h3>
-                                  </div>
-                                </Link>
-                              </BorderGlow>
+                             <Link to="/news-media" className="hero-btn">
+                                <span>Our Events</span>
+                                <svg width="100%" height="100%">
+                                  <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
+                                </svg>
+                              </Link>
                               
-                              <BorderGlow
-                                edgeSensitivity={20}
-                                glowColor="340 100 80"
-                                backgroundColor="rgba(255, 255, 255, 0.15)"
-                                borderRadius={12}
-                                glowRadius={50}
-                                glowIntensity={1.2}
-                                coneSpread={30}
-                                animated={false}
-                                colors={['#ff4d94', '#ff7eb3', '#ff0066']}
-                                className="quick-link-glow-wrapper"
-                              >
-                                <Link 
-                                  to="/contact" 
-                                  className="quick-link-card"
-                                >
-                                  <div className="card-content">
-                                    <h3 className="card-title">Contact Us <span className="card-arrow">→</span></h3>
-                                  </div>
-                                </Link>
-                              </BorderGlow>
+                              <Link to="/contact" className="hero-btn">
+                                <span>Contact Us</span>
+                                <svg width="100%" height="100%">
+                                  <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
+                                </svg>
+                              </Link>
                             </motion.div>
                           </motion.div>
                         )}
