@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useInView } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import './Overview.css';
 
@@ -17,26 +17,14 @@ import politicalImg from '../../assets/overview_main2.jpg';
 import leadershipImg from '../../assets/about_kcr4.jpg';
 import timelineImg from '../../assets/overview.jpg';
 
-const StoryStep = ({ item, onInView }) => {
-  const ref = React.useRef(null);
-  // Using a margin to trigger activation when the card enters the center area of the viewport
-  const isInView = useInView(ref, { 
-    margin: "-30% 0px -30% 0px",
-    amount: 0.2
-  });
-
-  React.useEffect(() => {
-    if (isInView) {
-      onInView();
-    }
-  }, [isInView, onInView]);
-
+const StoryStep = ({ item, onInView, isActive }) => {
   return (
     <motion.div
-      ref={ref}
-      className="story-card-v"
+      className={`story-card-v ${isActive ? 'is-active' : ''}`}
+      onViewportEnter={onInView}
+      viewport={{ amount: 0.55 }}
       initial={{ opacity: 0, x: 50 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0.3, x: 20 }}
+      animate={isActive ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0.55, x: 18, scale: 0.985 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="card-v-img-container">
@@ -51,23 +39,14 @@ const StoryStep = ({ item, onInView }) => {
   );
 };
 
-const ActiveNumber = ({ number, active }) => {
-  return (
-    <motion.div
-      className={`active-number-wrap ${active ? 'is-active' : ''}`}
-      initial={false}
-      animate={active ? { y: 0, opacity: 1, scale: 1.2 } : { y: 20, opacity: 0, scale: 0.8 }}
-      transition={{ duration: 0.4, ease: "backOut" }}
-      style={{ position: active ? 'relative' : 'absolute' }}
-    >
-      <span className="count-number">{number < 10 ? `0${number}` : number}</span>
-    </motion.div>
-  );
-};
-
 const Overview = () => {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
+  const storySectionRef = React.useRef(null);
+  const storyContainerRef = React.useRef(null);
+  const counterColumnRef = React.useRef(null);
+  const [isCounterFixed, setIsCounterFixed] = React.useState(false);
+  const [counterLeft, setCounterLeft] = React.useState(0);
 
   const storyData = [
     {
@@ -101,6 +80,46 @@ const Overview = () => {
       text: "Today, he is recognized as the architect of a new beginning. He remains a father figure to many, guiding with a unique blend of intellectual depth and deep-rooted compassion."
     }
   ];
+  const activeStory = storyData[activeStep] || storyData[0];
+
+  React.useEffect(() => {
+    const topOffset = 130;
+    const counterHeight = 120;
+
+    const updateCounterPosition = () => {
+      if (!storySectionRef.current || !storyContainerRef.current || !counterColumnRef.current) return;
+
+      if (window.innerWidth <= 768) {
+        setIsCounterFixed(false);
+        return;
+      }
+
+      // Bound fixed behavior to the cards container only (prevents overlap with section title).
+      const containerRect = storyContainerRef.current.getBoundingClientRect();
+      const containerTop = window.scrollY + containerRect.top;
+      const containerBottom = containerTop + storyContainerRef.current.offsetHeight;
+      const triggerLine = window.scrollY + topOffset;
+
+      const columnRect = counterColumnRef.current.getBoundingClientRect();
+      setCounterLeft(columnRect.left + (columnRect.width / 2));
+
+      const canFix =
+        triggerLine >= containerTop &&
+        triggerLine + counterHeight <= containerBottom;
+
+      setIsCounterFixed(canFix);
+    };
+
+    updateCounterPosition();
+    window.addEventListener('scroll', updateCounterPosition, { passive: true });
+    window.addEventListener('resize', updateCounterPosition);
+
+    return () => {
+      window.removeEventListener('scroll', updateCounterPosition);
+      window.removeEventListener('resize', updateCounterPosition);
+    };
+  }, []);
+
   return (
     <div className="overview-page">
       {/* Top Banner (Already requested in previous turns) */}
@@ -138,21 +157,31 @@ const Overview = () => {
         </section>
 
         {/* Story Section - Vertical Sticky Scroll Layout */}
-        <section className="story-scroll-section">
+        <section className="story-scroll-section" ref={storySectionRef}>
           <h2 className="grid-main-title">A Life Dedicated to Public Service</h2>
           
-          <div className="story-scroll-container">
+          <div className="story-scroll-container" ref={storyContainerRef}>
             {/* Left Side: Sticky Counter */}
-            <div className="story-counter-sticky">
-              <div className="counter-wrapper">
+            <div className="story-counter-sticky" ref={counterColumnRef}>
+              <div
+                className={`counter-wrapper ${isCounterFixed ? 'counter-fixed' : 'counter-static'}`}
+                style={isCounterFixed ? { left: `${counterLeft}px` } : undefined}
+              >
                 <div className="active-number-display">
-                  {storyData.map((item, index) => (
-                    <ActiveNumber 
-                      key={item.id} 
-                      number={item.id} 
-                      active={activeStep === index} 
-                    />
-                  ))}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeStory.id}
+                      className="active-number-wrap is-active"
+                      initial={{ y: 20, opacity: 0, scale: 0.9 }}
+                      animate={{ y: 0, opacity: 1, scale: 1 }}
+                      exit={{ y: -20, opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.38, ease: "easeOut" }}
+                    >
+                      <span className="count-number">
+                        {activeStory.id < 10 ? `0${activeStory.id}` : activeStory.id}
+                      </span>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               </div>
             </div>
@@ -163,6 +192,7 @@ const Overview = () => {
                 <StoryStep 
                   key={item.id} 
                   item={item} 
+                  isActive={activeStep === index}
                   onInView={() => setActiveStep(index)} 
                 />
               ))}
