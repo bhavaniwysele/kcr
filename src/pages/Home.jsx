@@ -7,6 +7,7 @@ import AchievementsSlider from '../components/AchievementsSlider';
 import TimelineSection from '../components/TimelineSection';
 import GallerySection from '../components/GallerySection';
 import StayConnected from '../components/StayConnected';
+import './Home.css';
 
 const Home = () => {
   const { hash } = useLocation();

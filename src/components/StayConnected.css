@@ -1,5 +1,5 @@
 .stay-connected-section {
-  padding: 3.5rem 5%;
+  padding: 0 5% 3.5rem;
   background: #fdfdfd;
   font-family: 'Outfit', sans-serif;
   color: #333;
@@ -43,12 +43,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
 }
 
 .connected-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  transform: translateY(-8px);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.06),
+    0 20px 48px rgba(184, 10, 66, 0.1);
+  border-color: rgba(184, 10, 66, 0.2);
 }
 
 .card-icon-wrapper {
@@ -61,10 +67,25 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.8rem auto; /* Horizontally center icon */
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease,
+    box-shadow 0.4s ease;
+}
+
+.connected-card:hover .card-icon-wrapper {
+  transform: scale(1.08);
+  background-color: #ffd6e8;
+  box-shadow: 0 8px 22px rgba(184, 10, 66, 0.18);
 }
 
 .card-icon-wrapper svg {
   stroke-width: 2.2;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.connected-card:hover .card-icon-wrapper svg {
+  transform: scale(1.06);
 }
 
 .card-title {
@@ -73,6 +94,13 @@
   color: #b80a42;
   margin-bottom: 0.6rem;
   text-align: left;
+  transition: color 0.35s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: left center;
+}
+
+.connected-card:hover .card-title {
+  color: #9a0838;
+  transform: translateX(3px);
 }
 
 .card-divider {
@@ -81,6 +109,15 @@
   background-color: #f3aebf; /* Soft pink line */
   border-radius: 2px;
   margin-bottom: 1rem;
+  transform-origin: left center;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease;
+}
+
+.connected-card:hover .card-divider {
+  transform: scaleX(1.45);
+  background-color: #e91e63;
 }
 
 .card-desc {
@@ -89,6 +126,39 @@
   line-height: 1.6;
   text-align: left;
   margin: 0;
+  transition: color 0.35s ease;
+}
+
+.connected-card:hover .card-desc {
+  color: #2a2a2a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .connected-card,
+  .card-icon-wrapper,
+  .card-icon-wrapper svg,
+  .card-title,
+  .card-divider,
+  .card-desc {
+    transition-duration: 0.01ms;
+  }
+
+  .connected-card:hover {
+    transform: none;
+  }
+
+  .connected-card:hover .card-icon-wrapper,
+  .connected-card:hover .card-icon-wrapper svg {
+    transform: none;
+  }
+
+  .connected-card:hover .card-title {
+    transform: none;
+  }
+
+  .connected-card:hover .card-divider {
+    transform: none;
+  }
 }
 
 /* Responsive Scaling */
@@ -107,5 +177,122 @@
   }
   .stay-connected-header .subtitle {
     font-size: 0.8rem;
+  }
+}
+
+/* Large viewports only — base “desktop” styles above stay the same below 1440px */
+@media (min-width: 1440px) {
+  .stay-connected-section {
+    padding: 0 5% 4rem;
+  }
+
+  .stay-connected-container {
+    max-width: 1320px;
+  }
+
+  .stay-connected-header {
+    margin-bottom: 3.1rem;
+  }
+
+  .stay-connected-header .title {
+    font-size: 2.4rem;
+  }
+
+  .stay-connected-header .subtitle {
+    font-size: 0.98rem;
+  }
+
+  .stay-connected-grid {
+    gap: 2.35rem;
+  }
+
+  .connected-card {
+    border-radius: 14px;
+    padding: 2.55rem 1.85rem;
+  }
+
+  .card-icon-wrapper {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 2rem;
+  }
+
+  .card-icon-wrapper svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .card-title {
+    font-size: 1.08rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .card-divider {
+    width: 32px;
+    margin-bottom: 1.1rem;
+  }
+
+  .card-desc {
+    font-size: 0.82rem;
+    line-height: 1.65;
+  }
+}
+
+@media (min-width: 1920px) {
+  .stay-connected-section {
+    padding: 0 6% 4.75rem;
+  }
+
+  .stay-connected-container {
+    max-width: 1540px;
+  }
+
+  .stay-connected-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .stay-connected-header .title {
+    font-size: 2.65rem;
+  }
+
+  .stay-connected-header .subtitle {
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .stay-connected-grid {
+    gap: 2.75rem;
+  }
+
+  .connected-card {
+    border-radius: 16px;
+    padding: 2.9rem 2.1rem;
+  }
+
+  .card-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 2.15rem;
+  }
+
+  .card-icon-wrapper svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .card-title {
+    font-size: 1.16rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .card-divider {
+    width: 36px;
+    height: 3px;
+    margin-bottom: 1.15rem;
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    line-height: 1.67;
   }
 }

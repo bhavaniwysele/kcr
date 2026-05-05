@@ -59,15 +59,24 @@ const NewsMedia = () => {
       </header>
 
       <section className="news-filter-container">
-        {categories.map(cat => (
-          <button 
-            key={cat} 
-            className={`filter-btn ${activeFilter === cat ? 'active' : ''}`}
-            onClick={() => setActiveFilter(cat)}
-          >
-            {cat}
-          </button>
-        ))}
+        <div
+          className="news-filter-bar"
+          role="tablist"
+          aria-label="Filter articles by category"
+        >
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              role="tab"
+              aria-selected={activeFilter === cat}
+              className={`filter-btn ${activeFilter === cat ? 'active' : ''}`}
+              onClick={() => setActiveFilter(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
       </section>
 
       <motion.main layout className="news-articles-grid">

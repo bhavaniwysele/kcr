@@ -97,6 +97,9 @@
 }
 
 .hero-subtitle {
+  display: flex;
+  align-items: stretch;
+  gap: 0.75rem;
   font-size: 1.2rem; /* Increased for better legibility */
   line-height: 1.6;
   font-weight: 400;
@@ -104,6 +107,17 @@
   color: rgba(255, 255, 255, 0.9); /* Reverted to white */
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Added shadow for legibility without overlay */
   max-width: none; /* Allow it to span one line */
+}
+
+/* Pink vertical bullet / accent — all hero slides */
+.hero-subtitle::before {
+  content: '';
+  flex: 0 0 4px;
+  width: 4px;
+  margin-inline-start: 0.4rem;
+  background: var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 0 14px rgba(233, 30, 99, 0.35);
 }
 
 .hero-btn {
@@ -158,7 +172,11 @@
   stroke-dashoffset: -640;
 }
 
-/* Swiper Pagination Styles */
+/* Swiper Pagination Styles — shared baseline with nav arrows */
+.hero-swiper .swiper-pagination {
+  bottom: 1.5rem !important;
+}
+
 .hero-swiper .swiper-pagination-bullet {
   background: white !important;
   opacity: 0.5;
@@ -174,12 +192,14 @@
   border-radius: 5px;
 }
 
-/* Swiper Navigation Styles */
+/* Swiper Navigation Styles — align circles with pagination row (same vertical line) */
 .hero-swiper .hero-button-next,
 .hero-swiper .hero-button-prev {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: auto;
+  /* Pagination sits at bottom: 1.5rem; bullet height 10px → center at 5px above that line */
+  bottom: calc(1.5rem + 5px - 22.5px);
+  transform: none;
   color: white !important;
   background: rgba(255, 255, 255, 0.1);
   width: 45px !important; /* Slightly smaller button too */
@@ -217,7 +237,7 @@
 .hero-swiper .hero-button-prev:hover {
   background: var(--accent);
   border-color: var(--accent);
-  transform: translateY(-50%) scale(1.1); /* Preserve translateY */
+  transform: scale(1.1);
 }
 
 .hero-swiper .hero-button-next {
@@ -292,6 +312,25 @@
   .hero-subtitle {
     font-size: 1.1rem;
   }
+
+  .hero-swiper .swiper-pagination {
+    bottom: 1rem !important;
+    padding: 0 3.25rem;
+    box-sizing: border-box;
+  }
+
+  .hero-swiper .hero-button-next,
+  .hero-swiper .hero-button-prev {
+    bottom: calc(1rem + 5px - 22.5px);
+  }
+
+  .hero-swiper .hero-button-next {
+    right: 0.75rem !important;
+  }
+
+  .hero-swiper .hero-button-prev {
+    left: 0.75rem !important;
+  }
 }
 
 /* Inline Quick Links */
@@ -307,5 +346,81 @@
   .hero-quick-links-inline {
     flex-direction: column;
     align-items: center;
+  }
+}
+
+/* Large screens — larger hero copy + CTAs (all slides share these classes) */
+@media (min-width: 1440px) {
+  .hero-container {
+    max-width: 1680px;
+    padding: 0 5rem;
+  }
+
+  .hero-content {
+    max-width: 960px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.65rem, 3.75vw, 3.65rem);
+    margin-bottom: 1.05rem;
+  }
+
+  .hero-title-line {
+    letter-spacing: -1.5px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.4375rem;
+    line-height: 1.65;
+    margin-bottom: 2.1rem;
+  }
+
+  .hero-btn {
+    padding: 1.02rem 3.45rem;
+    font-size: 1.125rem;
+  }
+
+  .hero-quick-links-inline {
+    gap: 1.35rem;
+    max-width: 620px;
+    margin-top: 2.35rem;
+  }
+}
+
+/* Extra-large screens — one more step up, still fluid */
+@media (min-width: 1920px) {
+  .hero-container {
+    max-width: 1880px;
+    padding: 0 6rem;
+  }
+
+  .hero-content {
+    max-width: 1140px;
+  }
+
+  .hero-title {
+    font-size: clamp(3.15rem, 3.35vw, 4.25rem);
+    margin-bottom: 1.15rem;
+  }
+
+  .hero-title-line {
+    letter-spacing: -1.25px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.625rem;
+    line-height: 1.67;
+    margin-bottom: 2.35rem;
+  }
+
+  .hero-btn {
+    padding: 1.15rem 3.9rem;
+    font-size: 1.1875rem;
+  }
+
+  .hero-quick-links-inline {
+    gap: 1.65rem;
+    max-width: 700px;
+    margin-top: 2.65rem;
   }
 }

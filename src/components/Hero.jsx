@@ -78,10 +78,10 @@ const Hero = () => {
           },
         }}
         autoplay={{
-          delay: 6000,
+          delay: 5200,
           disableOnInteraction: false,
         }}
-        pagination={{ clickable: true }}
+        pagination={{ clickable: true, el: '.hero-swiper-pagination' }}
         navigation={{
           nextEl: '.hero-button-next',
           prevEl: '.hero-button-prev',
@@ -217,8 +217,11 @@ const Hero = () => {
             }}
           </SwiperSlide>
         ))}
-        <div className="hero-button-prev"></div>
-        <div className="hero-button-next"></div>
+        <div className="hero-carousel-line" role="group" aria-label="Featured slides">
+          <div className="hero-button-prev" />
+          <div className="hero-swiper-pagination" />
+          <div className="hero-button-next" />
+        </div>
       </Swiper>
     </section>
   );

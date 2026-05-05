@@ -43,7 +43,9 @@ const TimelineSection = () => {
       year: '1970',
       title: 'Political Prelude',
       description: 'Began his political journey as a student leader in the Youth Congress during his college years.',
-      image: img1970
+      image: img1970,
+      /* Source still has baked-in letterboxing; zoom past black bars inside the crop */
+      imageCoverScale: 1.26,
     },
     {
       year: '1975',
@@ -122,16 +124,25 @@ const TimelineSection = () => {
         </div>
 
         <div className="timeline-wrapper">
-          <div className="timeline-line-fixed">
-            <span className="line-arrow-left">←</span>
-            <span className="line-arrow-right">→</span>
-          </div>
+          <div className="timeline-line-fixed" aria-hidden="true" />
 
           <div className="timeline-scroll-container" ref={scrollRef}>
             {timelineData.map((item, index) => (
               <div className="timeline-item" key={index}>
                 <div className="timeline-img-wrapper">
-                  <img src={item.image} alt={item.title} className="timeline-card-img" />
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="timeline-card-img"
+                    style={
+                      item.imageCoverScale
+                        ? {
+                            transform: `scale(${item.imageCoverScale})`,
+                            transformOrigin: 'center center',
+                          }
+                        : undefined
+                    }
+                  />
                 </div>
                 
                 <div className="timeline-line-segment">

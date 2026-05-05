@@ -1,5 +1,5 @@
 .landing-timeline-section {
-  padding: 3rem 0 2rem; /* Reduced vertical padding */
+  padding: 0 0 2rem;
   background: #ffffff;
   font-family: 'Outfit', sans-serif;
   overflow: hidden;
@@ -28,7 +28,7 @@
 .landing-timeline-header .title {
   font-size: 3rem;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--landing-title);
 }
 
 .landing-timeline-header .title span {
@@ -58,34 +58,14 @@
 /* Global Fixed Line */
 .timeline-line-fixed {
   position: absolute;
-  /* Top value calculated to align exactly with the segment line.
-     Image is 180px. timeline-line-segment height is 40px, line is at 50% = 20px.
-     So top: 180px + 20px = 200px. */
-  top: 200px; 
+  /* Top = .timeline-img-wrapper height + half of .timeline-line-segment (40px / 2) */
+  top: 240px;
   left: 45px; 
   right: 45px;
   height: 1px;
   background-color: #dcdcdc; /* Faint grey line */
   z-index: 1;
   pointer-events: none; /* Let clicks pass through if any */
-}
-
-/* Faint arrows on the line ends */
-.line-arrow-left, .line-arrow-right {
-  position: absolute;
-  top: -12px; /* Center text vertically with line */
-  color: #b0b0b0;
-  font-size: 16px;
-  background: #ffffff; /* hide line behind arrow */
-  padding: 0 4px;
-}
-
-.line-arrow-left {
-  left: 0px;
-}
-
-.line-arrow-right {
-  right: 0px;
 }
 
 .timeline-item {
@@ -97,16 +77,20 @@
   box-sizing: border-box;
 }
 
-/* Image */
+/* Image — taller box + top-biased crop keeps faces visible in portrait photos */
 .timeline-img-wrapper {
   width: 100%; /* Full width of the padded item container */
-  height: 180px; /* Reduced height gives a wider landscape aspect ratio */
+  height: 220px;
+  overflow: hidden;
+  border-radius: 4px;
 }
 
 .timeline-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Slight bias up for portraits; letterboxed assets use optional imageCoverScale in data */
+  object-position: center 22%;
   display: block;
 }
 
@@ -145,7 +129,7 @@
 }
 
 .landing-timeline-title {
-  color: #1a1a1a;
+  color: var(--landing-title);
   font-weight: 800;
   font-size: 0.7rem;
   margin-bottom: 0.5rem;
@@ -162,7 +146,7 @@
 /* Overlay Navigation buttons */
 .nav-btn {
   position: absolute;
-  top: 90px; /* Centered vertically over the 180px image */
+  top: 110px; /* Centered vertically over the image area */
   transform: translateY(-50%);
   width: 30px;
   height: 30px;
@@ -214,13 +198,13 @@
 /* Responsive for Large Screens (1440px+) */
 @media (min-width: 1440px) {
   .timeline-img-wrapper {
-    height: 240px;
+    height: 260px;
   }
   .timeline-line-fixed {
-    top: 260px; /* 240 + 20 */
+    top: 280px;
   }
   .nav-btn {
-    top: 120px;
+    top: 130px;
     width: 40px;
     height: 40px;
     font-size: 1rem;
@@ -239,13 +223,13 @@
 /* Responsive for Extra Large Screens (1920px+) */
 @media (min-width: 1920px) {
   .timeline-img-wrapper {
-    height: 320px;
+    height: 300px;
   }
   .timeline-line-fixed {
-    top: 340px; /* 320 + 20 */
+    top: 320px;
   }
   .nav-btn {
-    top: 160px;
+    top: 150px;
     width: 50px;
     height: 50px;
     font-size: 1.2rem;

@@ -23,7 +23,7 @@
 .gallery-header .title {
   font-size: 2.4rem;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--landing-title);
 }
 
 .gallery-header .title span {
