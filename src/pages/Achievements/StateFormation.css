@@ -1,0 +1,517 @@
+.state-formation-hero {
+  width: 100vw;
+  min-height: clamp(260px, 36vw, 490px);
+  height: min(60vh, 490px);
+  margin: 0 0 18px;
+  border-radius: 0;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+  background-size: 108% auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 4vw, 56px);
+}
+
+.state-formation-hero-title {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(2.6rem, 6.4vw, 6rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-align: center;
+  transform: translateX(8%);
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.state-formation-infographic {
+  position: relative;
+  width: min(1800px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 20px 16px 28px;
+  border-radius: 20px;
+  background: #f6f6f6;
+  background-image: radial-gradient(circle at 20% 20%, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 18px 18px;
+  overflow: hidden;
+}
+
+.state-formation-title {
+  margin: 4px 0 8px;
+  text-align: center;
+  font-size: clamp(2.3rem, 3.8vw, 4.4rem);
+  line-height: 1.1;
+  color: #e91e63;
+}
+
+.state-formation-chart-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.state-formation-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 680;
+}
+
+.chart-grid line {
+  stroke: rgba(0, 0, 0, 0.16);
+  stroke-width: 1;
+}
+
+.chart-axis line {
+  stroke: #111;
+  stroke-width: 2.4;
+}
+
+.chart-area {
+  fill: url(#stateFormationBlue);
+  opacity: 0;
+}
+
+.chart-line {
+  fill: none;
+  stroke: #0b2f52;
+  stroke-width: 4;
+  stroke-dasharray: 2200;
+  stroke-dashoffset: 2200;
+}
+
+.chart-labels text {
+  fill: #1d1d1d;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.chart-labels .x-label,
+.chart-labels .y-label {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.chart-markers circle {
+  fill: #0f4f8a;
+  stroke: none;
+  transform-origin: center;
+  transform-box: fill-box;
+  opacity: 0;
+}
+
+.chart-markers circle:nth-child(1) {
+  animation-delay: 0.9s;
+}
+
+.chart-markers circle:nth-child(2) {
+  animation-delay: 1.1s;
+}
+
+.chart-markers circle:nth-child(3) {
+  animation-delay: 1.3s;
+}
+
+.chart-markers circle:nth-child(4) {
+  animation-delay: 1.45s;
+}
+
+.chart-markers circle:nth-child(5) {
+  animation-delay: 1.6s;
+}
+
+.callout {
+  position: absolute;
+  width: clamp(170px, 19vw, 280px);
+  padding: 10px 12px;
+  border: 2px solid #4e6780;
+  border-radius: 14px;
+  background: rgba(250, 250, 250, 0.96);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  transform: translate(-50%, -100%);
+  opacity: 0;
+}
+
+.callout-title {
+  margin: 0;
+  font-size: clamp(0.72rem, 0.82vw, 0.98rem);
+  font-weight: 700;
+  color: #111;
+}
+
+.callout-subtitle {
+  margin: 3px 0 0;
+  font-size: clamp(0.65rem, 0.75vw, 0.9rem);
+  color: #1f1f1f;
+}
+
+.state-formation-chart-wrap .connector {
+  position: absolute;
+  width: 2px;
+  height: var(--connector-h, 28px);
+  left: var(--connector-left, 50%);
+  bottom: calc(-1 * var(--connector-h, 28px));
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #2f5377 !important;
+  box-shadow: none;
+}
+
+.callout-1 {
+  left: 26.3%;
+  top: 59.3%;
+  --connector-h: 33px;
+  --connector-left: 50%;
+  animation-delay: 0.95s;
+}
+
+.callout-2 {
+  left: 46.3%;
+  top: 38%;
+  --connector-h: 37px;
+  --connector-left: 50%;
+  animation-delay: 1.1s;
+}
+
+.callout-3 {
+  left: 56.7%;
+  top: 18.2%;
+  --connector-h: 39px;
+  --connector-left: 50%;
+  animation-delay: 1.25s;
+}
+
+.callout-4 {
+  left: 72.4%;
+  top: 47.8%;
+  --connector-h: 28px;
+  --connector-left: 60%;
+  animation-delay: 1.4s;
+}
+
+.callout-5 {
+  left: 88.6%;
+  top: 39.8%;
+  --connector-h: 74px;
+  --connector-left: 45%;
+  animation-delay: 1.55s;
+}
+
+.state-formation-infographic.animate-graph .chart-line {
+  animation: lineDraw 1.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.state-formation-infographic.animate-graph .chart-area {
+  animation: areaFill 0.75s cubic-bezier(0.22, 1, 0.36, 1) 1.9s forwards;
+}
+
+.state-formation-infographic.animate-graph .chart-markers circle {
+  animation: markerPop 0.45s ease-out forwards;
+}
+
+.state-formation-infographic.animate-graph .callout {
+  animation: calloutPop 0.55s cubic-bezier(0.2, 1.2, 0.2, 1) forwards;
+}
+
+@keyframes areaFill {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes lineDraw {
+  0% {
+    stroke-dashoffset: 2200;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes markerPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes calloutPop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, calc(-100% + 12px)) scale(0.88);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
+  }
+}
+
+.state-formation-quote {
+  margin: 16px auto 0;
+  width: min(1400px, 96%);
+  padding: 14px 16px;
+  border: 2px dashed #666;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  font-size: clamp(1rem, 1.6vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  color: #161616;
+}
+
+.state-formation-flashcards {
+  width: min(1700px, calc(100vw - 40px));
+  margin: 28px auto 20px;
+  padding: 24px 8px 32px;
+}
+
+.flashcards-stage {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 64px;
+  align-items: center;
+  gap: 16px;
+}
+
+.flash-nav {
+  width: 52px;
+  height: 52px;
+  border: 1px solid #d8dbe3;
+  border-radius: 999px;
+  background: #fff;
+  color: #4e5d75;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.flash-nav:hover {
+  transform: scale(1.06);
+  background-color: #f1f4fb;
+}
+
+.flashcards-track {
+  position: relative;
+  height: clamp(360px, 40vw, 480px);
+  overflow: hidden;
+}
+
+.flashcard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(760px, 74%);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 20px 45px rgba(20, 34, 68, 0.18);
+  overflow: hidden;
+  transform: translate(-50%, -50%) scale(0.85);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease, box-shadow 0.45s ease;
+}
+
+.flashcard-image-wrap {
+  width: 100%;
+  height: clamp(220px, 28vw, 300px);
+  overflow: hidden;
+}
+
+.flashcard-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flashcard-content {
+  position: relative;
+  padding: 14px 18px 16px;
+  background: #fff;
+}
+
+.flashcard-title {
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 1.9rem);
+  font-weight: 700;
+  color: #181c26;
+}
+
+.flashcard-description {
+  margin: 8px 0 0;
+  font-size: clamp(0.82rem, 1.1vw, 1rem);
+  color: #5b6170;
+  line-height: 1.45;
+  max-width: 90%;
+}
+
+.flashcard-count {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: rgba(26, 35, 57, 0.35);
+}
+
+.flashcard.is-active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.flashcard.is-prev {
+  transform: translate(calc(-50% - 46%), -50%) scale(0.78);
+  opacity: 0.68;
+  z-index: 2;
+}
+
+.flashcard.is-next {
+  transform: translate(calc(-50% + 46%), -50%) scale(0.78);
+  opacity: 0.68;
+  z-index: 2;
+}
+
+.flashcard.is-hidden {
+  transform: translate(-50%, -50%) scale(0.7);
+  opacity: 0;
+  z-index: 1;
+}
+
+@media (max-width: 1200px) {
+  .state-formation-infographic {
+    width: calc(100vw - 24px);
+    padding: 16px 10px 20px;
+  }
+
+  .chart-labels text {
+    font-size: 24px;
+  }
+
+  .chart-labels .x-label,
+  .chart-labels .y-label {
+    font-size: 24px;
+  }
+
+  .flashcards-stage {
+    grid-template-columns: 54px minmax(0, 1fr) 54px;
+    gap: 8px;
+  }
+
+  .flashcard {
+    width: min(690px, 80%);
+  }
+
+  .flashcard.is-prev {
+    transform: translate(calc(-50% - 42%), -50%) scale(0.76);
+  }
+
+  .flashcard.is-next {
+    transform: translate(calc(-50% + 42%), -50%) scale(0.76);
+  }
+}
+
+@media (max-width: 900px) {
+  .state-formation-hero {
+    min-height: clamp(200px, 44vw, 280px);
+    height: min(42vh, 280px);
+    justify-content: center;
+    align-items: flex-end;
+    padding: 20px 16px;
+    background-position: 22% 38%;
+    background-size: 130% auto;
+  }
+
+  .state-formation-hero-title {
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    text-align: center;
+    transform: translateX(0);
+  }
+
+  .state-formation-flashcards {
+    width: calc(100vw - 20px);
+    margin-top: 18px;
+    padding: 10px 0 24px;
+  }
+
+  .flashcards-stage {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .flash-nav {
+    display: none;
+  }
+
+  .flashcards-track {
+    height: 380px;
+  }
+
+  .flashcard {
+    width: min(460px, 95%);
+  }
+
+  .flashcard.is-prev,
+  .flashcard.is-next,
+  .flashcard.is-hidden {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  .callout {
+    width: clamp(140px, 28vw, 200px);
+    padding: 7px 8px;
+    border-radius: 10px;
+  }
+
+  .callout-title {
+    font-size: 0.62rem;
+  }
+
+  .callout-subtitle {
+    display: none;
+  }
+
+  .state-formation-chart-wrap .connector {
+    height: var(--connector-h, 28px);
+    bottom: calc(-1 * var(--connector-h, 28px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chart-area,
+  .chart-line,
+  .chart-markers circle,
+  .callout {
+    animation: none !important;
+  }
+
+  .chart-area {
+    opacity: 1;
+  }
+
+  .chart-line {
+    stroke-dashoffset: 0;
+  }
+
+  .chart-markers circle {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .callout {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
+  }
+}

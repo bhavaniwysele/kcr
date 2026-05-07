@@ -3,6 +3,7 @@
   background: #ffffff;
   padding: 0 0 4rem;
   overflow-x: hidden;
+  font-family: var(--font-body);
 }
 
 .campaign-banner {
@@ -57,7 +58,7 @@
   position: relative;
   z-index: 2;
   max-width: 620px;
-  padding: 2.5rem 2rem;
+  padding: 2.2rem 2rem;
   color: #fff;
 }
 
@@ -65,12 +66,12 @@
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  margin: 0 0 1.2rem;
+  margin: 0 0 0.9rem;
   padding: 0.52rem 1.1rem;
   border: 2px solid #f02f98;
   border-radius: 999px;
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: var(--content-size-dense);
+  font-weight: 500;
   letter-spacing: 0.2px;
   color: #ffffff;
   background: rgba(17, 7, 28, 0.55);
@@ -126,19 +127,24 @@
 
 .campaign-title {
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3.7rem);
+  font-size: clamp(2.4rem, 3.8vw, 3.2rem);
+  font-family: var(--font-body) !important;
   line-height: 1.08;
-  font-weight: 800;
+  font-weight: 500;
   color: #ffffff;
 }
 
 .campaign-title span {
   color: #ff4da2;
+  font-family: var(--font-title) !important;
+  font-weight: 400;
 }
 
 .campaign-subtitle {
-  margin: 1rem 0 1.7rem;
-  font-size: 1.05rem;
+  margin: 0.75rem 0 1.25rem;
+  font-size: clamp(1rem, 1.15vw, 1.12rem);
+  font-family: var(--font-subtitle);
+  font-weight: 400;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.92);
 }
@@ -148,7 +154,7 @@
   align-items: stretch;
   flex-wrap: wrap;
   gap: 0.8rem;
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.25rem;
 }
 
 .countdown-item {
@@ -165,12 +171,12 @@
   margin: 0;
   color: #ff4da2;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .countdown-label {
   margin: 0.2rem 0 0;
-  font-size: 0.9rem;
+  font-size: var(--content-size);
   color: rgba(255, 255, 255, 0.84);
 }
 
@@ -178,8 +184,8 @@
   border: none;
   background: #ff2f92;
   color: #fff;
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: var(--content-size);
+  font-weight: 500;
   padding: 0.85rem 1.4rem;
   border-radius: 8px;
   cursor: pointer;
@@ -226,14 +232,17 @@
 
 .campaign-card h3 {
   margin: 0 0 0.8rem;
-  font-size: 1.25rem;
-  color: #1d2148;
+  font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+  font-family: var(--font-subtitle);
+  font-weight: 500;
+  color: #000;
 }
 
 .campaign-card p {
   margin: 0 0 1rem;
   color: #5e6282;
   font-size: 0.9rem;
+  font-weight: 300;
   line-height: 1.5;
   min-height: 70px;
 }
@@ -242,8 +251,8 @@
   border: none;
   background: #ff2f92;
   color: #fff;
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: var(--content-size-dense);
+  font-weight: 500;
   padding: 0.62rem 0.9rem;
   border-radius: 8px;
   cursor: pointer;

@@ -1,7 +1,7 @@
 .landing-timeline-section {
   padding: 0 0 2rem;
   background: #ffffff;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-body);
   overflow: hidden;
 }
 
@@ -20,19 +20,23 @@
   color: #ff5722; /* Accent color */
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-weight: 700;
-  font-size: 0.85rem;
+  font-family: var(--font-subtitle);
+  font-weight: 400;
+  font-size: var(--subtitle-size);
   margin-bottom: 0.5rem;
 }
 
 .landing-timeline-header .title {
-  font-size: 3rem;
-  font-weight: 800;
+  font-size: clamp(2.7rem, 4.2vw, 3.4rem);
+  font-family: var(--font-body) !important;
+  font-weight: 500;
   color: var(--landing-title);
 }
 
 .landing-timeline-header .title span {
   color: #ff5722;
+  font-family: var(--font-title) !important;
+  font-weight: 400;
 }
 
 .timeline-wrapper {
@@ -123,22 +127,24 @@
 
 .landing-timeline-year {
   color: #ea580c; /* Orange */
-  font-weight: 700;
+  font-weight: 500;
   font-size: 1.4rem; /* Significantly increased year size */
   margin-bottom: 0.4rem;
 }
 
 .landing-timeline-title {
   color: var(--landing-title);
-  font-weight: 800;
-  font-size: 0.7rem;
+  font-family: var(--font-subtitle);
+  font-weight: 500;
+  font-size: 1.05rem;
   margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
 
 .landing-timeline-desc {
   color: #666;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 300;
   line-height: 1.4;
   margin: 0;
 }
@@ -213,10 +219,10 @@
     font-size: 1.6rem;
   }
   .landing-timeline-title {
-    font-size: 0.85rem;
+    font-size: 1.1rem;
   }
   .landing-timeline-desc {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
   }
 }
 
@@ -238,9 +244,9 @@
     font-size: 1.8rem;
   }
   .landing-timeline-title {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   .landing-timeline-desc {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
   }
 }

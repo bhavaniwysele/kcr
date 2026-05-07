@@ -1,6 +1,4 @@
 /* Premium Editorial Styles for Economic Development */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
-
 :root {
     --telangana-pink: #ff007f;
     --dark-pink: #d1006a;
@@ -12,7 +10,7 @@
 .editorial-layout {
     background-color: var(--bg-light);
     color: #111;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-body);
     overflow-x: hidden;
 }
 

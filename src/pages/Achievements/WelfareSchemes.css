@@ -1,7 +1,7 @@
 .welfare-page {
   background-color: #fffbfc;
   padding: 40px 5%;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
 }
 
 .welfare-container {

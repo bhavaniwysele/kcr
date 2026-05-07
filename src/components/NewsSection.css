@@ -1,7 +1,7 @@
 .news-section {
   padding: 0 2rem 3.5rem;
   background: #ffffff;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-body);
 }
 
 .news-container {
@@ -15,8 +15,9 @@
 }
 
 .news-header .title {
-  font-size: 3rem;
-  font-weight: 800;
+  font-size: clamp(2.7rem, 4.2vw, 3.4rem);
+  font-family: var(--font-title);
+  font-weight: 400;
   color: var(--landing-title);
   margin: 0;
 }
@@ -72,8 +73,8 @@
   color: white;
   padding: 4px 10px;
   border-radius: 3px;
-  font-size: 0.65rem;
-  font-weight: 700;
+  font-size: var(--content-size-dense);
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -86,8 +87,9 @@
 }
 
 .news-card h3 {
-  font-size: 0.95rem;
-  font-weight: 800;
+  font-size: var(--subtitle-size);
+  font-family: var(--font-subtitle);
+  font-weight: 500;
   color: var(--landing-title);
   line-height: 1.35;
   margin: 0 0 0.75rem 0;
@@ -101,7 +103,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: var(--content-size-dense);
   color: #fff;
   margin-top: auto;
   padding: 0.85rem 1.25rem;
@@ -129,14 +131,17 @@
 }
 
 .news-card.featured h3 {
-  font-size: 1.3rem;
+  font-size: var(--title-size);
+  font-family: var(--font-title);
+  font-weight: 400;
   margin-bottom: 0.75rem;
   -webkit-line-clamp: 3;
 }
 
 .news-card.featured .excerpt {
   color: #555;
-  font-size: 0.9rem;
+  font-size: var(--content-size);
+  font-weight: 300;
   line-height: 1.5;
   margin-bottom: 1rem;
   display: -webkit-box;
@@ -201,10 +206,6 @@
 }
 
 @media (max-width: 768px) {
-  .news-header .title {
-    font-size: 1.8rem;
-  }
-
   .news-grid {
     grid-template-columns: 1fr;
   }
@@ -234,9 +235,6 @@
     height: 190px;
   }
   
-  .news-header .title {
-    font-size: 3.5rem;
-  }
 }
 
 /* Extra Large Screens (1920px+) */
@@ -249,10 +247,6 @@
   .news-grid {
     gap: 2.5rem;
     grid-template-columns: 1fr 1.8fr 1fr;
-  }
-  
-  .news-header .title {
-    font-size: 4rem;
   }
   
   .news-card.featured .card-image img {

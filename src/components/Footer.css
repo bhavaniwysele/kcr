@@ -30,7 +30,8 @@
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  font-weight: 700;
+  font-family: var(--font-title);
+  font-weight: 400;
   font-size: 1.5rem;
   color: var(--text-h);
 }
@@ -41,7 +42,8 @@
 }
 
 .footer-description {
-  font-size: 1rem;
+  font-size: var(--content-size);
+  font-weight: 300;
   line-height: 1.6;
   max-width: 400px;
   color: var(--text);
@@ -83,8 +85,9 @@
 
 .footer-column h4 {
   color: var(--text-h);
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-family: var(--font-subtitle);
+  font-size: var(--subtitle-size);
+  font-weight: 500;
   margin-bottom: 1.5rem;
   position: relative;
 }
@@ -111,7 +114,8 @@
 .footer-column ul li a {
   text-decoration: none;
   color: var(--text);
-  font-size: 0.95rem;
+  font-size: var(--content-size);
+  font-weight: 300;
   transition: all 0.2s ease;
   display: inline-block;
 }
@@ -141,7 +145,8 @@
 }
 
 .footer-bottom p {
-  font-size: 0.9rem;
+  font-size: var(--content-size);
+  font-weight: 300;
   margin: 0;
 }
 
@@ -153,7 +158,8 @@
 .footer-bottom-links a {
   text-decoration: none;
   color: var(--text);
-  font-size: 0.9rem;
+  font-size: var(--content-size);
+  font-weight: 300;
   transition: color 0.2s ease;
 }
 

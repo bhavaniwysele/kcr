@@ -13,10 +13,10 @@ import culture from '../assets/cultureNheritage.jpg';
 
 const achievements = [
   {
-    title: "State Formation & Leadership",
-    description: "Leading the historic movement for Telangana statehood and visionary governance.",
+    title: "",
+    description: "",
     image: health, // Using health image for now as a placeholder for statehood if specific one doesn't exist
-    slug: "statehood-leadership"
+    slug: ""
   },
   {
     title: "Irrigation & Infrastructure",
@@ -141,9 +141,11 @@ const AchievementsSlider = () => {
               <div className="box-content">
                 <h3 className="box-amount">{item.title}</h3>
                 <p className="box-desc">{item.description}</p>
-                <Link to={`/achievements/${item.slug}`} className="box-cta">
-                  KNOW MORE <span>→</span>
-                </Link>
+                {item.slug && (
+                  <Link to={`/achievements/${item.slug}`} className="box-cta">
+                    KNOW MORE <span>→</span>
+                  </Link>
+                )}
               </div>
             </motion.div>
           ))}

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -14,8 +16,16 @@
   /* Landing / card titles: softer than near-black (#1a1a1a) for even weight */
   --landing-title: #393939;
 
-  --sans: 'Outfit', system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: 'Outfit', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-title: 'DM Serif Text', Georgia, serif;
+  --font-subtitle: 'IBM Plex Serif', Georgia, serif;
+  --font-body: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-weight-title: 400;
+  --font-weight-subtitle: 400;
+  --font-weight-body: 300;
+  --font-weight-body-strong: 500;
+
+  --sans: var(--font-body);
+  --heading: var(--font-title);
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -85,7 +95,7 @@ html {
 h1,
 h2 {
   font-family: var(--heading);
-  font-weight: 500;
+  font-weight: 400;
   color: var(--text-h);
 }
 
@@ -109,6 +119,91 @@ h2 {
 }
 p {
   margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  line-height: 1.6;
+}
+
+/* Global typography mapping (family + weight only; sizes stay component-specific) */
+.subtitle,
+.section-subtitle,
+.hero-subtitle,
+.campaign-subtitle,
+[class*='subtitle'],
+[class*='eyebrow'],
+[class*='intro'],
+[class*='heading'],
+[class*='tag'],
+[class*='label'] {
+  font-family: var(--font-subtitle) !important;
+  font-weight: var(--font-weight-subtitle) !important;
+}
+
+p,
+li,
+label,
+input,
+textarea,
+select,
+small,
+time,
+span,
+.desc,
+.description,
+.content,
+.excerpt,
+.meta,
+[class*='text'],
+[class*='desc'],
+[class*='content'],
+[class*='meta'] {
+  font-family: var(--font-body) !important;
+  font-weight: var(--font-weight-body) !important;
+}
+
+a,
+button,
+.btn,
+[class*='btn'],
+[class*='button'],
+.nav-link,
+[class*='cta'],
+strong,
+b,
+.badge {
+  font-family: var(--font-body) !important;
+  font-weight: var(--font-weight-body-strong) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.title,
+.section-title,
+.main-section-title,
+.hero-title,
+[class*='title'] {
+  font-family: var(--font-title) !important;
+  font-weight: var(--font-weight-title) !important;
+}
+
+/* Utility typography roles for explicit component-level adoption */
+.typo-title {
+  font-family: var(--font-title) !important;
+  font-weight: var(--font-weight-title) !important;
+}
+
+.typo-subtitle {
+  font-family: var(--font-subtitle) !important;
+  font-weight: var(--font-weight-subtitle) !important;
+}
+
+.typo-content {
+  font-family: var(--font-body) !important;
+  font-weight: var(--font-weight-body) !important;
 }
 
 code,

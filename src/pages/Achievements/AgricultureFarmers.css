@@ -1,7 +1,7 @@
 .agriculture-page {
   background-color: #ffffff;
   color: #111111;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
 }
 
 /* Hero Section */

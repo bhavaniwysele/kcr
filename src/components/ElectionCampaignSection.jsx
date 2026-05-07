@@ -90,10 +90,6 @@ const ElectionCampaignSection = () => {
               </div>
             ))}
           </div>
-
-          <button type="button" className="campaign-cta">
-            Vote for BRS
-          </button>
         </div>
       </div>
 

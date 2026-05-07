@@ -9,7 +9,7 @@
 }
 
 .political-career-new {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   color: var(--dark-text);
   background: var(--bg-light);
   overflow-x: hidden;

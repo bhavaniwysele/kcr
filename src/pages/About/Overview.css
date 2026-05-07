@@ -1,8 +1,6 @@
 /* Narrative Overview - Custom Styles */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
-
 .overview-page {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-body);
   background-color: #ffffff;
   color: #000000;
 }
@@ -224,7 +222,7 @@
   font-weight: 900;
   color: #e91e63;
   text-shadow: 0 10px 40px rgba(233, 30, 99, 0.2);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-body);
 }
 
 /* Right: Scrolling Cards */

@@ -5,7 +5,7 @@
   overflow: hidden;
   display: block;
   color: white;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-body);
   background-color: #2d0a1a; /* Deep plum/pink background */
 }
 
@@ -73,9 +73,10 @@
 }
 
 .hero-title {
-  font-size: clamp(1.5rem, 2.8vw, 2.4rem); /* More reduction as requested */
+  font-size: clamp(3rem, 4.8vw, 4.8rem);
+  font-family: var(--font-title);
   line-height: 1.1; /* Slightly more space for better readability at smaller size */
-  font-weight: 800;
+  font-weight: 400;
   margin: 0 0 0.75rem 0;
   text-transform: uppercase;
   color: #ffffff !important; /* Reverted to white */
@@ -100,7 +101,8 @@
   display: flex;
   align-items: stretch;
   gap: 0.75rem;
-  font-size: 1.2rem; /* Increased for better legibility */
+  font-size: var(--subtitle-size);
+  font-family: var(--font-subtitle);
   line-height: 1.6;
   font-weight: 400;
   margin-bottom: 1.75rem; /* Reduced margin to button */
@@ -130,8 +132,8 @@
   color: var(--accent);
   text-decoration: none;
   padding: 0.8rem 2.8rem;
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: var(--content-size);
+  font-weight: 500;
   border-radius: 50px;
   transition: all 0.6s ease-in-out, transform 0.2s ease;
   border: 1px solid rgba(233, 30, 99, 0.2);
@@ -222,7 +224,7 @@
   display: block;
   font-size: 1rem !important; /* Smaller arrow */
   font-weight: 400;
-  font-family: serif !important;
+  font-family: var(--font-body) !important;
 }
 
 .hero-button-prev:after {
@@ -284,7 +286,6 @@
   }
   
   .hero-title {
-    font-size: 3rem;
     align-items: center; /* Ensure lines center on mobile */
   }
 
@@ -309,10 +310,6 @@
     background: rgba(0, 0, 0, 0.6); /* Even darker for mobile center text */
   }
   
-  .hero-subtitle {
-    font-size: 1.1rem;
-  }
-
   .hero-swiper .swiper-pagination {
     bottom: 1rem !important;
     padding: 0 3.25rem;
@@ -361,7 +358,6 @@
   }
 
   .hero-title {
-    font-size: clamp(2.65rem, 3.75vw, 3.65rem);
     margin-bottom: 1.05rem;
   }
 
@@ -370,7 +366,6 @@
   }
 
   .hero-subtitle {
-    font-size: 1.4375rem;
     line-height: 1.65;
     margin-bottom: 2.1rem;
   }
@@ -399,7 +394,6 @@
   }
 
   .hero-title {
-    font-size: clamp(3.15rem, 3.35vw, 4.25rem);
     margin-bottom: 1.15rem;
   }
 
@@ -408,7 +402,6 @@
   }
 
   .hero-subtitle {
-    font-size: 1.625rem;
     line-height: 1.67;
     margin-bottom: 2.35rem;
   }

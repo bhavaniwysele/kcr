@@ -20,6 +20,7 @@ import AgricultureFarmers from './pages/Achievements/AgricultureFarmers';
 import WelfareSchemes from './pages/Achievements/WelfareSchemes';
 import EconomicDevelopment from './pages/Achievements/EconomicDevelopment';
 import CulturalRevival from './pages/Achievements/CulturalRevival';
+import StateFormation from './pages/Achievements/StateFormation';
 import './App.css';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
             <Route path="/achievements/welfare" element={<WelfareSchemes />} />
             <Route path="/achievements/economic" element={<EconomicDevelopment />} />
             <Route path="/achievements/culture" element={<CulturalRevival />} />
+            <Route path="/achievements/state-formation" element={<StateFormation />} />
             {/* Catch-all for achievements */}
             <Route path="/achievements/:category" element={<Navigate to="/achievements/irrigation" replace />} />
             <Route path="/schemes" element={<Navigate to="/schemes/rythu-bandhu" replace />} />
