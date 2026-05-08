@@ -45,9 +45,56 @@ const StateFormation = () => {
     }
   ];
 
+  const timelineCards = [
+    {
+      year: '2001',
+      title: 'Formation of TRS',
+      description:
+        'The Telangana Rashtra Samithi (TRS) was founded with the goal of achieving a separate Telangana state and representing regional aspirations.',
+      accentClass: 'timeline-card-lime'
+    },
+    {
+      year: '2004',
+      title: 'Movement Gains Momentum',
+      description:
+        'Public support for Telangana statehood grew rapidly through rallies, student movements, and widespread regional participation.',
+      accentClass: 'timeline-card-blue'
+    },
+    {
+      year: '2009',
+      title: 'Historic Hunger Strike',
+      description:
+        'A fast-unto-death protest brought national attention to the Telangana movement and intensified the demand for statehood.',
+      accentClass: 'timeline-card-cyan'
+    },
+    {
+      year: '2013',
+      title: 'Statehood Approval',
+      description:
+        'The proposal for Telangana state formation received official approval, marking a major turning point in the movement’s history.',
+      accentClass: 'timeline-card-lime'
+    },
+    {
+      year: '2014',
+      title: 'Birth of Telangana',
+      description:
+        'On June 2, 2014, Telangana officially became India’s 29th state, fulfilling decades of aspiration and public struggle.',
+      accentClass: 'timeline-card-blue'
+    },
+    {
+      year: '2014+',
+      title: 'Building the New State',
+      description:
+        'Focused on governance reforms, infrastructure development, irrigation projects, and welfare-driven progress for Telangana.',
+      accentClass: 'timeline-card-cyan'
+    }
+  ];
+
   const [activeCard, setActiveCard] = useState(0);
   const [graphAnimated, setGraphAnimated] = useState(false);
+  const [timelineAnimated, setTimelineAnimated] = useState(false);
   const infographicRef = useRef(null);
+  const timelineRef = useRef(null);
 
   useEffect(() => {
     const section = infographicRef.current;
@@ -61,6 +108,25 @@ const StateFormation = () => {
         }
       },
       { threshold: 0.35 }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const section = timelineRef.current;
+    if (!section) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimelineAnimated(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
     );
 
     observer.observe(section);
@@ -94,7 +160,12 @@ const StateFormation = () => {
         style={{ backgroundImage: `url(${stateFormationHero})` }}
         aria-label="State Formation hero"
       >
-        <h1 className="state-formation-hero-title">State Formation</h1>
+        <div className="state-formation-hero-content">
+          <h1 className="state-formation-hero-title">The Formation of Telangana</h1>
+          <p className="state-formation-hero-subtitle">
+            A defining journey of resilience, identity, and the creation of a new state.
+          </p>
+        </div>
       </section>
 
       <section className="state-formation-flashcards" aria-label="State formation flashcards">
@@ -121,6 +192,31 @@ const StateFormation = () => {
           <button type="button" className="flash-nav flash-nav-right" onClick={showNextCard} aria-label="Next card">
             &#8594;
           </button>
+        </div>
+      </section>
+
+      <section
+        ref={timelineRef}
+        className={`state-formation-timeline-cards ${timelineAnimated ? 'animate-timeline-cards' : ''}`}
+        aria-label="State formation timeline cards"
+      >
+        <div className="timeline-cards-grid">
+          {timelineCards.map((card, index) => (
+            <article
+              key={`${card.year}-${card.title}`}
+              className={`timeline-card ${card.accentClass} ${index < 3 ? 'timeline-enter-right' : 'timeline-enter-left'}`}
+              style={{ '--timeline-delay': `${index * 0.16}s` }}
+              tabIndex={0}
+            >
+              <div className="timeline-card-plate" aria-hidden="true" />
+              <div className="timeline-card-front">
+                <p className="timeline-step-label">YEAR</p>
+                <p className="timeline-step-number">{card.year}</p>
+                <h3 className="timeline-card-title">{card.title}</h3>
+                <p className="timeline-card-description">{card.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 

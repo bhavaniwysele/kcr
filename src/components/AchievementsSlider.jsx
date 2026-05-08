@@ -13,10 +13,10 @@ import culture from '../assets/cultureNheritage.jpg';
 
 const achievements = [
   {
-    title: "",
-    description: "",
+    title: "Empowering Women",
+    description: "Focused on improving the lives of women through welfare support, healthcare assistance, and inclusive development initiatives.",
     image: health, // Using health image for now as a placeholder for statehood if specific one doesn't exist
-    slug: ""
+    slug: "welfare"
   },
   {
     title: "Irrigation & Infrastructure",
