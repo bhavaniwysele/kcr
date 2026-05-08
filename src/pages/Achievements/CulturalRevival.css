@@ -1,0 +1,741 @@
+.cultural-revival-page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.cultural-revival-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 85vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: clamp(90px, 10vh, 120px) 20px clamp(42px, 6vh, 70px);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.cultural-revival-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.62) 46%, rgba(255, 255, 255, 0.76) 100%);
+  z-index: -1;
+}
+
+.cultural-revival-hero-title {
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  max-width: 980px;
+  font-size: clamp(2.4rem, 8vw, 6rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #1a1e4f;
+  line-height: 1.06;
+}
+
+.hero-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(0) scaleX(0.22);
+  transform-origin: center center;
+  filter: blur(4px);
+  will-change: transform, opacity, filter;
+  animation: center-open-letter 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--letter-delay) + 0.08s);
+}
+
+.hero-letter-space {
+  width: 0.36em;
+}
+
+.cultural-revival-hero-subtitle {
+  margin: 24px 0 0;
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  line-height: 1.6;
+  color: #343852;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: subtitle-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 1.4s;
+}
+
+@keyframes center-open-letter {
+  0% {
+    opacity: 0;
+    transform: translateX(0) scaleX(0.22);
+    filter: blur(4px);
+  }
+  35% {
+    opacity: 0.7;
+    transform: translateX(0) scaleX(0.66);
+    filter: blur(1.5px);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1.02);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes subtitle-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cultural-revival-identity {
+  padding: 60px 20px 64px;
+  background: #fff;
+}
+
+.identity-layout {
+  width: min(1160px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(280px, 42%) minmax(480px, 58%);
+  gap: 22px;
+  align-items: start;
+}
+
+.identity-left-panel {
+  padding-top: 8px;
+}
+
+.identity-tag {
+  margin: 0;
+  color: #cb2d76;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.identity-title {
+  margin: 16px 0 0;
+  font-size: clamp(1.75rem, 4vw, 3.2rem);
+  line-height: 1.08;
+  font-weight: 700;
+  color: #111827;
+}
+
+.identity-description {
+  margin: 16px 0 0;
+  max-width: 470px;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #50556d;
+}
+
+.identity-right-panel {
+  position: relative;
+  padding-left: 0;
+}
+
+.identity-timeline-line {
+  position: absolute;
+  left: 27px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(203, 45, 118, 0.08) 0%, rgba(203, 45, 118, 0.2) 20%, rgba(203, 45, 118, 0.2) 80%, rgba(203, 45, 118, 0.08) 100%);
+}
+
+.identity-timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 30px;
+  align-items: start;
+  padding-left: 0;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.identity-timeline-item + .identity-timeline-item {
+  margin-top: 22px;
+}
+
+.identity-icon-wrap {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 1px solid rgba(203, 45, 118, 0.2);
+  background: #fff8fb;
+  box-shadow: 0 8px 18px rgba(203, 45, 118, 0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.identity-icon {
+  color: #cb2d76;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.identity-item-content h3 {
+  margin: 4px 0 8px;
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  line-height: 1.22;
+  color: #cb2d76;
+}
+
+.identity-item-content p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.58;
+  color: #50556d;
+}
+
+.identity-timeline-item.is-visible {
+  animation: timeline-item-pop 0.62s cubic-bezier(0.2, 0.85, 0.3, 1.2) forwards;
+  animation-delay: var(--pop-delay, 0s);
+}
+
+.identity-timeline-item.is-visible .identity-icon-wrap {
+  animation:
+    timeline-icon-pop 0.56s cubic-bezier(0.18, 0.89, 0.32, 1.28) both,
+    timeline-icon-highlight 1.35s ease-out both;
+  animation-delay: var(--pop-delay, 0s);
+}
+
+@keyframes timeline-item-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes timeline-icon-pop {
+  0% {
+    transform: scale(0.72);
+  }
+  65% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes timeline-icon-highlight {
+  0% {
+    background: #fff8fb;
+    border-color: rgba(203, 45, 118, 0.2);
+    box-shadow: 0 8px 18px rgba(203, 45, 118, 0.12);
+  }
+  35% {
+    background: #fbd4e7;
+    border-color: rgba(203, 45, 118, 0.5);
+    box-shadow: 0 12px 24px rgba(203, 45, 118, 0.26);
+  }
+  100% {
+    background: #fff8fb;
+    border-color: rgba(203, 45, 118, 0.2);
+    box-shadow: 0 8px 18px rgba(203, 45, 118, 0.12);
+  }
+}
+
+@media (max-width: 768px) {
+  .cultural-revival-hero {
+    min-height: 100vh;
+    padding: 90px 16px 42px;
+    background-position: 70% center;
+  }
+
+  .cultural-revival-hero::before {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.76) 0%, rgba(255, 255, 255, 0.68) 48%, rgba(255, 255, 255, 0.8) 100%);
+  }
+
+  .cultural-revival-hero-title {
+    letter-spacing: 0.01em;
+  }
+
+  .hero-letter-space {
+    width: 0.28em;
+  }
+
+  .cultural-revival-hero-subtitle {
+    margin-top: 20px;
+    line-height: 1.55;
+  }
+
+  .cultural-revival-identity {
+    padding: 48px 16px 52px;
+  }
+
+  .identity-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .identity-left-panel {
+    padding-top: 0;
+  }
+
+  .identity-title {
+    margin-top: 10px;
+  }
+
+  .identity-description {
+    margin-top: 16px;
+    max-width: 100%;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .identity-timeline-line {
+    left: 21px;
+  }
+
+  .identity-timeline-item {
+    grid-template-columns: 44px 1fr;
+    gap: 18px;
+  }
+
+  .identity-timeline-item + .identity-timeline-item {
+    margin-top: 18px;
+  }
+
+  .identity-icon-wrap {
+    width: 44px;
+    height: 44px;
+  }
+
+  .identity-icon {
+    font-size: 1rem;
+  }
+
+  .identity-item-content h3 {
+    font-size: 1.35rem;
+  }
+
+  .identity-item-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}
+
+.cultural-revival-festival-slider {
+  padding: 22px 0 72px;
+  background: #fff;
+}
+
+.festival-slider-head {
+  width: min(1160px, calc(100% - 40px));
+  margin: 0 auto 18px;
+  text-align: center;
+}
+
+.festival-slider-tag {
+  margin: 0;
+  color: #cb2d76;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.festival-slider-title {
+  margin: 10px 0 0;
+  color: #111827;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.2;
+}
+
+.festival-slider-window {
+  position: relative;
+  height: clamp(280px, 40vw, 430px);
+  flex: 1;
+  overflow: hidden;
+  background: transparent;
+}
+
+.festival-slide-card {
+  position: absolute;
+  top: 0;
+  width: min(50vw, 560px);
+  left: 50%;
+  transform: translate3d(-50%, 0, 0) scale(0.92);
+  background: #fff;
+  border-radius: 0;
+  border: none;
+  overflow: hidden;
+  box-shadow: none;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transition:
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.8s ease,
+    width 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    left 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    right 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.festival-slide-image-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.festival-slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.festival-slide-meta {
+  padding: 12px 14px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.festival-slide-meta h3 {
+  margin: 0;
+  color: #cb2d76;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.35;
+}
+
+.festival-slide-meta span {
+  color: rgba(26, 30, 79, 0.5);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.festival-slide-card.is-prev .festival-slide-meta,
+.festival-slide-card.is-next .festival-slide-meta {
+  display: none;
+}
+
+.festival-slide-card.is-active {
+  opacity: 1;
+  width: min(40vw, 470px);
+  left: 50%;
+  transform: translate3d(-50%, 50px, 0) scale(1);
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.festival-slide-card.is-prev {
+  opacity: 1;
+  left: 0;
+  width: min(50vw, 560px);
+  transform: translate3d(-52%, 0, 0) scale(1.04);
+  z-index: 2;
+}
+
+.festival-slide-card.is-next {
+  opacity: 1;
+  left: auto;
+  right: 0;
+  width: min(50vw, 560px);
+  transform: translate3d(52%, 0, 0) scale(1.04);
+  z-index: 2;
+}
+
+.festival-slide-card.is-prev .festival-slide-image-wrap,
+.festival-slide-card.is-next .festival-slide-image-wrap {
+  aspect-ratio: 3 / 4;
+}
+
+.festival-slide-card.is-hidden-left,
+.festival-slide-card.is-hidden-right {
+  left: 50%;
+  right: auto;
+  opacity: 0;
+  transform: translate3d(-50%, 0, 0) scale(0.92);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.festival-slide-card.is-hidden-left {
+  transform: translate3d(calc(-50% - min(86vw, 900px)), 0, 0) scale(1.04);
+}
+
+.festival-slide-card.is-hidden-right {
+  transform: translate3d(calc(-50% + min(86vw, 900px)), 0, 0) scale(1.04);
+}
+
+.festival-carousel {
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.festival-nav {
+  position: absolute;
+  top: 38%;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: rgba(17, 24, 39, 0.9);
+  font-size: 1.65rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  z-index: 6;
+}
+
+.festival-nav-left {
+  left: calc(50% - min(20vw, 235px) - 56px);
+}
+
+.festival-nav-right {
+  right: calc(50% - min(20vw, 235px) - 56px);
+}
+
+.festival-nav:hover {
+  background: rgba(203, 45, 118, 0.12);
+  color: #cb2d76;
+  transform: translateY(-1px);
+}
+
+.festival-nav:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .cultural-revival-festival-slider {
+    padding: 14px 0 48px;
+  }
+
+  .festival-slider-head {
+    width: calc(100% - 32px);
+    margin-bottom: 14px;
+  }
+
+  .festival-carousel {
+    justify-content: center;
+  }
+
+  .festival-slider-window {
+    height: clamp(240px, 64vw, 300px);
+  }
+
+  .festival-slide-card {
+    width: min(74vw, 320px);
+    border-radius: 0;
+  }
+
+  .festival-slide-card.is-active {
+    width: min(62vw, 270px);
+    transform: translate3d(-50%, 12px, 0) scale(1);
+  }
+
+  .festival-slide-card.is-prev {
+    left: 0;
+    width: min(74vw, 320px);
+    transform: translate3d(-52%, 0, 0) scale(1.02);
+  }
+
+  .festival-slide-card.is-next {
+    left: auto;
+    right: 0;
+    width: min(74vw, 320px);
+    transform: translate3d(52%, 0, 0) scale(1.02);
+  }
+
+  .festival-slide-card.is-prev .festival-slide-image-wrap,
+  .festival-slide-card.is-next .festival-slide-image-wrap {
+    aspect-ratio: 4 / 5;
+  }
+
+  .festival-slide-card.is-hidden-left {
+    transform: translate3d(calc(-50% - min(120vw, 560px)), 0, 0) scale(1.02);
+  }
+
+  .festival-slide-card.is-hidden-right {
+    transform: translate3d(calc(-50% + min(120vw, 560px)), 0, 0) scale(1.02);
+  }
+
+  .festival-nav {
+    width: 34px;
+    height: 34px;
+    font-size: 1.25rem;
+    top: 36%;
+  }
+
+  .festival-nav-left {
+    left: calc(50% - min(31vw, 135px) - 34px);
+  }
+
+  .festival-nav-right {
+    right: calc(50% - min(31vw, 135px) - 34px);
+  }
+
+  .festival-slide-meta {
+    padding: 10px 12px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .festival-slide-card {
+    transition: none;
+  }
+}
+
+.heritage-tourism-growth {
+  padding: 34px 20px 90px;
+  background: #fff;
+}
+
+.heritage-tourism-head {
+  width: min(1160px, 100%);
+  margin: 0 auto 20px;
+  text-align: center;
+}
+
+.heritage-tourism-tag {
+  margin: 0;
+  color: #cb2d76;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.heritage-tourism-title {
+  margin: 10px 0 0;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1.2;
+  color: #111;
+}
+
+.heritage-tourism-grid {
+  width: min(1160px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.05fr 1fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.heritage-tourism-card {
+  background: #ff9acb;
+  border: 1px solid rgba(255, 0, 119, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(203, 45, 118, 0.1);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.heritage-tourism-card-featured {
+  border-color: #8f1450;
+  background: #8f1450;
+  box-shadow: 0 14px 30px rgba(143, 20, 80, 0.28);
+  display: flex;
+  flex-direction: column;
+}
+
+.heritage-tourism-card-featured .heritage-tourism-content {
+  order: 1;
+}
+
+.heritage-tourism-card-featured .heritage-tourism-image-wrap {
+  order: 2;
+}
+
+.heritage-tourism-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
+}
+
+.heritage-tourism-card-featured:hover {
+  box-shadow: 0 16px 32px rgba(203, 45, 118, 0.2);
+}
+
+.heritage-tourism-image-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.heritage-tourism-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.heritage-tourism-content {
+  padding: 14px 14px 16px;
+}
+
+.heritage-tourism-content h3 {
+  margin: 0 0 8px;
+  color: #111;
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  line-height: 1.25;
+}
+
+.heritage-tourism-card-featured .heritage-tourism-content h3 {
+  color: #fff;
+}
+
+.heritage-tourism-content p {
+  margin: 0;
+  color: #111;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.heritage-tourism-card-featured .heritage-tourism-content p {
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .heritage-tourism-growth {
+    padding: 20px 16px 70px;
+  }
+
+  .heritage-tourism-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .heritage-tourism-card-featured {
+    order: -1;
+  }
+
+  .heritage-tourism-content {
+    padding: 12px 12px 14px;
+  }
+}

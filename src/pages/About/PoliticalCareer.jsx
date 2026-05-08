@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import './PoliticalCareer.css';
+import Timeline from './Timeline';
 
 // Import assets
 import archImg from '../../assets/about_kcr.png';
@@ -142,6 +143,9 @@ const PoliticalCareer = () => {
           </div>
         </motion.div>
       </section>
+
+      {/* Timeline Section */}
+      <Timeline />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
 :root {
   --text: #6b6375;
@@ -16,8 +16,8 @@
   /* Landing / card titles: softer than near-black (#1a1a1a) for even weight */
   --landing-title: #393939;
 
-  --font-title: 'DM Serif Text', Georgia, serif;
-  --font-subtitle: 'IBM Plex Serif', Georgia, serif;
+  --font-title: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-subtitle: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
   --font-weight-title: 400;
   --font-weight-subtitle: 400;
@@ -25,7 +25,7 @@
   --font-weight-body-strong: 500;
 
   --sans: var(--font-body);
-  --heading: var(--font-title);
+  --heading: 'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -73,6 +73,14 @@ body {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+}
+
+/* Ensure all app text inherits global typography by default */
+#root,
+#root * {
+  font-family: inherit;
 }
 
 html {
@@ -93,7 +101,11 @@ html {
 }
 
 h1,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--heading);
   font-weight: 400;
   color: var(--text-h);
@@ -122,6 +134,20 @@ p {
   font-family: var(--font-body);
   font-weight: var(--font-weight-body);
   line-height: 1.6;
+}
+
+/* Explicit global element mappings requested for consistent inheritance */
+a,
+button,
+input,
+textarea,
+select,
+option,
+label,
+nav,
+[class*='nav'],
+[class*='card'] {
+  font-family: var(--font-body);
 }
 
 /* Global typography mapping (family + weight only; sizes stay component-specific) */
@@ -159,6 +185,16 @@ span,
 [class*='meta'] {
   font-family: var(--font-body) !important;
   font-weight: var(--font-weight-body) !important;
+}
+
+/* Keep regular UI and content elements on body typography baseline */
+a,
+button,
+input,
+textarea,
+select,
+option {
+  font-family: var(--font-body) !important;
 }
 
 a,

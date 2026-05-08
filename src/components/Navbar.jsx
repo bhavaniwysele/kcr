@@ -70,7 +70,6 @@ const Navbar = () => {
                 <li><Link to="/about-kcr/overview">Overview</Link></li>
                 <li><Link to="/about-kcr/political-career">Political Career</Link></li>
                 <li><Link to="/about-kcr/leadership-style">Leadership Style</Link></li>
-                <li><Link to="/about-kcr/timeline">Timeline</Link></li>
               </ul>
             </li>
             <li className="nav-item">
