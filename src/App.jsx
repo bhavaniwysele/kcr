@@ -21,6 +21,7 @@ import WelfareSchemes from './pages/Achievements/WelfareSchemes';
 import EconomicDevelopment from './pages/Achievements/EconomicDevelopment';
 import CulturalRevival from './pages/Achievements/CulturalRevival';
 import StateFormation from './pages/Achievements/StateFormation';
+import RythuBandhu from './pages/schemes/RythuBandhu';
 import './App.css';
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
             {/* Catch-all for achievements */}
             <Route path="/achievements/:category" element={<Navigate to="/achievements/irrigation" replace />} />
             <Route path="/schemes" element={<Navigate to="/schemes/rythu-bandhu" replace />} />
+            <Route path="/schemes/rythu-bandhu" element={<RythuBandhu />} />
             <Route path="/news-media" element={<NewsMedia />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/join-us" element={<JoinUs />} />

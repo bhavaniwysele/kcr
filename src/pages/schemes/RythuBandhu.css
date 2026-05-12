@@ -1,0 +1,1355 @@
+.rythu-bandhu-page {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ——— Screen-reader-only utility ——— */
+.rb-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ——— Letter animation base ——— */
+.rb-hero-char {
+  display: inline-block;
+  vertical-align: bottom;
+  will-change: transform, opacity;
+}
+
+/* ——— Hero section ——— */
+.rb-hero {
+  width: 100%;
+  padding: 0;
+  color: #fff;
+  color-scheme: light;
+}
+
+.rb-hero-shell {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: min(92vh, calc(100vw * 9 / 16));
+  min-height: min(100vw * 9 / 16, 520px);
+  overflow: hidden;
+  background: #1b5e20;
+  isolation: isolate;
+}
+
+/* Photo layers */
+.rb-hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.rb-hero-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.rb-hero-photo-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    112deg,
+    rgba(6, 38, 14, 0.62) 0%,
+    rgba(10, 52, 20, 0.42) 38%,
+    rgba(4, 22, 10, 0.5) 100%
+  );
+}
+
+.rb-hero-photo-warm {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    rgba(46, 125, 50, 0.28) 0%,
+    rgba(255, 165, 85, 0.12) 48%,
+    rgba(255, 130, 75, 0.1) 100%
+  );
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.rb-hero-photo-fade {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 125% 130% at -12% 42%,
+    rgba(24, 78, 32, 0.52) 0%,
+    rgba(46, 125, 50, 0.14) 52%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+.rb-hero-photo-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 85% 75% at 68% 42%,
+    transparent 45%,
+    rgba(20, 45, 22, 0.35) 100%
+  );
+  pointer-events: none;
+}
+
+/* Curves layer */
+.rb-hero-curves-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  top: -8%;
+  bottom: -12%;
+  z-index: 1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000 0%,
+    #000 14%,
+    rgba(0, 0, 0, 0.98) 32%,
+    rgba(0, 0, 0, 0.72) 44%,
+    rgba(0, 0, 0, 0.38) 56%,
+    rgba(0, 0, 0, 0.12) 68%,
+    transparent 82%
+  );
+  mask-image: linear-gradient(
+    to right,
+    #000 0%,
+    #000 14%,
+    rgba(0, 0, 0, 0.98) 32%,
+    rgba(0, 0, 0, 0.72) 44%,
+    rgba(0, 0, 0, 0.38) 56%,
+    rgba(0, 0, 0, 0.12) 68%,
+    transparent 82%
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.rb-hero-curves-svg {
+  position: absolute;
+  left: -3%;
+  top: 0;
+  bottom: 0;
+  width: min(64vw, 720px);
+  height: 100%;
+  display: block;
+}
+
+/* Grid layout */
+.rb-hero-grid {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(160px, 0.38fr) 1fr;
+  align-items: center;
+  gap: clamp(0.75rem, 3vw, 2rem);
+  height: 100%;
+  padding: clamp(1rem, 3vw, 2.25rem) clamp(1rem, 3vw, 2.5rem)
+    clamp(1rem, 3vw, 2rem);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.rb-hero-logo-zone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rb-hero-logo-stage {
+  width: min(52vw, 280px);
+  max-width: 100%;
+}
+
+.rb-hero-ring {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-sizing: border-box;
+  padding: 14px;
+  background: #ffffff;
+  border: 6px solid #ffffff;
+  box-shadow:
+    0 0 0 3px #fdd835,
+    0 18px 42px rgba(0, 0, 0, 0.34),
+    0 10px 28px rgba(0, 0, 0, 0.18),
+    0 0 64px rgba(46, 125, 50, 0.55),
+    0 0 28px rgba(46, 125, 50, 0.38);
+}
+
+.rb-hero-ring-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rb-hero-logo-img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+}
+
+/* Typography */
+.rb-hero-copy {
+  text-align: right;
+  align-self: center;
+  padding-right: clamp(0.25rem, 2vw, 1rem);
+}
+
+.rb-hero-title {
+  margin: 0;
+  position: relative;
+}
+
+.rb-hero-headline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.18em;
+  font-family: var(--font-title);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  line-height: 1.1;
+  font-size: clamp(1.35rem, 3.6vw + 0.35rem, 3rem);
+}
+
+.rb-hero-line {
+  display: block;
+}
+
+.rb-hero-line--light {
+  color: #fff;
+}
+
+.rb-hero-line--light .rb-hero-char {
+  color: #fff;
+  text-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.45),
+    0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.rb-hero-line--bar-wrap {
+  margin: 0.12em 0;
+}
+
+.rb-hero-bar {
+  display: inline-block;
+  padding: 0.22em clamp(0.85em, 2.5vw, 1.6em) 0.26em;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.94) 14%,
+    rgba(255, 255, 255, 0.94) 86%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.rb-hero-bar .rb-hero-char {
+  color: #145a18;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+/* ============================
+   Farmer Support Impact section
+   ============================ */
+.rb-impact {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2rem, 4vw, 3rem) clamp(1rem, 3vw, 2.5rem) clamp(2rem, 4vw, 3rem);
+  background: #fff;
+}
+
+.rb-impact-inner {
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 2vw, 2rem);
+}
+
+/* Two-column layout */
+.rb-impact-layout {
+  display: grid;
+  grid-template-columns: 0.44fr 0.56fr;
+  gap: clamp(2rem, 3.5vw, 3rem);
+  align-items: start;
+}
+
+/* Left images */
+.rb-impact-images {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: sticky;
+  top: 6rem;
+}
+
+.rb-impact-img {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.rb-impact-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rb-impact-img:hover img {
+  transform: scale(1.03);
+}
+
+.rb-impact-img--top {
+  height: clamp(150px, 16vw, 200px);
+}
+
+.rb-impact-img--bottom {
+  height: clamp(130px, 14vw, 175px);
+}
+
+/* Right content */
+.rb-impact-content {
+  padding-top: 0.5rem;
+}
+
+.rb-impact-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #2e7d32;
+  margin-bottom: 0.75rem;
+}
+
+.rb-impact-label::before,
+.rb-impact-label::after {
+  content: '✦';
+  font-size: 0.6rem;
+  color: #43a047;
+}
+
+.rb-impact-heading {
+  margin: 0 0 1rem;
+  font-family: var(--font-title);
+  font-size: clamp(1.45rem, 3vw + 0.35rem, 2.3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #1a1a2e;
+  letter-spacing: -0.01em;
+}
+
+.rb-impact-heading-accent {
+  color: #2e7d32;
+  font-style: italic;
+}
+
+/* Description row with icon */
+.rb-impact-desc-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.15rem;
+}
+
+.rb-impact-desc-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+  color: #2e7d32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 12px rgba(46, 125, 50, 0.12);
+  margin-top: 2px;
+}
+
+.rb-impact-desc-icon svg {
+  width: 54%;
+  height: 54%;
+}
+
+.rb-impact-desc {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  line-height: 1.65;
+  color: #555;
+}
+
+/* Progress bars */
+.rb-impact-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 0;
+}
+
+.rb-impact-bar-row {
+  position: relative;
+}
+
+.rb-impact-bar-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.rb-impact-bar-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+  color: #2e7d32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rb-impact-bar-icon svg {
+  width: 56%;
+  height: 56%;
+}
+
+.rb-impact-bar-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  flex: 1;
+}
+
+.rb-impact-bar-pct {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #1a1a2e;
+}
+
+.rb-impact-bar-track {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: #e8e8e8;
+  overflow: visible;
+}
+
+.rb-impact-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #43a047, #2e7d32);
+}
+
+.rb-impact-bar-thumb {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #2e7d32;
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.22);
+  transform: translate(-50%, -50%);
+}
+
+.rb-impact-bar-sub {
+  display: block;
+  text-align: right;
+  font-size: 0.72rem;
+  color: #999;
+  margin-top: 2px;
+  letter-spacing: 0.02em;
+}
+
+/* CTA button */
+.rb-impact-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.6rem;
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow:
+    0 4px 18px rgba(46, 125, 50, 0.25),
+    0 2px 6px rgba(46, 125, 50, 0.12);
+  transition:
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+  cursor: pointer;
+}
+
+.rb-impact-cta:hover {
+  box-shadow:
+    0 6px 24px rgba(46, 125, 50, 0.35),
+    0 3px 10px rgba(46, 125, 50, 0.15);
+}
+
+.rb-impact-cta-arrow {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.rb-impact-cta:hover .rb-impact-cta-arrow {
+  transform: translateX(3px);
+}
+
+/* Bottom stats */
+.rb-impact-stats-wrap {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  padding: clamp(1rem, 2vw, 1.5rem) 0;
+  border-top: 1px solid rgba(46, 125, 50, 0.08);
+}
+
+.rb-impact-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.rb-impact-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.rb-impact-stat-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+  color: #2e7d32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 12px rgba(46, 125, 50, 0.1);
+  transition:
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+.rb-impact-stat:hover .rb-impact-stat-icon {
+  box-shadow:
+    0 5px 18px rgba(46, 125, 50, 0.2),
+    0 0 12px rgba(46, 125, 50, 0.1);
+  transform: scale(1.06);
+}
+
+.rb-impact-stat-icon svg {
+  width: 52%;
+  height: 52%;
+}
+
+.rb-impact-stat-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.rb-impact-stat-value {
+  font-family: var(--font-title);
+  font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+  font-weight: 800;
+  color: #1a1a2e;
+  line-height: 1.2;
+}
+
+.rb-impact-stat-label {
+  font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+  color: #777;
+  line-height: 1.35;
+  margin-top: 0.15rem;
+}
+
+/* Landscape art */
+.rb-impact-landscape {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  pointer-events: none;
+}
+
+.rb-impact-landscape svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ——— Impact responsive ——— */
+@media (max-width: 900px) {
+  .rb-impact-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .rb-impact-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    position: static;
+  }
+
+  .rb-impact-img--top,
+  .rb-impact-img--bottom {
+    height: clamp(160px, 28vw, 220px);
+  }
+
+  .rb-impact-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .rb-impact-images {
+    grid-template-columns: 1fr;
+  }
+
+  .rb-impact-img--top {
+    height: 200px;
+  }
+
+  .rb-impact-img--bottom {
+    height: 180px;
+  }
+
+  .rb-impact-stats {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .rb-impact-landscape {
+    height: 120px;
+  }
+}
+
+/* ============================
+   Future Vision section
+   ============================ */
+.rb-vision-wrapper {
+  background: #fbfdf9;
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.rb-vision {
+  position: relative;
+  overflow: hidden;
+  height: clamp(320px, 38vw, 460px);
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+/* Left blended image */
+.rb-vision-img-wrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 55%;
+  z-index: 0;
+  clip-path: url(#visionImgCurve);
+}
+
+.rb-vision-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 35% center;
+  display: block;
+}
+
+.rb-vision-img-fade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(251, 253, 249, 0.15) 0%,
+      transparent 8%,
+      transparent 90%,
+      rgba(251, 253, 249, 0.2) 100%
+    );
+  pointer-events: none;
+}
+
+/* Parallel arc beside image curved edge */
+.rb-vision-img-arc {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Header — above the image area */
+.rb-vision-header {
+  text-align: center;
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3rem) clamp(1rem, 3vw, 2.5rem) clamp(1.2rem, 2.5vw, 2rem);
+}
+
+.rb-vision-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #2e7d32;
+  margin-bottom: 0.7rem;
+}
+
+.rb-vision-label::before,
+.rb-vision-label::after {
+  content: '✦';
+  font-size: 0.6rem;
+  color: #43a047;
+}
+
+.rb-vision-heading {
+  margin: 0 0 0.9rem;
+  font-family: var(--font-title);
+  font-size: clamp(1.45rem, 3vw + 0.3rem, 2.3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #1a1a2e;
+}
+
+.rb-vision-heading em {
+  font-style: italic;
+  color: #2e7d32;
+}
+
+.rb-vision-sub {
+  max-width: 520px;
+  margin: 0 auto;
+  font-size: clamp(0.85rem, 1.3vw, 0.96rem);
+  line-height: 1.6;
+  color: #666;
+}
+
+
+/* Icon points positioned on the parallel arc beside image */
+.rb-vision-point {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  z-index: 2;
+  transform: translate(-26px, -26px);
+}
+
+/* Point 0: top of arc */
+.rb-vision-point--0 {
+  top: 6%;
+  left: 47%;
+}
+
+/* Point 1: upper-mid curve */
+.rb-vision-point--1 {
+  top: 32%;
+  left: 51%;
+}
+
+/* Point 2: lower-mid curve */
+.rb-vision-point--2 {
+  top: 57%;
+  left: 51%;
+}
+
+/* Point 3: bottom of arc */
+.rb-vision-point--3 {
+  top: 80%;
+  left: 47%;
+}
+
+.rb-vision-icon {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid #2e7d32;
+  background: linear-gradient(135deg, #43a047, #2e7d32);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(46, 125, 50, 0.3);
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+.rb-vision-point:hover .rb-vision-icon {
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  border-color: #388e3c;
+  box-shadow: 0 5px 18px rgba(46, 125, 50, 0.4);
+  transform: scale(1.08);
+}
+
+.rb-vision-icon svg {
+  width: 50%;
+  height: 50%;
+  stroke: #fff;
+}
+
+.rb-vision-point-text {
+  padding-top: 0.15rem;
+  max-width: 520px;
+}
+
+.rb-vision-point-title {
+  margin: 0 0 0.15rem;
+  font-family: var(--font-title);
+  font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+  font-weight: 700;
+  color: #1a1a2e;
+  white-space: nowrap;
+}
+
+.rb-vision-point-desc {
+  margin: 0;
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
+  line-height: 1.55;
+  color: #777;
+}
+
+/* Bottom quote */
+.rb-vision-quote {
+  position: absolute;
+  bottom: clamp(0.8rem, 2vw, 1.5rem);
+  left: clamp(1rem, 3vw, 2rem);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-width: 280px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 0.3rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rb-vision-quote-accent {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  color: #81c784;
+}
+
+.rb-vision-quote-accent svg {
+  width: 22px;
+  height: 22px;
+}
+
+.rb-vision-quote-line {
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: linear-gradient(90deg, #81c784, rgba(129, 199, 132, 0.2));
+  border-radius: 1px;
+}
+
+.rb-vision-quote-text {
+  margin: 0;
+  font-size: clamp(0.68rem, 0.85vw, 0.76rem);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+}
+
+.rb-vision-quote-text strong {
+  font-weight: 700;
+  color: #fff;
+  font-style: normal;
+}
+
+/* ——— Vision responsive ——— */
+@media (max-width: 1200px) {
+  .rb-vision-point-text {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 900px) {
+  .rb-vision {
+    height: auto;
+  }
+
+  .rb-vision-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    clip-path: none;
+  }
+
+  .rb-vision-img-fade {
+    background:
+      linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(251, 253, 249, 0.6) 70%,
+        #fbfdf9 95%
+      );
+  }
+
+  .rb-vision-img-arc {
+    display: none;
+  }
+
+  .rb-vision-point {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    transform: none;
+    width: 100%;
+    margin-bottom: 1.25rem;
+  }
+
+  .rb-vision-quote {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    max-width: 100%;
+    padding: 0 1rem;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .rb-vision-img-wrap {
+    height: 200px;
+  }
+
+  .rb-vision-icon {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* ============================
+   Benefits & Assistance section
+   ============================ */
+.rb-benefits {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3rem, 6vw, 5.5rem) clamp(1rem, 3vw, 2.5rem) clamp(4rem, 8vw, 7rem);
+  background: #f7faf7;
+}
+
+.rb-benefits-bg-art {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 220px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.rb-benefits-landscape {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.rb-benefits-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.rb-benefits-header {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.rb-benefits-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #2e7d32;
+  margin-bottom: 0.85rem;
+}
+
+.rb-benefits-label::before,
+.rb-benefits-label::after {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #2e7d32);
+  border-radius: 1px;
+}
+
+.rb-benefits-label::after {
+  background: linear-gradient(90deg, #2e7d32, transparent);
+}
+
+.rb-benefits-heading {
+  margin: 0 0 1rem;
+  font-family: var(--font-title);
+  font-size: clamp(1.65rem, 3.8vw + 0.5rem, 2.85rem);
+  font-weight: 800;
+  line-height: 1.18;
+  color: #1a1a2e;
+  letter-spacing: -0.01em;
+}
+
+.rb-benefits-heading em {
+  font-style: italic;
+  color: #2e7d32;
+}
+
+.rb-benefits-sub {
+  max-width: 820px;
+  margin: 0 auto;
+  padding-bottom: 1rem;
+  font-size: clamp(0.95rem, 1.6vw, 1.08rem);
+  line-height: 1.65;
+  color: #555;
+}
+
+/* Zigzag layout */
+.rb-benefits-zigzag {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+.rb-benefits-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  width: 75%;
+}
+
+.rb-benefits-row--left {
+  align-self: flex-start;
+  flex-direction: row;
+}
+
+.rb-benefits-row--right {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+/* Card */
+.rb-benefits-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border: 1px solid rgba(46, 125, 50, 0.08);
+  border-radius: 18px;
+  padding: 3.2rem 1.4rem 1.6rem;
+  flex: 1;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 2px 12px rgba(46, 125, 50, 0.06);
+}
+
+.rb-benefits-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 12px 36px rgba(46, 125, 50, 0.1),
+    0 4px 14px rgba(46, 125, 50, 0.06);
+}
+
+/* Icon circle */
+.rb-benefits-icon-wrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: rb-icon-float 3.6s ease-in-out infinite;
+}
+
+@keyframes rb-icon-float {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50% { transform: translate(-50%, calc(-50% - 4px)); }
+}
+
+.rb-benefits-icon {
+  width: clamp(62px, 7vw, 82px);
+  height: clamp(62px, 7vw, 82px);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #43a047, #2e7d32, #1b5e20);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 8px 28px rgba(46, 125, 50, 0.32),
+    0 0 0 5px #fff,
+    0 0 0 7px rgba(46, 125, 50, 0.12),
+    0 0 0 11px rgba(46, 125, 50, 0.05);
+  transition:
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rb-benefits-card:hover .rb-benefits-icon {
+  transform: scale(1.06);
+  box-shadow:
+    0 10px 38px rgba(46, 125, 50, 0.4),
+    0 0 22px rgba(46, 125, 50, 0.2),
+    0 0 0 5px #fff,
+    0 0 0 7px rgba(46, 125, 50, 0.18),
+    0 0 0 11px rgba(46, 125, 50, 0.08);
+}
+
+.rb-benefits-icon svg {
+  width: 58%;
+  height: 58%;
+}
+
+/* Number — large decorative numbers with image fill */
+.rb-benefits-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rb-benefits-num-text {
+  font-family: 'Impact', 'Arial Black', 'Haettenschweiler', sans-serif;
+  font-size: clamp(100px, 14vw, 180px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  -webkit-text-stroke: 10px;
+  paint-order: stroke fill;
+  background-size: 180%;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  transform: scaleX(1.15);
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.1));
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Card text */
+.rb-benefits-card-title {
+  margin: 0.6rem 0 0.5rem;
+  font-family: var(--font-title);
+  font-size: clamp(0.92rem, 1.3vw, 1.1rem);
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.25;
+}
+
+.rb-benefits-card-desc {
+  margin: 0;
+  font-size: clamp(0.82rem, 1.05vw, 0.92rem);
+  line-height: 1.55;
+  color: #666;
+}
+
+/* Bottom leaf decoration */
+.rb-benefits-card-leaf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  color: #2e7d32;
+}
+
+.rb-benefits-card-leaf svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.rb-benefits-card-leaf-line {
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  border-radius: 1px;
+  opacity: 0.5;
+}
+
+.rb-benefits-card-leaf-line--l {
+  background: linear-gradient(90deg, transparent, #2e7d32);
+}
+
+.rb-benefits-card-leaf-line--r {
+  background: linear-gradient(90deg, #2e7d32, transparent);
+}
+
+/* Connector line between icon and card */
+.rb-benefits-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 18px;
+  background: linear-gradient(to bottom, rgba(46, 125, 50, 0.2), rgba(46, 125, 50, 0.06));
+  border-radius: 1px;
+}
+
+/* ——— Benefits responsive ——— */
+@media (max-width: 900px) {
+  .rb-benefits-row {
+    width: 85%;
+  }
+
+  .rb-benefits-num-text {
+    font-size: clamp(80px, 12vw, 140px);
+  }
+}
+
+@media (max-width: 640px) {
+  .rb-benefits-row {
+    width: 100%;
+  }
+
+  .rb-benefits-card {
+    padding: 3rem 1rem 1.4rem;
+  }
+
+  .rb-benefits-num-text {
+    font-size: clamp(64px, 18vw, 100px);
+  }
+}
+
+/* ——— Mobile ——— */
+@media (max-width: 767px) {
+  .rb-hero-shell {
+    aspect-ratio: unset;
+    min-height: min(118vw, 620px);
+    max-height: none;
+  }
+
+  .rb-hero-curves-wrap {
+    left: 0;
+    right: 0;
+    width: 100%;
+    top: -4%;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      #000 0%,
+      #000 20%,
+      rgba(0, 0, 0, 0.9) 42%,
+      rgba(0, 0, 0, 0.45) 62%,
+      rgba(0, 0, 0, 0.12) 78%,
+      transparent 92%
+    );
+    mask-image: linear-gradient(
+      to right,
+      #000 0%,
+      #000 20%,
+      rgba(0, 0, 0, 0.9) 42%,
+      rgba(0, 0, 0, 0.45) 62%,
+      rgba(0, 0, 0, 0.12) 78%,
+      transparent 92%
+    );
+  }
+
+  .rb-hero-curves-svg {
+    left: -6%;
+    width: min(92vw, 540px);
+  }
+
+  .rb-hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
+    padding-top: clamp(3rem, 12vw, 4rem);
+  }
+
+  .rb-hero-logo-stage {
+    width: min(58vw, 240px);
+  }
+
+  .rb-hero-copy {
+    text-align: center;
+    padding-right: 0;
+    padding-bottom: 1rem;
+  }
+
+  .rb-hero-headline {
+    align-items: center;
+  }
+
+  .rb-hero-photo-fade {
+    background: radial-gradient(
+      ellipse 115% 95% at 50% 0%,
+      rgba(25, 75, 32, 0.38) 0%,
+      rgba(46, 125, 50, 0.08) 52%,
+      transparent 72%
+    );
+  }
+}
