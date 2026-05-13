@@ -871,8 +871,8 @@
   max-width: 280px;
   z-index: 2;
   background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   padding: 0.3rem 0.75rem;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);

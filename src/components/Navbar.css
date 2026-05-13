@@ -505,8 +505,8 @@
   cursor: pointer;
   margin: 0;
   font-family: inherit;
-  appearance: none;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 .nav-contact-btn,

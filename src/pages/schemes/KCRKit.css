@@ -1,0 +1,36 @@
+/**
+ * KCR Kit scheme page styles.
+ * Safari / iOS require -webkit-user-select before user-select.
+ */
+
+.kit-page {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.kit-hero {
+  position: relative;
+  width: 100%;
+  min-height: calc(100dvh - 92px);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.kit-hero-media,
+.kit-hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.kit-hero-media {
+  z-index: 0;
+}
+
+.kit-hero-overlay {
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
