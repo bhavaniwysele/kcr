@@ -23,6 +23,7 @@ import CulturalRevival from './pages/Achievements/CulturalRevival';
 import StateFormation from './pages/Achievements/StateFormation';
 import RythuBandhu from './pages/schemes/RythuBandhu';
 import MissionBhagiratha from './pages/schemes/MissionBhagiratha';
+import KCRKit from './pages/schemes/KCRKit';
 import './App.css';
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
             <Route path="/schemes" element={<Navigate to="/schemes/rythu-bandhu" replace />} />
             <Route path="/schemes/rythu-bandhu" element={<RythuBandhu />} />
             <Route path="/schemes/mission-bhagiratha" element={<MissionBhagiratha />} />
+            <Route path="/schemes/kcr-kit" element={<KCRKit />} />
             <Route path="/news-media" element={<NewsMedia />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/join-us" element={<JoinUs />} />

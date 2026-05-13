@@ -16,7 +16,7 @@ const SCHEME_CONTENT = {
   'kcr-kit': {
     title: 'KCR Kit',
     subtitle:
-      'A maternity support kit for mothers and newborns—promoting institutional delivery and better postnatal care for healthier families.',
+      'Supporting mothers and newborns through healthcare assistance, nutrition support, and welfare-focused initiatives across Telangana.',
     intro:
       'The programme bundles essential items for mother and child so that families feel supported through pregnancy and the early months of life.',
   },
