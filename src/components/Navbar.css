@@ -43,52 +43,158 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 2.5rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.75rem;
 }
 
-.nav-top-left, .nav-top-right {
-  flex: 1;
+.nav-top-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 0;
 }
 
 .nav-top-center {
-  flex: 2;
   display: flex;
   justify-content: center;
+  align-items: center;
+  justify-self: center;
+}
+
+.nav-tagline-flip {
+  position: relative;
+  min-width: 12rem;
+  min-height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.nav-tagline-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.nav-tagline-letters {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.04em;
+  font-family: var(--font-title);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.nav-tagline-letter {
+  display: inline-block;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(-0.45em);
+  transition:
+    opacity 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-tagline-letter.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav-tagline-word {
+  display: inline-block;
+  font-family: var(--font-title);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.nav-tagline-word-static {
+  transform: none;
 }
 
 .nav-top-right {
   display: flex;
   justify-content: flex-end;
-}
-
-.language-bar {
-  display: flex;
   align-items: center;
-  gap: 1rem;
-  font-size: 0.8rem; /* Increased from 0.7rem */
-  font-weight: 500;
-  color: var(--nav-text);
+  min-width: 0;
 }
 
-.lang-item {
+.nav-lang-dropdown {
+  position: relative;
+}
+
+.nav-lang-dropdown .dropdown-menu {
+  left: auto;
+  right: 0;
+  min-width: 11rem;
+}
+
+.nav-lang-dropdown:focus-within .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Chevron matches pill text scale (Contact has no icon) */
+.nav-lang-trigger .dropdown-icon {
+  font-size: 0.85em;
+  margin-left: 2px;
+  line-height: 1;
+  opacity: 0.88;
+}
+
+.nav-lang-menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
   cursor: pointer;
-  transition: all 0.3s ease;
-  opacity: 0.6;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.45px;
+  padding: 0.55rem 1rem 0.55rem 1rem;
+  color: var(--nav-text);
+  opacity: 0.65;
+  border-radius: 8px;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
-.lang-item:hover, .lang-item.active {
+.nav-lang-menu button:hover {
   color: var(--accent);
   opacity: 1;
 }
 
-.lang-divider {
-  width: 1px;
-  height: 12px;
-  background: rgba(0, 0, 0, 0.1);
+.nav-lang-menu button.active {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.nav-lang-menu button:focus-visible {
+  color: var(--accent);
+  opacity: 1;
+  outline: 2px solid var(--nav-accent);
+  outline-offset: 2px;
 }
 
 .nav-socials {
@@ -116,6 +222,11 @@
   color: white !important;
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(233, 30, 99, 0.2);
+}
+
+.nav-social-link svg {
+  display: block;
+  flex-shrink: 0;
 }
 
 .navbar-scrolled .nav-top {
@@ -228,6 +339,7 @@
   align-items: center;
   margin-left: 1.5rem;
   gap: 0.8rem; /* Space between buttons */
+  flex-shrink: 0;
 }
 
 .nav-item {
@@ -372,20 +484,33 @@
 
 /* Shared Animation Button Styles */
 .nav-contact-btn,
-.nav-join-btn {
+.nav-join-btn,
+.nav-lang-trigger {
   position: relative;
   overflow: hidden;
   display: flex !important;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  line-height: 1.25;
   transition: all 0.6s ease-in-out, transform 0.2s ease !important;
   font-weight: 500;
   font-size: 0.75rem; /* Further reduced from 0.8rem */
   padding: 0.4rem 1.2rem; /* Reduced from 0.55rem 1.4rem */
   border-radius: 50px;
+  white-space: nowrap;
 }
 
-.nav-contact-btn {
+.nav-lang-trigger {
+  cursor: pointer;
+  margin: 0;
+  font-family: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.nav-contact-btn,
+.nav-lang-trigger {
   background: #ffffff;
   color: var(--nav-accent) !important;
   border: 1px solid rgba(233, 30, 99, 0.2);
@@ -409,8 +534,9 @@
   }
 }
 
-.nav-contact-btn span,
-.nav-join-btn span {
+.nav-contact-btn > span,
+.nav-join-btn > span,
+.nav-lang-trigger > span {
   position: relative;
   z-index: 2;
   transition: color 0.6s ease-in-out;
@@ -418,7 +544,8 @@
 
 /* Shared SVG animation setup */
 .nav-contact-btn svg,
-.nav-join-btn svg {
+.nav-join-btn svg,
+.nav-lang-trigger svg {
   position: absolute;
   inset: 0;
   fill: none;
@@ -427,7 +554,8 @@
   pointer-events: none;
 }
 
-.nav-contact-btn svg {
+.nav-contact-btn svg,
+.nav-lang-trigger svg {
   stroke: var(--nav-accent);
   stroke-dasharray: 140 540;
   stroke-dashoffset: 140;
@@ -445,19 +573,35 @@
   color: white !important;
 }
 
+.nav-lang-dropdown:hover .nav-lang-trigger,
+.nav-lang-dropdown:focus-within .nav-lang-trigger {
+  transform: translateY(-2px);
+  color: white !important;
+}
+
 .nav-contact-btn:hover,
 .nav-join-btn:hover {
   background: var(--nav-accent);
   border-color: transparent;
 }
 
-.nav-contact-btn:hover span,
-.nav-join-btn:hover span {
+.nav-lang-dropdown:hover .nav-lang-trigger,
+.nav-lang-dropdown:focus-within .nav-lang-trigger {
+  background: var(--nav-accent);
+  border-color: transparent;
+}
+
+.nav-contact-btn:hover > span,
+.nav-join-btn:hover span,
+.nav-lang-dropdown:hover .nav-lang-trigger > span,
+.nav-lang-dropdown:focus-within .nav-lang-trigger > span {
   color: white;
 }
 
 .nav-contact-btn:hover svg,
-.nav-join-btn:hover svg {
+.nav-join-btn:hover svg,
+.nav-lang-dropdown:hover .nav-lang-trigger svg,
+.nav-lang-dropdown:focus-within .nav-lang-trigger svg {
   stroke: #ffffff;
   stroke-dashoffset: -540;
 }
@@ -533,11 +677,6 @@
     height: 34px !important;
   }
   
-  .language-bar {
-    font-size: 0.95rem;
-    gap: 1.8rem;
-  }
-  
   .nav-social-link {
     width: 42px;
     height: 42px;
@@ -554,6 +693,7 @@
     padding: 0.7rem 1.2rem;
   }
   
+  .nav-lang-trigger,
   .nav-contact-btn,
   .nav-join-btn {
     font-size: 0.85rem;

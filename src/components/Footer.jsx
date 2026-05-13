@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 import logo from '../assets/logo_kcr.png';
+import { FacebookIcon, InstagramIcon, TwitterIcon } from './SocialBrandIcons';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -21,17 +22,13 @@ const Footer = () => {
             </p>
             <div className="footer-socials">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook">
-                <i className="fab fa-facebook-f"></i>
+                <FacebookIcon size={18} />
               </a>
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-                  <rect x="3.5" y="3.5" width="17" height="17" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
-                  <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
-                  <circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" />
-                </svg>
+                <InstagramIcon size={18} />
               </a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Twitter">
-                <i className="fab fa-twitter"></i>
+                <TwitterIcon size={18} />
               </a>
             </div>
           </div>

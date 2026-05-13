@@ -76,6 +76,11 @@
   box-shadow: 0 10px 20px rgba(233, 30, 99, 0.2);
 }
 
+.social-link svg {
+  display: block;
+  flex-shrink: 0;
+}
+
 .footer-links-grid {
   flex: 2;
   display: grid;

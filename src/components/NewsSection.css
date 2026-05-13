@@ -157,8 +157,10 @@
   color: #fff;
 }
 
-.news-card.featured .card-meta i {
+.news-card.featured .card-meta svg {
   color: #fff;
+  flex-shrink: 0;
+  display: block;
 }
 
 /* Secondary Cards Positions */

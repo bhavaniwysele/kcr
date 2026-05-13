@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import './NewsSection.css';
+import { UserIcon, CalendarIcon, CommentIcon } from './NewsMetaIcons';
 
 // Import images
 import news1 from '../assets/jeevan-reddy-kcr.webp';
@@ -86,9 +87,15 @@ const NewsSection = () => {
               <h3>{newsData[0].title}</h3>
               <p className="excerpt">{newsData[0].excerpt}</p>
               <div className="card-meta">
-                <span className="author"><i className="far fa-user"></i> {newsData[0].author}</span>
-                <span className="date"><i className="far fa-calendar"></i> {newsData[0].date}</span>
-                <span className="comments"><i className="far fa-comment"></i> 0</span>
+                <span className="author">
+                  <UserIcon size={14} /> {newsData[0].author}
+                </span>
+                <span className="date">
+                  <CalendarIcon size={14} /> {newsData[0].date}
+                </span>
+                <span className="comments">
+                  <CommentIcon size={14} /> 0
+                </span>
               </div>
             </div>
           </motion.div>
