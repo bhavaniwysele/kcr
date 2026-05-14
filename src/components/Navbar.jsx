@@ -165,12 +165,12 @@ const Navbar = () => {
             <li className="nav-item dropdown">
               <span className="nav-link">Schemes <span className="dropdown-icon">▾</span></span>
               <ul className="dropdown-menu">
-                <li><Link to="/schemes/rythu-bandhu">Rythu Bandhu</Link></li>
-                <li><Link to="/schemes/mission-bhagiratha">Mission Bhagiratha</Link></li>
-                <li><Link to="/schemes/kcr-kit">KCR Kit</Link></li>
-                <li><Link to="/schemes/2bhk-housing">2BHK Housing</Link></li>
-                <li><Link to="/schemes/aasara-pensions">Aasara Pension</Link></li>
-                <li><Link to="/schemes/dalit-bandhu">Dalit Bandhu</Link></li>
+                <li><Link to="/schemes#rythu-bandhu">Rythu Bandhu</Link></li>
+                <li><Link to="/schemes#mission-bhagiratha">Mission Bhagiratha</Link></li>
+                <li><Link to="/schemes#kcr-kit">KCR Kit</Link></li>
+                <li><Link to="/schemes#2bhk-housing">2BHK Housing</Link></li>
+                <li><Link to="/schemes#aasara-pensions">Aasara Pension</Link></li>
+                <li><Link to="/schemes#dalit-bandhu">Dalit Bandhu</Link></li>
               </ul>
             </li>
             <li className="nav-item">

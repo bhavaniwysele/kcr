@@ -1,0 +1,157 @@
+.schemes-hub {
+  width: 100%;
+  max-width: 100%;
+  /* One shared hero band height for every scheme on this page */
+  --schemes-hub-hero-height: var(--site-hero-band-height);
+}
+
+/* Unify hero height: Rythu, Mission Bhagiratha, KCR Kit, Aasara Pension, brief Dalit */
+.schemes-hub #rythu-bandhu .rb-hero-shell {
+  aspect-ratio: unset;
+  max-height: none;
+  min-height: var(--schemes-hub-hero-height);
+  height: var(--schemes-hub-hero-height);
+}
+
+.schemes-hub #mission-bhagiratha .mb-hero-shell {
+  min-height: var(--schemes-hub-hero-height);
+  height: var(--schemes-hub-hero-height);
+}
+
+.schemes-hub #kcr-kit .kit-hero {
+  min-height: var(--schemes-hub-hero-height);
+  height: var(--schemes-hub-hero-height);
+}
+
+.schemes-hub #kcr-kit .kit-hero-content {
+  min-height: var(--schemes-hub-hero-height);
+}
+
+.schemes-hub #aasara-pensions .ap-hero-shell {
+  min-height: var(--schemes-hub-hero-height);
+  height: var(--schemes-hub-hero-height);
+}
+
+/* Brief heroes without the 2BHK immersive block (Dalit) */
+.schemes-hub .scheme-hero:not(.scheme-hero--2bhk) {
+  min-height: var(--schemes-hub-hero-height);
+  height: var(--schemes-hub-hero-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schemes-hub-anchor {
+  scroll-margin-top: 6.5rem;
+}
+
+@media (min-width: 768px) {
+  .schemes-hub-anchor {
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+/* True edge-to-edge: center a viewport-wide strip (avoids 100vw vs scrollbar mismatch) */
+[id='2bhk-housing'].scheme-page.scheme-page--2bhk {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  width: 100svw;
+  max-width: none;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* ——— 2BHK brief hero: full-width image via ::before (always matches hero box) ——— */
+.scheme-hero--2bhk {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  min-height: var(--schemes-hub-hero-height);
+  height: var(--schemes-hub-hero-height);
+  padding: max(1.25rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+    max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
+  overflow: hidden;
+  border-bottom: none;
+  background-color: #0a0a0a;
+}
+
+.scheme-hero--2bhk::before {
+  content: '';
+  position: absolute;
+  /* Bleed past edges so subpixel antialiasing never shows a hairline gap */
+  inset: -6px;
+  z-index: 0;
+  background-color: #0a0a0a;
+  background-image: var(--2bhk-hero-bg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transform: scale(1.12);
+  transform-origin: center center;
+  backface-visibility: hidden;
+}
+
+.scheme-hero--2bhk-overlay {
+  position: absolute;
+  inset: -6px;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.62);
+  pointer-events: none;
+}
+
+.scheme-hero--2bhk .scheme-hero-content--2bhk {
+  position: relative;
+  z-index: 2;
+  margin-inline: auto;
+}
+
+.scheme-hero--2bhk .scheme-hero-label {
+  color: rgba(255, 255, 255, 0.82);
+  border-bottom-color: rgba(255, 255, 255, 0.45);
+}
+
+.scheme-hero--2bhk .scheme-hero-title {
+  margin: 0 0 0.85rem;
+  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 28px rgba(232, 176, 74, 0.22));
+}
+
+.scheme-hero--2bhk .scheme-hero-title .scheme-hero-char {
+  background: linear-gradient(118deg, #fffdf8 0%, #f4d9a6 38%, #e8b04a 72%, #d4a03a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@supports not (background-clip: text) {
+  .scheme-hero--2bhk .scheme-hero-title {
+    filter: none;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
+  }
+
+  .scheme-hero--2bhk .scheme-hero-title .scheme-hero-char {
+    color: #f6e5c8;
+    background: none;
+  }
+}
+
+.scheme-hero--2bhk .scheme-hero-subtitle--2bhk {
+  margin: 0 auto;
+  max-width: min(36rem, 100%);
+  width: 100%;
+  overflow-x: clip;
+  padding-inline: 0.25rem;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-align: center;
+  font-size: clamp(0.62rem, 2.85vw, 0.92rem);
+  line-height: 1.45;
+  white-space: nowrap;
+}

@@ -13,6 +13,9 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
+  /* Shared hero strip height (Schemes hub, News & Media, etc.) */
+  --site-hero-band-height: clamp(28rem, min(92svh, calc(100svh - 4rem)), 64rem);
+
   /* Landing / card titles: softer than near-black (#1a1a1a) for even weight */
   --landing-title: #393939;
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { motion as Motion, useReducedMotion } from 'framer-motion';
+import { motion as Motion, useReducedMotion, useInView } from 'framer-motion';
 import './KCRKit.css';
 import kcrKitLogo from '../../assets/kcr_kit_logo.png';
 import healthWomenImg from '../../assets/healthNwomen2.png';
@@ -9,7 +9,7 @@ import welfareSchemesImg from '../../assets/welfareschemes.jpg';
 const LABEL_TEXT = 'Government scheme';
 const HERO_TITLE = 'KCR Kit';
 const HERO_SUBTITLE =
-  'Supporting mothers and newborns through healthcare assistance, nutrition support, and welfare-focused initiatives across Telangana.';
+  'Supporting mothers and newborns through healthcare assistance, nutrition support across Telangana.';
 
 const KIT_UPDATES = [
   {
@@ -97,12 +97,96 @@ const INITIATIVE_CAROUSEL_SLIDES = [
   ...INITIATIVE_SLIDES,
 ];
 const INITIATIVE_CAROUSEL_START = INITIATIVE_SLIDE_COUNT;
-const INITIATIVE_CAROUSEL_LOOP = INITIATIVE_SLIDE_COUNT * 2;
+/** First offset into the third copy; after animating here, snap back to `START` (infinite loop). */
+const INITIATIVE_CAROUSEL_LOOP = INITIATIVE_CAROUSEL_START + INITIATIVE_SLIDE_COUNT;
 
 const INIT_CAROUSEL = {
   ease: [0.42, 0, 0.58, 1],
   duration: 0.55,
-  autoplayMs: 10000,
+  autoplayMs: 6500,
+};
+
+/** Hero intro: soft deceleration, overlapping letter motion reads as one smooth wave. */
+const KIT_HERO_EASE = [0.33, 1, 0.68, 1];
+const KIT_HERO_LOGO_DURATION = 1.08;
+const KIT_HERO_TITLE_DELAY_CHILDREN = 0.36;
+const KIT_HERO_TITLE_STAGGER = 0.022;
+const KIT_HERO_TITLE_LETTER_DURATION = 0.58;
+const KIT_HERO_SUBTITLE_GAP_AFTER_TITLE = 0.08;
+const KIT_HERO_SUBTITLE_STAGGER = 0.0075;
+const KIT_HERO_SUBTITLE_LETTER_DURATION = 0.48;
+
+const kitHeroTitleLetterContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: KIT_HERO_TITLE_STAGGER,
+      delayChildren: KIT_HERO_TITLE_DELAY_CHILDREN,
+    },
+  },
+};
+
+const kitHeroTitleLetter = {
+  hidden: { opacity: 0, y: '0.06em' },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: KIT_HERO_TITLE_LETTER_DURATION, ease: KIT_HERO_EASE },
+  },
+};
+
+const kitHeroSubtitleLetter = {
+  hidden: { opacity: 0, y: '0.045em' },
+  show: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: KIT_HERO_SUBTITLE_LETTER_DURATION,
+      ease: KIT_HERO_EASE,
+      delay:
+        KIT_HERO_TITLE_DELAY_CHILDREN +
+        [...HERO_TITLE].length * KIT_HERO_TITLE_STAGGER +
+        KIT_HERO_SUBTITLE_GAP_AFTER_TITLE +
+        i * KIT_HERO_SUBTITLE_STAGGER,
+    },
+  }),
+};
+
+const KitHeroSubtitleLetters = ({ text, reduceMotion, play }) => {
+  if (reduceMotion) {
+    return text;
+  }
+  const segments = text.split(/(\s+)/);
+  let letterIndex = 0;
+  return (
+    <>
+      {segments.map((segment, si) => {
+        if (/^\s+$/.test(segment)) {
+          return <span key={`kit-sub-sp-${si}`}>{segment}</span>;
+        }
+        return (
+          <span key={`kit-sub-w-${si}`} className="kit-hero-subtitle-word">
+            {[...segment].map((ch, ci) => {
+              const i = letterIndex;
+              letterIndex += 1;
+              return (
+                <Motion.span
+                  key={`kit-sub-c-${si}-${ci}`}
+                  className="kit-hero-subtitle-char"
+                  custom={i}
+                  variants={kitHeroSubtitleLetter}
+                  initial="hidden"
+                  animate={play ? 'show' : 'hidden'}
+                >
+                  {ch}
+                </Motion.span>
+              );
+            })}
+          </span>
+        );
+      })}
+    </>
+  );
 };
 
 const VISION_SLIDES = [
@@ -131,11 +215,15 @@ const VISION_SLIDES = [
 
 const KCRKit = () => {
   const reduceMotion = useReducedMotion();
+  const heroRef = useRef(null);
+  const heroInView = useInView(heroRef, { once: true, amount: 0.28 });
   const listItems = KIT_UPDATES.slice(1);
   const viewportRef = useRef(null);
   const [carouselOffset, setCarouselOffset] = useState(INITIATIVE_CAROUSEL_START);
   const [stepPx, setStepPx] = useState(0);
   const [instantMove, setInstantMove] = useState(false);
+  const carouselOffsetRef = useRef(INITIATIVE_CAROUSEL_START);
+  carouselOffsetRef.current = carouselOffset;
 
   useEffect(() => {
     const grid = viewportRef.current;
@@ -158,12 +246,11 @@ const KCRKit = () => {
   }, []);
 
   useEffect(() => {
-    if (carouselOffset !== INITIATIVE_CAROUSEL_LOOP) return undefined;
-    /* Seam reset: same frame as hitting the duplicated strip end, jump to middle copy (infinite loop). */
-    /* eslint-disable react-hooks/set-state-in-effect */
+    if (carouselOffset <= INITIATIVE_CAROUSEL_LOOP) return undefined;
     setInstantMove(true);
-    setCarouselOffset(INITIATIVE_CAROUSEL_START);
-    /* eslint-enable react-hooks/set-state-in-effect */
+    setCarouselOffset(
+      INITIATIVE_CAROUSEL_START + ((carouselOffset - INITIATIVE_CAROUSEL_START) % INITIATIVE_SLIDE_COUNT)
+    );
     return undefined;
   }, [carouselOffset]);
 
@@ -172,6 +259,13 @@ const KCRKit = () => {
     const id = requestAnimationFrame(() => setInstantMove(false));
     return () => cancelAnimationFrame(id);
   }, [instantMove]);
+
+  const handleInitiativeTrackAnimationComplete = useCallback(() => {
+    if (reduceMotion) return;
+    if (carouselOffsetRef.current !== INITIATIVE_CAROUSEL_LOOP) return;
+    setInstantMove(true);
+    setCarouselOffset(INITIATIVE_CAROUSEL_START);
+  }, [reduceMotion]);
 
   const goNext = useCallback(() => {
     if (reduceMotion) {
@@ -182,7 +276,7 @@ const KCRKit = () => {
       );
       return;
     }
-    setCarouselOffset((o) => o + 1);
+    setCarouselOffset((o) => Math.min(o + 1, INITIATIVE_CAROUSEL_LOOP));
   }, [reduceMotion]);
 
   const goPrev = useCallback(() => {
@@ -210,32 +304,65 @@ const KCRKit = () => {
 
   return (
     <div className="kit-page">
-      <section className="kit-hero" aria-labelledby="kit-hero-title">
+      <section ref={heroRef} className="kit-hero" aria-labelledby="kit-hero-title">
         <div className="kit-hero-media" aria-hidden="true" />
         <div className="kit-hero-overlay" />
 
         <div className="kit-hero-content">
           <div className="kit-hero-heading-row">
-            <Motion.img
-              className="kit-hero-logo"
-              src={kcrKitLogo}
-              alt="KCR Kit programme logo"
-              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-              animate={reduceMotion ? false : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              draggable={false}
-            />
+            {reduceMotion ? (
+              <img
+                className="kit-hero-logo"
+                src={kcrKitLogo}
+                alt="KCR Kit programme logo"
+                draggable={false}
+              />
+            ) : (
+              <Motion.img
+                className="kit-hero-logo"
+                src={kcrKitLogo}
+                alt="KCR Kit programme logo"
+                initial={{ x: '-125%', rotate: -360, opacity: 0 }}
+                animate={
+                  heroInView
+                    ? { x: 0, rotate: 0, opacity: 1 }
+                    : { x: '-125%', rotate: -360, opacity: 0 }
+                }
+                transition={{
+                  duration: heroInView ? KIT_HERO_LOGO_DURATION : 0,
+                  ease: KIT_HERO_EASE,
+                }}
+                draggable={false}
+              />
+            )}
 
             <div className="kit-hero-heading-text">
               <span className="kit-hero-label">{LABEL_TEXT}</span>
 
               <h1 id="kit-hero-title" className="kit-hero-title">
-                {HERO_TITLE}
+                {reduceMotion ? (
+                  HERO_TITLE
+                ) : (
+                  <Motion.span
+                    className="kit-hero-title-chars"
+                    variants={kitHeroTitleLetterContainer}
+                    initial="hidden"
+                    animate={heroInView ? 'show' : 'hidden'}
+                  >
+                    {[...HERO_TITLE].map((ch, i) => (
+                      <Motion.span key={`kit-title-${i}`} className="kit-hero-title-char" variants={kitHeroTitleLetter}>
+                        {ch === ' ' ? '\u00a0' : ch}
+                      </Motion.span>
+                    ))}
+                  </Motion.span>
+                )}
               </h1>
             </div>
           </div>
 
-          <p className="kit-hero-subtitle">{HERO_SUBTITLE}</p>
+          <p className="kit-hero-subtitle">
+            <KitHeroSubtitleLetters text={HERO_SUBTITLE} reduceMotion={reduceMotion} play={heroInView} />
+          </p>
         </div>
       </section>
 
@@ -275,6 +402,7 @@ const KCRKit = () => {
                 duration: reduceMotion || instantMove ? 0 : INIT_CAROUSEL.duration,
                 ease: INIT_CAROUSEL.ease,
               }}
+              onAnimationComplete={reduceMotion ? undefined : handleInitiativeTrackAnimationComplete}
             >
               {(reduceMotion ? INITIATIVE_SLIDES : INITIATIVE_CAROUSEL_SLIDES).map((slide, idx) => (
                 <article

@@ -10,10 +10,25 @@
 }
 
 .kit-hero {
+  --contact-dark: #1e2a32;
+  --contact-dark-mid: #2c3e41;
+  --contact-sage: #6d8f7a;
+  --contact-sage-hover: #5a7a66;
+  --contact-muted: #6b7280;
+  --contact-border-light: #e8e6e3;
+  /* Pink keyed to page accents, pulled toward sage + slate so it sits on the hero gradient */
+  --kit-hero-title-pink: color-mix(in srgb, #cc2e7f 58%, #e8a4c4 42%);
+  --kit-hero-title-pink-on-bg: color-mix(
+    in srgb,
+    var(--kit-hero-title-pink) 78%,
+    color-mix(in srgb, var(--contact-sage) 55%, var(--contact-dark-mid)) 22%
+  );
+
   position: relative;
   width: 100%;
   min-height: calc(100dvh - 92px);
-  overflow: hidden;
+  overflow-x: visible;
+  overflow-y: hidden;
   isolation: isolate;
 }
 
@@ -25,14 +40,27 @@
 
 .kit-hero-media {
   z-index: 0;
-  background-color: #b0fce077
-  
+  background:
+    radial-gradient(
+      120% 80% at 85% 20%,
+      color-mix(in srgb, var(--contact-sage) 28%, transparent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(
+      165deg,
+      var(--contact-dark) 0%,
+      var(--contact-dark-mid) 52%,
+      color-mix(in srgb, var(--contact-dark-mid) 72%, var(--contact-sage-hover)) 100%
+    );
 }
 
 .kit-hero-overlay {
   z-index: 1;
-  /* Lighter veil so the bright gradient reads through; text stays legible */
-  background: rgba(35, 6, 28, 0.28);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--contact-dark) 18%, transparent) 0%,
+    color-mix(in srgb, var(--contact-dark) 52%, transparent) 100%
+  );
   pointer-events: none;
   -webkit-user-select: none;
   user-select: none;
@@ -46,7 +74,7 @@
   margin: 0 auto;
   padding: clamp(92px, 14vh, 152px) clamp(20px, 6vw, 64px) clamp(56px, 8vh, 88px);
   display: grid;
-  gap: clamp(14px, 2.2vh, 24px);
+  row-gap: 0;
   align-content: center;
 }
 
@@ -55,6 +83,27 @@
   align-items: center;
   justify-content: flex-start;
   gap: clamp(16px, 3.5vw, 36px);
+  overflow: visible;
+}
+
+.kit-hero-title-chars {
+  display: inline;
+}
+
+.kit-hero-title-char,
+.kit-hero-subtitle-char {
+  display: inline-block;
+}
+
+.kit-hero-logo,
+.kit-hero-title-char,
+.kit-hero-subtitle-char {
+  backface-visibility: hidden;
+}
+
+.kit-hero-subtitle-word {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .kit-hero-heading-text {
@@ -67,9 +116,9 @@
   width: fit-content;
   padding: 0.42rem 0.9rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  background: rgba(8, 16, 28, 0.46);
-  color: rgba(245, 248, 255, 0.92);
+  border: 1px solid #a4b6a9;
+  background: color-mix(in srgb, var(--contact-dark-mid) 78%, transparent);
+  color: var(--contact-border-light);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.11em;
@@ -79,29 +128,31 @@
 .kit-hero-title {
   margin: 0;
   max-width: 18ch;
-  color: #f8fbff;
+  color: var(--kit-hero-title-pink-on-bg);
   font-family: var(--font-heading);
   font-size: clamp(2.15rem, 4.9vw, 4.2rem);
   line-height: 1.04;
   letter-spacing: -0.02em;
-  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.35);
+  text-shadow:
+    0 2px 28px color-mix(in srgb, var(--contact-dark) 72%, transparent),
+    0 0 48px color-mix(in srgb, var(--kit-hero-title-pink) 22%, transparent);
 }
 
 .kit-hero-subtitle {
-  margin: 0;
+  margin: -0.22rem 0 0;
   margin-left: calc(clamp(96px, 13vw, 156px) + clamp(16px, 3.5vw, 36px));
   max-width: 68ch;
-  color: rgba(245, 248, 255, 0.94);
+  color: #d1d1d1;
   font-size: clamp(1rem, 1.65vw, 1.28rem);
   line-height: 1.6;
-  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.32);
+  text-shadow: 0 1px 18px color-mix(in srgb, var(--contact-dark) 55%, transparent);
 }
 
 .kit-hero-logo {
   width: clamp(96px, 13vw, 156px);
   height: auto;
   flex-shrink: 0;
-  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.34));
+  filter: drop-shadow(0 10px 22px color-mix(in srgb, var(--contact-dark) 70%, transparent));
 }
 
 .kit-initiatives {

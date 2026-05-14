@@ -9,12 +9,17 @@
 .news-media-hero {
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../assets/newsandmedia_bg.png') center/cover no-repeat;
   color: #fff;
-  padding: 10rem 5%;
+  box-sizing: border-box;
+  min-height: var(--site-hero-band-height);
+  height: var(--site-hero-band-height);
+  padding: max(1.25rem, env(safe-area-inset-top, 0px)) 5% max(1rem, env(safe-area-inset-bottom, 0px));
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 3rem;
   position: relative;
+  overflow: hidden;
+  text-align: center;
 }
 
 .news-media-hero h1 {

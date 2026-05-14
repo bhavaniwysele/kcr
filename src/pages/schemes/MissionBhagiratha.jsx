@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform, useInView } from 'framer-motion';
 import './MissionBhagiratha.css';
 
 import mbBgImg from '../../assets/mb_bg.png';
@@ -41,7 +41,7 @@ const ABOUT_POINTS = [
   },
 ];
 
-function SlideRevealLine({ children, delay = 0, className }) {
+function SlideRevealLine({ children, delay = 0, className, inView = true }) {
   const reduceMotion = useReducedMotion();
 
   if (reduceMotion) {
@@ -53,12 +53,12 @@ function SlideRevealLine({ children, delay = 0, className }) {
       <motion.div
         className="mb-reveal-inner"
         initial={{ x: '100%', opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
+        animate={inView ? { x: 0, opacity: 1 } : { x: '100%', opacity: 0 }}
         transition={{
-          delay,
+          delay: inView ? delay : 0,
           duration: DURATION,
           ease: EASE,
-          opacity: { delay, duration: DURATION * 0.6, ease: 'easeOut' },
+          opacity: { delay: inView ? delay : 0, duration: DURATION * 0.6, ease: 'easeOut' },
         }}
       >
         {children}
@@ -383,9 +383,12 @@ function AboutSection() {
 }
 
 const MissionBhagiratha = () => {
+  const heroRef = useRef(null);
+  const heroInView = useInView(heroRef, { once: true, amount: 0.32 });
+
   return (
     <div className="mb-page">
-      <section className="mb-hero" aria-labelledby="mb-hero-title">
+      <section ref={heroRef} className="mb-hero" aria-labelledby="mb-hero-title">
         <div className="mb-hero-shell">
           <div className="mb-hero-bg">
             <img
@@ -400,17 +403,17 @@ const MissionBhagiratha = () => {
           <div className="mb-hero-overlay" />
 
           <div className="mb-hero-content">
-            <SlideRevealLine delay={0.1} className="mb-hero-label-wrap">
+            <SlideRevealLine delay={0.1} className="mb-hero-label-wrap" inView={heroInView}>
               <span className="mb-hero-label">{LABEL_TEXT}</span>
             </SlideRevealLine>
 
-            <SlideRevealLine delay={0.3}>
+            <SlideRevealLine delay={0.3} inView={heroInView}>
               <h1 id="mb-hero-title" className="mb-hero-title">
                 {HERO_TITLE}
               </h1>
             </SlideRevealLine>
 
-            <SlideRevealLine delay={0.55}>
+            <SlideRevealLine delay={0.55} inView={heroInView}>
               <p className="mb-hero-subtitle">{HERO_SUBTITLE}</p>
             </SlideRevealLine>
           </div>

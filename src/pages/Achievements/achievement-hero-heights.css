@@ -1,0 +1,68 @@
+/**
+ * Unified hero band height for all /achievements/* routes (navbar dropdown).
+ * Uses --site-hero-band-height from src/index.css
+ */
+
+main .irrigation-hero {
+  min-height: var(--site-hero-band-height);
+  height: var(--site-hero-band-height);
+  box-sizing: border-box;
+  padding: max(1.25rem, env(safe-area-inset-top, 0px)) 2rem max(1rem, env(safe-area-inset-bottom, 0px));
+}
+
+main .agri-hero {
+  min-height: var(--site-hero-band-height);
+  height: var(--site-hero-band-height);
+  box-sizing: border-box;
+}
+
+main .economic-page .hero-section {
+  min-height: var(--site-hero-band-height);
+  height: var(--site-hero-band-height);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: max(1.25rem, env(safe-area-inset-top, 0px)) 2rem max(1rem, env(safe-area-inset-bottom, 0px));
+}
+
+main .cultural-revival-hero {
+  min-height: var(--site-hero-band-height);
+  height: var(--site-hero-band-height);
+  box-sizing: border-box;
+}
+
+main .state-formation-hero {
+  width: 100%;
+  max-width: 100%;
+  min-height: var(--site-hero-band-height);
+  height: var(--site-hero-band-height);
+  box-sizing: border-box;
+}
+
+main .welfare-page .welfare-header {
+  min-height: var(--site-hero-band-height);
+  height: var(--site-hero-band-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  box-sizing: border-box;
+  padding-inline: 1rem;
+}
+
+@media (max-width: 768px) {
+  main .cultural-revival-hero {
+    min-height: var(--site-hero-band-height);
+    height: var(--site-hero-band-height);
+  }
+}
+
+@media (max-width: 900px) {
+  main .state-formation-hero {
+    min-height: var(--site-hero-band-height);
+    height: var(--site-hero-band-height);
+  }
+}

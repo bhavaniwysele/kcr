@@ -35,7 +35,7 @@ function useThreeLineTimings(line1, line2, line3) {
   }, [line1, line2, line3]);
 }
 
-function AnimatedLetters({ text, baseDelay, className }) {
+function AnimatedLetters({ text, baseDelay, className, play }) {
   const chars = [...text];
   const reduceMotion = useReducedMotion();
 
@@ -54,9 +54,9 @@ function AnimatedLetters({ text, baseDelay, className }) {
           key={`${i}-${char}`}
           className="rb-hero-char"
           initial={{ opacity: 0, y: '0.72em' }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={play ? { opacity: 1, y: 0 } : { opacity: 0, y: '0.72em' }}
           transition={{
-            delay: baseDelay + i * STAGGER,
+            delay: play ? baseDelay + i * STAGGER : 0,
             duration: DURATION,
             ease: EASE,
           }}
@@ -134,6 +134,8 @@ function RythuBannerCurves() {
 
 function RythuHero() {
   const reduceMotion = useReducedMotion();
+  const heroRef = useRef(null);
+  const heroInView = useInView(heroRef, { once: true, amount: 0.28 });
   const [b1, b2, b3] = useThreeLineTimings(
     RYTHU_HERO_LINES[0],
     RYTHU_HERO_LINES[1],
@@ -144,12 +146,12 @@ function RythuHero() {
     ? {}
     : {
         initial: { opacity: 0, y: 36 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.78, ease: EASE, delay: 0.04 },
+        animate: heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 },
+        transition: { duration: 0.78, ease: EASE, delay: heroInView ? 0.04 : 0 },
       };
 
   return (
-    <section className="rb-hero" aria-labelledby="rb-hero-title">
+    <section ref={heroRef} className="rb-hero" aria-labelledby="rb-hero-title">
       <div className="rb-hero-shell">
         <div className="rb-hero-photo" aria-hidden="true">
           <img
@@ -187,15 +189,15 @@ function RythuHero() {
               <span className="rb-sr-only">{RYTHU_HERO_SR_TITLE}</span>
               <span className="rb-hero-headline" aria-hidden="true">
                 <span className="rb-hero-line rb-hero-line--light">
-                  <AnimatedLetters text={RYTHU_HERO_LINES[0]} baseDelay={b1} />
+                  <AnimatedLetters text={RYTHU_HERO_LINES[0]} baseDelay={b1} play={heroInView} />
                 </span>
                 <span className="rb-hero-line rb-hero-line--bar-wrap">
                   <span className="rb-hero-bar">
-                    <AnimatedLetters text={RYTHU_HERO_LINES[1]} baseDelay={b2} />
+                    <AnimatedLetters text={RYTHU_HERO_LINES[1]} baseDelay={b2} play={heroInView} />
                   </span>
                 </span>
                 <span className="rb-hero-line rb-hero-line--light">
-                  <AnimatedLetters text={RYTHU_HERO_LINES[2]} baseDelay={b3} />
+                  <AnimatedLetters text={RYTHU_HERO_LINES[2]} baseDelay={b3} play={heroInView} />
                 </span>
               </span>
             </h1>

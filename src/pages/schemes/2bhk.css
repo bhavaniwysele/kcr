@@ -1,0 +1,712 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+/* ——— 2BHK “Government Housing Initiative” about block (after hero) ——— */
+.bhk-about-initiative {
+  --bhk-ai-bg: #ffffff;
+  --bhk-ai-soft: #fdf8fb;
+  --bhk-ai-text: #5b5a62;
+  --bhk-ai-heading: #121118;
+  --bhk-ai-accent: #c2186d;
+  --bhk-ai-accent-hover: #a3145c;
+  --bhk-ai-accent-soft: #fce4ef;
+  --bhk-ai-shadow: 0 28px 70px rgba(18, 17, 24, 0.1);
+
+  color-scheme: light;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--bhk-ai-bg);
+  color: var(--bhk-ai-text);
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(3rem, 7vw, 5rem) clamp(0.75rem, 2.5vw, 1.25rem) clamp(2.5rem, 5.5vw, 4rem);
+  border-top: 1px solid rgba(194, 24, 109, 0.08);
+}
+
+.bhk-about-initiative__inner {
+  width: 100%;
+  max-width: min(1200px, 100%);
+  margin: 0 auto;
+  padding-inline: clamp(0.5rem, 1.5vw, 0.75rem);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 34rem) minmax(0, 20rem);
+  gap: clamp(1.5rem, 3.5vw, 2.75rem);
+  align-items: center;
+  justify-content: center;
+}
+
+.bhk-about-initiative__content {
+  text-align: center;
+  max-width: min(34rem, 100%);
+  margin-inline: auto;
+  min-width: 0;
+}
+
+.bhk-about-initiative__label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin: 0 0 1.35rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bhk-ai-accent);
+}
+
+.bhk-about-initiative__label-line {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2px;
+  flex-shrink: 0;
+  background: var(--bhk-ai-accent);
+  border-radius: 1px;
+}
+
+.bhk-about-initiative__title {
+  margin: 0 0 1.15rem;
+  font-size: clamp(1.65rem, 3.5vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  color: var(--bhk-ai-heading);
+}
+
+.bhk-about-initiative__title-accent {
+  color: var(--bhk-ai-accent);
+}
+
+.bhk-about-initiative__title-rule {
+  width: 6rem;
+  height: 3px;
+  background: var(--bhk-ai-accent);
+  border-radius: 1px;
+  margin-inline: auto;
+  margin-bottom: 0.85rem;
+}
+
+.bhk-about-initiative__body {
+  margin: 0;
+  font-size: clamp(0.875rem, 1.15vw, 0.97rem);
+  font-weight: 400;
+  line-height: 1.68;
+  color: var(--bhk-ai-text);
+}
+
+/* ——— Right column: layered magenta panel + image ——— */
+.bhk-about-initiative__visual {
+  position: relative;
+  justify-self: center;
+  align-self: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-right: 0.5rem;
+  padding-top: 0;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.bhk-about-initiative__figure-wrap {
+  position: relative;
+  margin: 0;
+  width: min(100%, 18rem);
+}
+
+.bhk-about-initiative__figure-backdrop {
+  position: absolute;
+  z-index: 0;
+  right: -2.5rem;
+  top: -2.5rem;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.25rem;
+  background: linear-gradient(145deg, rgba(233, 30, 140, 0.85) 0%, rgba(194, 24, 109, 0.9) 100%), var(--bg-img);
+  background-size: cover;
+  background-position: center;
+}
+
+.bhk-about-initiative__figure-crop {
+  position: relative;
+  z-index: 1;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  aspect-ratio: 4 / 5;
+  background: var(--bhk-ai-soft);
+}
+
+.bhk-about-initiative__figure-crop img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 900px) {
+  .bhk-about-initiative__inner {
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 4vw, 2.25rem);
+    justify-content: stretch;
+  }
+
+  .bhk-about-initiative__visual {
+    justify-content: center;
+    width: 100%;
+    max-width: 21rem;
+    margin-inline: auto;
+    padding-right: 1.5rem;
+    padding-top: 0;
+    order: -1;
+  }
+
+  .bhk-about-initiative__figure-wrap {
+    width: 100%;
+  }
+
+  .bhk-about-initiative__figure-backdrop {
+    right: -1.5rem;
+    top: -1.5rem;
+  }
+
+  .bhk-about-initiative__content {
+    max-width: 40rem;
+    padding-top: 0.25rem;
+  }
+}
+
+/* ——— Housing & Community Development (2BHK follow-up section) ——— */
+.bhk-housing-dev {
+  --bhk-dev-cream: #faf7f4;
+  --bhk-dev-surface: #ffffff;
+  --bhk-dev-text: #5b5a62;
+  --bhk-dev-heading: #1a1823;
+  --bhk-dev-accent: #c2186d;
+  --bhk-dev-accent-soft: #fce8f1;
+  --bhk-dev-shadow: 0 6px 32px rgba(18, 17, 24, 0.07);
+  --bhk-dev-radius: 1rem;
+
+  color-scheme: light;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--bhk-dev-cream);
+  color: var(--bhk-dev-text);
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(2rem, 4.5vw, 3.25rem) clamp(0.75rem, 2.5vw, 1.25rem) clamp(2.25rem, 5vw, 3.5rem);
+  border-top: 1px solid rgba(194, 24, 109, 0.06);
+}
+
+.bhk-housing-dev__inner {
+  width: 100%;
+  max-width: min(1200px, 100%);
+  margin: 0 auto;
+  padding-inline: clamp(0.5rem, 1.5vw, 0.75rem);
+  box-sizing: border-box;
+}
+
+.bhk-housing-dev__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(0.75rem, 1.6vw, 1rem);
+  align-items: stretch;
+  margin-bottom: clamp(0.75rem, 1.6vw, 1rem);
+}
+
+.bhk-housing-dev__intro {
+  text-align: left;
+  padding-top: 0.1rem;
+  max-width: none;
+  min-width: 0;
+}
+
+.bhk-housing-dev__accent-line {
+  display: block;
+  width: 2rem;
+  height: 2px;
+  background: var(--bhk-dev-accent);
+  border-radius: 1px;
+  margin-bottom: 0.85rem;
+}
+
+.bhk-housing-dev__title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.45rem, 3vw, 2.05rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--bhk-dev-heading);
+}
+
+.bhk-housing-dev__title-accent {
+  color: var(--bhk-dev-accent);
+}
+
+.bhk-housing-dev__lede {
+  margin: 0;
+  font-size: clamp(0.82rem, 1.15vw, 0.92rem);
+  line-height: 1.62;
+  color: var(--bhk-dev-text);
+}
+
+.bhk-housing-dev__bottom {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.6vw, 1rem);
+}
+
+.bhk-housing-dev__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.05rem 1.05rem 1rem;
+  background: var(--bhk-dev-surface);
+  border-radius: var(--bhk-dev-radius);
+  border: 1px solid rgba(194, 24, 109, 0.07);
+  box-shadow: var(--bhk-dev-shadow);
+  overflow: hidden;
+  min-height: 10.5rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transform-origin: center;
+}
+
+.bhk-housing-dev__card:hover {
+  background: var(--bhk-dev-accent);
+  border-color: transparent;
+  box-shadow: 0 16px 40px rgba(194, 24, 109, 0.25);
+  z-index: 2;
+}
+
+.bhk-housing-dev__card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 0.85rem;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  transition: transform 0.3s ease;
+}
+
+.bhk-housing-dev__card:hover .bhk-housing-dev__card-icon {
+  transform: scale(1.05);
+}
+
+.bhk-housing-dev__card-title {
+  margin: 0 0 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--bhk-dev-heading);
+  transition: color 0.3s ease;
+}
+
+.bhk-housing-dev__card:hover .bhk-housing-dev__card-title {
+  color: #fff;
+}
+
+.bhk-housing-dev__card-body {
+  margin: 0;
+  padding-bottom: 0.35rem;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--bhk-dev-text);
+  flex-grow: 1;
+  transition: color 0.3s ease;
+}
+
+.bhk-housing-dev__card:hover .bhk-housing-dev__card-body {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.bhk-housing-dev__card-deco {
+  position: absolute;
+  right: -0.5rem;
+  bottom: -1rem;
+  width: 6.5rem;
+  height: 6.5rem;
+  opacity: 0.06;
+  pointer-events: none;
+  color: var(--bhk-dev-accent);
+  transform: rotate(-8deg);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bhk-housing-dev__card:hover .bhk-housing-dev__card-deco {
+  color: #fff;
+  opacity: 0.15;
+  transform: rotate(-15deg) scale(1.15);
+}
+
+@media (max-width: 960px) {
+  .bhk-housing-dev__top {
+    grid-template-columns: 1fr;
+  }
+
+  .bhk-housing-dev__intro {
+    max-width: none;
+    margin-bottom: 0.5rem;
+  }
+
+  .bhk-housing-dev__bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .bhk-housing-dev__card {
+    min-height: 0;
+  }
+}
+
+@media (min-width: 961px) and (max-width: 1100px) {
+  .bhk-housing-dev__card {
+    min-height: 11rem;
+  }
+}
+
+/* ——— Better Living for Families (after Housing & Community) ——— */
+.bhk-better-living {
+  --bhk-bl-navy: #131a2c;
+  --bhk-bl-navy-deep: #0e1422;
+  --bhk-bl-text: #66656d;
+  --bhk-bl-heading: #121118;
+  --bhk-bl-accent: #d61f69;
+  --bhk-bl-icon-soft: #fce7f0;
+  --bhk-bl-sep: rgba(0, 0, 0, 0.06);
+
+  position: relative;
+  width: 100%;
+  background: #fdfdfd;
+  color: var(--bhk-bl-text);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  padding-top: 4rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Background Image Layer */
+.bhk-better-living::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  background-image: var(--bhk-stats-bg);
+  background-size: cover;
+  background-position: center bottom;
+  z-index: -2;
+}
+
+/* Background Image Top Fade */
+.bhk-better-living::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  background: linear-gradient(to bottom, #fdfdfd 0%, rgba(253, 253, 253, 0.5) 15%, rgba(253, 253, 253, 0) 40%);
+  z-index: -1;
+}
+
+.bhk-better-living__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-inline: 1.5rem;
+}
+
+.bhk-better-living__header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+}
+
+.bhk-better-living__ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.bhk-better-living__ornament-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--bhk-bl-accent);
+}
+
+.bhk-better-living__ornament-line {
+  width: 45px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--bhk-bl-accent);
+}
+
+.bhk-better-living__title {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: var(--bhk-bl-heading);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.bhk-better-living__title-accent {
+  color: var(--bhk-bl-accent);
+}
+
+.bhk-better-living__lede {
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.6;
+  color: var(--bhk-bl-text);
+  margin: 0 auto;
+  max-width: 580px;
+}
+
+.bhk-better-living__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bhk-better-living__feature {
+  flex: 1;
+  text-align: center;
+  padding: 0 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bhk-better-living__feature:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 1px;
+  background: var(--bhk-bl-sep);
+}
+
+.bhk-better-living__feature-icon {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  background: var(--bhk-bl-icon-soft);
+  color: var(--bhk-bl-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.bhk-better-living__feature-icon svg {
+  width: 2.75rem;
+  height: 2.75rem;
+  stroke-width: 1.5px;
+}
+
+.bhk-better-living__feature-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--bhk-bl-heading);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.bhk-better-living__feature-body {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--bhk-bl-text);
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+/* Stats Box — wide strip, low vertical padding */
+.bhk-better-living__stats-anchor {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  padding-inline: 1.5rem;
+  padding-bottom: 1.75rem;
+}
+
+.bhk-better-living__stats-bar {
+  background: var(--bhk-bl-navy);
+  border-radius: 0.65rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 0.7rem 1.75rem;
+  max-width: min(1120px, 100%);
+  margin: 0 auto;
+  box-shadow: 0 10px 20px rgba(19, 26, 44, 0.18);
+}
+
+.bhk-better-living__stat {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.65rem;
+}
+
+.bhk-better-living__stat-sep {
+  width: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  margin: 0.12rem 0;
+  align-self: stretch;
+}
+
+.bhk-better-living__stat-sep-line {
+  flex: 1;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.bhk-better-living__stat-sep-dot {
+  width: 3px;
+  height: 3px;
+  background: #f75d8e;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.bhk-better-living__stat-icon-wrap {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  border: 1px solid rgba(247, 93, 142, 0.45);
+  color: #f75d8e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.3rem;
+  flex-shrink: 0;
+}
+
+.bhk-better-living__stat-icon-wrap svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  stroke-width: 1.5px;
+}
+
+.bhk-better-living__stat-value {
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 0.08rem;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.bhk-better-living__stat-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.18rem;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.bhk-better-living__stat-sub {
+  font-size: 0.55rem;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 auto;
+  max-width: min(200px, 28vw);
+}
+
+@media (min-width: 480px) {
+  .bhk-better-living__stat-label {
+    font-size: 0.66rem;
+  }
+
+  .bhk-better-living__stat-sub {
+    font-size: 0.58rem;
+  }
+}
+
+@media (min-width: 700px) {
+  .bhk-better-living__stats-bar {
+    padding: 0.75rem 2.25rem;
+  }
+
+  .bhk-better-living__stat-label {
+    font-size: 0.72rem;
+  }
+
+  .bhk-better-living__stat-sub {
+    font-size: 0.62rem;
+    max-width: min(220px, 24vw);
+  }
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+  .bhk-better-living__features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 0;
+  }
+
+  .bhk-better-living__feature:not(:last-child)::after {
+    display: none;
+  }
+
+  .bhk-better-living__feature:nth-child(odd)::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 10%;
+    bottom: 10%;
+    width: 1px;
+    background: var(--bhk-bl-sep);
+  }
+}
+
+@media (max-width: 650px) {
+  .bhk-better-living__features {
+    grid-template-columns: 1fr;
+    gap: 3rem 0;
+  }
+
+  .bhk-better-living__feature:nth-child(odd)::after {
+    display: none;
+  }
+
+  .bhk-better-living__stats-bar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.1rem 1rem;
+  }
+
+  .bhk-better-living__stat-sep {
+    flex-direction: row;
+    width: auto;
+    height: 1px;
+    margin: 0 0.75rem;
+  }
+
+  .bhk-better-living__stat-sep-line {
+    width: auto;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+}

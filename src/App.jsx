@@ -21,10 +21,9 @@ import WelfareSchemes from './pages/Achievements/WelfareSchemes';
 import EconomicDevelopment from './pages/Achievements/EconomicDevelopment';
 import CulturalRevival from './pages/Achievements/CulturalRevival';
 import StateFormation from './pages/Achievements/StateFormation';
-import RythuBandhu from './pages/schemes/RythuBandhu';
-import MissionBhagiratha from './pages/schemes/MissionBhagiratha';
-import KCRKit from './pages/schemes/KCRKit';
+import SchemesHub, { SchemesLegacyRedirect } from './pages/schemes/2bhk';
 import './App.css';
+import './pages/Achievements/achievement-hero-heights.css';
 
 function App() {
   return (
@@ -50,10 +49,8 @@ function App() {
             <Route path="/achievements/state-formation" element={<StateFormation />} />
             {/* Catch-all for achievements */}
             <Route path="/achievements/:category" element={<Navigate to="/achievements/irrigation" replace />} />
-            <Route path="/schemes" element={<Navigate to="/schemes/rythu-bandhu" replace />} />
-            <Route path="/schemes/rythu-bandhu" element={<RythuBandhu />} />
-            <Route path="/schemes/mission-bhagiratha" element={<MissionBhagiratha />} />
-            <Route path="/schemes/kcr-kit" element={<KCRKit />} />
+            <Route path="/schemes" element={<SchemesHub />} />
+            <Route path="/schemes/:schemeSlug" element={<SchemesLegacyRedirect />} />
             <Route path="/news-media" element={<NewsMedia />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/join-us" element={<JoinUs />} />

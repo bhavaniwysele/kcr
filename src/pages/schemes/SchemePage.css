@@ -47,6 +47,7 @@
 .scheme-hero-char {
   display: inline-block;
   vertical-align: bottom;
+  transform-origin: 0% 100%;
   will-change: transform, opacity;
 }
 
