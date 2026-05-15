@@ -1,4 +1,5 @@
 import React, { useId, useMemo, useRef, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, useReducedMotion, useInView } from 'framer-motion';
 import './RythuBandhu.css';
 
@@ -133,9 +134,20 @@ function RythuBannerCurves() {
 }
 
 function RythuHero() {
+  const { hash } = useLocation();
   const reduceMotion = useReducedMotion();
   const heroRef = useRef(null);
-  const heroInView = useInView(heroRef, { once: true, amount: 0.28 });
+  const heroInViewFromScroll = useInView(heroRef, { once: true, amount: 0.28 });
+  const [heroLinkedIn, setHeroLinkedIn] = useState(false);
+
+  useEffect(() => {
+    const anchor = hash.replace(/^#/, '');
+    if (anchor === 'rythu-bandhu' || anchor === 'rythu-bandhu-hero') {
+      setHeroLinkedIn(true);
+    }
+  }, [hash]);
+
+  const heroInView = heroInViewFromScroll || heroLinkedIn;
   const [b1, b2, b3] = useThreeLineTimings(
     RYTHU_HERO_LINES[0],
     RYTHU_HERO_LINES[1],
@@ -151,7 +163,12 @@ function RythuHero() {
       };
 
   return (
-    <section ref={heroRef} className="rb-hero" aria-labelledby="rb-hero-title">
+    <section
+      id="rythu-bandhu-hero"
+      ref={heroRef}
+      className="rb-hero"
+      aria-labelledby="rb-hero-title"
+    >
       <div className="rb-hero-shell">
         <div className="rb-hero-photo" aria-hidden="true">
           <img

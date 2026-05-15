@@ -243,6 +243,14 @@
   flex: 0 0 clamp(132px, 26vw, 168px);
   width: clamp(132px, 26vw, 168px);
   align-self: center;
+  overflow: visible;
+}
+
+.ap-about-block__figure-roll {
+  width: 100%;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .ap-about-block__img {
@@ -358,16 +366,16 @@
   padding: clamp(1.1rem, 2.2vw, 1.35rem) clamp(1rem, 2vw, 1.2rem);
   border: none;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.03);
+  background: transparent;
   text-align: left;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.65rem;
-  transition: background 0.2s ease;
+  transition: background 0.25s ease;
 }
 
-/* Decorative corner brackets (reference: top-right + bottom-left only) */
+/* Corner brackets: always visible; stronger glow on hover */
 .ap-pillar-card::before,
 .ap-pillar-card::after {
   content: '';
@@ -379,7 +387,11 @@
   border-style: solid;
   border-color: var(--ap-pillar-accent);
   opacity: 0.88;
-  transition: opacity 0.2s ease, border-color 0.2s ease;
+  filter: none;
+  transition:
+    opacity 0.25s ease,
+    border-color 0.25s ease,
+    filter 0.3s ease;
 }
 
 .ap-pillar-card::before {
@@ -396,14 +408,21 @@
   border-radius: 0 0 0 12px;
 }
 
-.ap-pillar-card:hover {
-  background: rgba(255, 255, 255, 0.05);
+.ap-pillar-card:hover,
+.ap-pillar-card:focus-within {
+  background: transparent;
 }
 
 .ap-pillar-card:hover::before,
-.ap-pillar-card:hover::after {
+.ap-pillar-card:hover::after,
+.ap-pillar-card:focus-within::before,
+.ap-pillar-card:focus-within::after {
   opacity: 1;
-  border-color: #f48fb1;
+  border-color: #ffb7d4;
+  filter:
+    drop-shadow(0 0 5px rgba(236, 64, 122, 0.95))
+    drop-shadow(0 0 14px rgba(244, 143, 177, 0.65))
+    drop-shadow(0 0 24px rgba(236, 64, 122, 0.35));
 }
 
 .ap-pillar-card > * {
@@ -616,22 +635,53 @@
 }
 
 .ap-bento-collage {
-  display: grid;
-  grid-template-columns: 1.06fr 0.84fr;
-  grid-template-rows: 1.12fr 0.88fr;
-  gap: 5px;
-  min-height: clamp(210px, 28vw, 360px);
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
   box-shadow:
     0 12px 30px rgba(25, 12, 40, 0.06),
     0 1px 8px rgba(25, 12, 40, 0.045);
+  /* Fill the 2-row grid lane so inner tiles can stretch (avoids empty band under image) */
+  height: 100%;
+  min-height: clamp(210px, 28vw, 360px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inner shell: equal 2×2 cells so each quadrant matches 200% / 200% background slices */
+.ap-bento-collage-inner {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 5px;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.ap-bento-tile-flip {
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .ap-bento-tile {
+  width: 100%;
+  height: 100%;
   min-height: 0;
+  min-width: 0;
   background-color: #e8e8ec;
+  background-repeat: no-repeat;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 @media (max-width: 899px) {
@@ -650,9 +700,13 @@
   }
 
   .ap-bento-collage {
-    min-height: clamp(190px, 44vw, 280px);
     max-width: 420px;
     margin-inline: auto;
     width: 100%;
+    min-height: clamp(190px, 44vw, 280px);
+  }
+
+  .ap-bento-collage-inner {
+    min-height: 0;
   }
 }

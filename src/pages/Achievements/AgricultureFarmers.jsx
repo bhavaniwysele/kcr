@@ -1,20 +1,91 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './AgricultureFarmers.css';
 
 // Import local images (assuming they are in the specified paths based on generation)
 // Note: You might need to verify the exact filenames from the generated output
 import agriHeroImg from '../../assets/telangana_lush_green_paddy_field_sunset.png';
 import farmerImg from '../../assets/rythu_bandhu_farmer_happy_smiling_field.png';
+import rythuBandhuBg from '../../assets/rythu_bandhu_bg.png';
+import freePowerBg from '../../assets/free_power_bg.png';
+import missionKakatiyaBg from '../../assets/mission_kakatiya_bg.png';
+import loanWaiverBg from '../../assets/loan_waiver_bg.png';
+
+const EDITORIAL_TOP_OFFSET = 120;
+const EDITORIAL_STICKY_BREAKPOINT = 1024;
 
 const AgricultureFarmers = () => {
+  const editorialSectionRef = useRef(null);
+  const editorialMainRef = useRef(null);
+  const sidebarSlotRef = useRef(null);
+  const [sidebarMode, setSidebarMode] = useState('static');
+  const [sidebarLeft, setSidebarLeft] = useState(0);
+
+  useEffect(() => {
+    const updateSidebarPosition = () => {
+      const section = editorialSectionRef.current;
+      const main = editorialMainRef.current;
+      const slot = sidebarSlotRef.current;
+      if (!section || !main || !slot) return;
+
+      const sidebar = slot.querySelector('.editorial-sidebar');
+      if (!sidebar) return;
+
+      if (window.innerWidth <= EDITORIAL_STICKY_BREAKPOINT) {
+        slot.style.height = '';
+        setSidebarMode('static');
+        return;
+      }
+
+      const mainHeight = main.offsetHeight;
+      slot.style.height = `${mainHeight}px`;
+
+      const sectionTop = window.scrollY + section.getBoundingClientRect().top;
+      const mainBottom = window.scrollY + main.getBoundingClientRect().top + mainHeight;
+      const triggerLine = window.scrollY + EDITORIAL_TOP_OFFSET;
+      const sidebarHeight = sidebar.offsetHeight;
+
+      const columnRect = slot.getBoundingClientRect();
+      setSidebarLeft(columnRect.left + columnRect.width / 2);
+
+      if (triggerLine < sectionTop) {
+        setSidebarMode('static');
+      } else if (triggerLine + sidebarHeight < mainBottom) {
+        setSidebarMode('fixed');
+      } else {
+        setSidebarMode('bottom');
+      }
+    };
+
+    updateSidebarPosition();
+    window.addEventListener('scroll', updateSidebarPosition, { passive: true });
+    window.addEventListener('resize', updateSidebarPosition);
+
+    const main = editorialMainRef.current;
+    const resizeObserver =
+      main && typeof ResizeObserver !== 'undefined'
+        ? new ResizeObserver(updateSidebarPosition)
+        : null;
+    resizeObserver?.observe(main);
+
+    return () => {
+      window.removeEventListener('scroll', updateSidebarPosition);
+      window.removeEventListener('resize', updateSidebarPosition);
+      resizeObserver?.disconnect();
+    };
+  }, []);
+
   return (
     <div className="agriculture-page">
       {/* Hero Section */}
       <section className="agri-hero">
         <img src={agriHeroImg} alt="Telangana Agriculture" />
         <div className="agri-hero-content">
-          <p>Cultivating Prosperity</p>
-          <h1>Agriculture Development</h1>
+          <p className="agri-hero-tagline">Cultivating Prosperity</p>
+          <h1 className="agri-hero-title" aria-label="Agriculture Development">
+            <span className="agri-hero-title-word agri-hero-title-word--left">Agriculture</span>
+            <span className="agri-hero-title-word agri-hero-title-word--right">Development</span>
+          </h1>
         </div>
       </section>
 
@@ -56,7 +127,7 @@ const AgricultureFarmers = () => {
           <p>
             Launched as the first-of-its-kind investment support scheme in India, Rythu Bandhu provides ₹10,000 per acre per year to farmers. It eliminates the clutches of private moneylenders and empowers farmers to purchase seeds and fertilizers on time.
           </p>
-          <a href="#" className="agri-btn">
+          <Link to="/schemes#rythu-bandhu-hero" className="agri-btn">
             <span>Know More</span>
             <div className="agri-btn-icon">
               <i className="fa-solid fa-arrow-right"></i>
@@ -64,7 +135,8 @@ const AgricultureFarmers = () => {
             <svg width="100%" height="100%">
               <rect x="0" y="0" width="100%" height="100%" rx="30" ry="30"/>
             </svg>
-          </a>
+          </Link>
+          <img src={rythuBandhuBg} alt="" className="card-bg-img" />
         </div>
 
         <div className="agri-card">
@@ -73,6 +145,7 @@ const AgricultureFarmers = () => {
           <p>
             Telangana is the only state in India providing 24x7 free, high-quality power to over 27 lakh agricultural pump sets. This revolutionary step has stabilized irrigation and significantly increased crop yields across all seasons.
           </p>
+          <img src={freePowerBg} alt="" className="card-bg-img" />
         </div>
 
         <div className="agri-card full-width">
@@ -93,6 +166,7 @@ const AgricultureFarmers = () => {
           <p>
             The restoration of over 46,000 age-old tanks and lakes has revived the traditional irrigation system of Telangana. This has led to a dramatic rise in groundwater levels and rejuvenated the rural ecosystem.
           </p>
+          <img src={missionKakatiyaBg} alt="" className="card-bg-img" />
         </div>
 
         <div className="agri-card">
@@ -101,16 +175,24 @@ const AgricultureFarmers = () => {
           <p>
             Understanding the financial stress on the farming community, the government has implemented multiple rounds of crop loan waivers, clearing thousands of crores in debts to give farmers a fresh start and financial freedom.
           </p>
+          <img src={loanWaiverBg} alt="" className="card-bg-img" />
         </div>
       </section>
 
       {/* Editorial Section */}
-      <section className="agri-editorial">
-        <div className="editorial-sidebar">
-          <h5>THE GRANARY</h5>
-          <h2>From Scarcity to Surplus</h2>
+      <section className="agri-editorial" ref={editorialSectionRef}>
+        <div className="editorial-sidebar-slot" ref={sidebarSlotRef}>
+          <div
+            className={`editorial-sidebar${
+              sidebarMode === 'fixed' ? ' is-fixed' : ''
+            }${sidebarMode === 'bottom' ? ' is-at-bottom' : ''}`}
+            style={sidebarMode === 'fixed' ? { left: `${sidebarLeft}px` } : undefined}
+          >
+            <h5>THE GRANARY</h5>
+            <h2>From Scarcity to Surplus</h2>
+          </div>
         </div>
-        <div className="editorial-main">
+        <div className="editorial-main" ref={editorialMainRef}>
           <p>
             A decade ago, Telangana was known for its parched lands and distressed farmers. Today, it stands proud as the "Granary of India." The transformation is not accidental; it is the result of a visionary leader who put the farmer at the heart of every policy.
           </p>

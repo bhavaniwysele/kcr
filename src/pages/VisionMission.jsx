@@ -1,6 +1,66 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './VisionMission.css';
 import welcomeImage from '../assets/kcr_vNm.png';
+
+const VisionPoint = ({ index, activeIndex, registerRef, children }) => {
+  const isPassed = activeIndex >= 0 && index <= activeIndex;
+  const isActive = activeIndex === index;
+
+  return (
+    <article
+      ref={registerRef(index)}
+      className={`vm-vision-point${isActive ? ' is-active' : ''}${isPassed ? ' is-passed' : ''}`}
+      data-point-index={index}
+    >
+      {children}
+    </article>
+  );
+};
+
+const useVisionColumnProgress = (pointCount) => {
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const pointsRef = useRef([]);
+
+  const registerRef = useCallback(
+    (index) => (el) => {
+      pointsRef.current[index] = el;
+    },
+    []
+  );
+
+  useEffect(() => {
+    const updateActive = () => {
+      const focusLine = window.innerHeight * 0.42;
+      let bestIndex = -1;
+      let bestDistance = Infinity;
+
+      pointsRef.current.forEach((el, index) => {
+        if (!el || index >= pointCount) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+
+        const pointCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(pointCenter - focusLine);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestIndex = index;
+        }
+      });
+
+      setActiveIndex((prev) => (prev === bestIndex ? prev : bestIndex));
+    };
+
+    updateActive();
+    window.addEventListener('scroll', updateActive, { passive: true });
+    window.addEventListener('resize', updateActive);
+    return () => {
+      window.removeEventListener('scroll', updateActive);
+      window.removeEventListener('resize', updateActive);
+    };
+  }, [pointCount]);
+
+  return { activeIndex, registerRef };
+};
 
 const parseStatValue = (value) => {
   const m = String(value).match(/^(\d+)(.*)$/);
@@ -168,6 +228,10 @@ const VisionMission = () => {
   const [isHeroReady, setIsHeroReady] = useState(false);
   const [isDisplayedImageReady, setIsDisplayedImageReady] = useState(false);
   const slideRequestRef = useRef(0);
+  const heroRef = useRef(null);
+  const heroScrollLockRef = useRef(false);
+  const autoplayPausedRef = useRef(false);
+  const touchStartYRef = useRef(0);
 
   const observerRefs = useRef([]);
   const statsStripRef = useRef(null);
@@ -182,6 +246,8 @@ const VisionMission = () => {
   );
   const [statCounts, setStatCounts] = useState(() => statParsed.map(() => 0));
   const [openPriorityId, setOpenPriorityId] = useState(null);
+  const { activeIndex: leftActiveIndex, registerRef: registerLeftPoint } = useVisionColumnProgress(3);
+  const { activeIndex: rightActiveIndex, registerRef: registerRightPoint } = useVisionColumnProgress(3);
 
   const addToRefs = (el) => {
     if (el && !observerRefs.current.includes(el)) {
@@ -279,8 +345,19 @@ const VisionMission = () => {
     });
   };
 
-  const goToSlide = async (index) => {
+  const pauseAutoplay = () => {
+    autoplayPausedRef.current = true;
+    window.setTimeout(() => {
+      autoplayPausedRef.current = false;
+    }, 9000);
+  };
+
+  const goToSlide = async (index, { fromUser = false } = {}) => {
     const nextIndex = (index + slides.length) % slides.length;
+    if (nextIndex === activeSlide) return;
+
+    if (fromUser) pauseAutoplay();
+
     const nextImage = slides[nextIndex].image;
     const requestId = slideRequestRef.current + 1;
     slideRequestRef.current = requestId;
@@ -288,7 +365,7 @@ const VisionMission = () => {
     await ensureImageReady(nextImage);
 
     if (slideRequestRef.current === requestId) {
-      setIsDisplayedImageReady(false);
+      setIsDisplayedImageReady(true);
       setPreviousSlide(activeSlide);
       setActiveSlide(nextIndex);
     }
@@ -309,16 +386,112 @@ const VisionMission = () => {
   }, []);
 
   useEffect(() => {
+    const url = slides[activeSlide].image;
+    if (loadedImages[url]) {
+      setIsDisplayedImageReady(true);
+    }
+  }, [activeSlide, loadedImages]);
+
+  useEffect(() => {
     if (!isHeroReady) return undefined;
-    const intervalId = setInterval(() => goToSlide(activeSlide + 1), 5200);
+    const intervalId = setInterval(() => {
+      if (autoplayPausedRef.current) return;
+      goToSlide(activeSlide + 1);
+    }, 5200);
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSlide, isHeroReady]);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero || !isHeroReady) return undefined;
+
+    const prefersReduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return undefined;
+
+    const COOLDOWN_MS = 850;
+    const WHEEL_THRESHOLD = 28;
+
+    const isHeroScrollZone = () => {
+      const rect = hero.getBoundingClientRect();
+      return rect.top <= 8 && rect.bottom > window.innerHeight * 0.5;
+    };
+
+    const lockScroll = () => {
+      heroScrollLockRef.current = true;
+      window.setTimeout(() => {
+        heroScrollLockRef.current = false;
+      }, COOLDOWN_MS);
+    };
+
+    const onWheel = (event) => {
+      if (!isHeroScrollZone()) return;
+
+      const { deltaY } = event;
+      if (Math.abs(deltaY) < WHEEL_THRESHOLD) return;
+
+      if (heroScrollLockRef.current) {
+        event.preventDefault();
+        return;
+      }
+
+      const scrollingDown = deltaY > 0;
+
+      if (scrollingDown && activeSlide < slides.length - 1) {
+        event.preventDefault();
+        lockScroll();
+        goToSlide(activeSlide + 1, { fromUser: true });
+        return;
+      }
+
+      if (!scrollingDown && activeSlide > 0) {
+        event.preventDefault();
+        lockScroll();
+        goToSlide(activeSlide - 1, { fromUser: true });
+      }
+    };
+
+    const onTouchStart = (event) => {
+      touchStartYRef.current = event.touches[0]?.clientY ?? 0;
+    };
+
+    const onTouchEnd = (event) => {
+      if (!isHeroScrollZone()) return;
+      const endY = event.changedTouches[0]?.clientY ?? 0;
+      const delta = touchStartYRef.current - endY;
+      if (Math.abs(delta) < 48 || heroScrollLockRef.current) return;
+
+      if (delta > 0 && activeSlide < slides.length - 1) {
+        lockScroll();
+        goToSlide(activeSlide + 1, { fromUser: true });
+      } else if (delta < 0 && activeSlide > 0) {
+        lockScroll();
+        goToSlide(activeSlide - 1, { fromUser: true });
+      }
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: false });
+    hero.addEventListener('touchstart', onTouchStart, { passive: true });
+    hero.addEventListener('touchend', onTouchEnd, { passive: true });
+
+    return () => {
+      window.removeEventListener('wheel', onWheel);
+      hero.removeEventListener('touchstart', onTouchStart);
+      hero.removeEventListener('touchend', onTouchEnd);
+    };
   }, [activeSlide, isHeroReady]);
 
   return (
     <div className="vision-mission-page">
       {/* Hero Section */}
-      <section className={`vision-mission-hero ${isHeroReady ? 'is-ready' : 'is-loading'}`}>
+      <section
+        ref={heroRef}
+        className={`vision-mission-hero ${isHeroReady ? 'is-ready' : 'is-loading'}`}
+        aria-roledescription="carousel"
+        aria-label="Vision and mission highlights"
+      >
         {(previousSlide !== null || activeSlide === 0) && (
           <img
             key={`prev-${previousSlide !== null ? slides[previousSlide].id : `loop-${slides[slides.length - 1].id}`}`}
@@ -344,17 +517,17 @@ const VisionMission = () => {
           </div>
         </div>
 
-        <div className="vision-hero-dots">
+        <div className="vision-hero-dots" role="tablist" aria-label="Hero slides">
           {slides.map((slide, index) => (
             <button
               key={slide.id}
               type="button"
+              role="tab"
               className={`vision-dot ${index === activeSlide ? 'active' : ''}`}
-              onClick={() => goToSlide(index)}
+              onClick={() => goToSlide(index, { fromUser: true })}
               aria-label={`Go to slide ${index + 1}`}
-            >
-              {String(index + 1).padStart(2, '0')}
-            </button>
+              aria-selected={index === activeSlide}
+            />
           ))}
         </div>
       </section>
@@ -375,7 +548,7 @@ const VisionMission = () => {
 
           <div className="vm-vision-showcase">
             <div className="vm-vision-column vm-vision-column-left">
-              <article className="vm-vision-point">
+              <VisionPoint index={0} activeIndex={leftActiveIndex} registerRef={registerLeftPoint}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M8 8h8" /><path d="M8 11h8" /><path d="M8 14h5.5l-3.5 5" /><path d="M10 14c4.5 0 4.5-6 0-6" /></svg>
                 </div>
@@ -383,9 +556,9 @@ const VisionMission = () => {
                   <h3>Leadership With Purpose</h3>
                   <p>Focused on building a stronger, inclusive, and future-ready Telangana for every citizen.</p>
                 </div>
-              </article>
+              </VisionPoint>
 
-              <article className="vm-vision-point">
+              <VisionPoint index={1} activeIndex={leftActiveIndex} registerRef={registerLeftPoint}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-4 7 4v13"/><path d="M9 21v-6h6v6"/></svg>
                 </div>
@@ -393,9 +566,9 @@ const VisionMission = () => {
                   <h3>People-Centric Governance</h3>
                   <p>Delivering welfare, development, and transparent governance that directly impacts lives.</p>
                 </div>
-              </article>
+              </VisionPoint>
 
-              <article className="vm-vision-point">
+              <VisionPoint index={2} activeIndex={leftActiveIndex} registerRef={registerLeftPoint}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 20h14" /><path d="M5 15l5-5 4 4 5-8" /><path d="M15 6h4v4" /></svg>
                 </div>
@@ -403,7 +576,7 @@ const VisionMission = () => {
                   <h3>Vision Backed By Progress</h3>
                   <p>Transforming ideas into measurable growth through long-term planning and execution.</p>
                 </div>
-              </article>
+              </VisionPoint>
             </div>
 
             <article className="vm-vision-center-card">
@@ -421,7 +594,7 @@ const VisionMission = () => {
             </article>
 
             <div className="vm-vision-column vm-vision-column-right">
-              <article className="vm-vision-point">
+              <VisionPoint index={0} activeIndex={rightActiveIndex} registerRef={registerRightPoint}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="2.5" /><path d="M17 20c0-2.8-2.2-5-5-5s-5 2.2-5 5" /><path d="M21 18c0-2.2-1.8-4-4-4" /><path d="M3 18c0-2.2 1.8-4 4-4" /><circle cx="18" cy="11" r="2" /><circle cx="6" cy="11" r="2" /></svg>
                 </div>
@@ -429,9 +602,9 @@ const VisionMission = () => {
                   <h3>Empowering Every Community</h3>
                   <p>Ensuring equal opportunities, dignity, and support for people across rural and urban Telangana.</p>
                 </div>
-              </article>
+              </VisionPoint>
 
-              <article className="vm-vision-point">
+              <VisionPoint index={1} activeIndex={rightActiveIndex} registerRef={registerRightPoint}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 0 8.38A7 7 0 0 1 11 20Z" /><path d="M11 20v-8" /></svg>
                 </div>
@@ -439,9 +612,9 @@ const VisionMission = () => {
                   <h3>Driving Sustainable Growth</h3>
                   <p>Balancing industrial progress, social welfare, and environmental responsibility for future generations.</p>
                 </div>
-              </article>
+              </VisionPoint>
 
-              <article className="vm-vision-point">
+              <VisionPoint index={2} activeIndex={rightActiveIndex} registerRef={registerRightPoint}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l7 3v6c0 4.2-2.8 7.7-7 9-4.2-1.3-7-4.8-7-9V6l7-3z"/><path d="M9.5 12.5l1.8 1.8 3.2-3.2"/></svg>
                 </div>
@@ -449,7 +622,7 @@ const VisionMission = () => {
                   <h3>A Stronger Telangana For Tomorrow</h3>
                   <p>Creating a state that stands as a model of development, resilience, and cultural pride.</p>
                 </div>
-              </article>
+              </VisionPoint>
             </div>
           </div>
         </div>

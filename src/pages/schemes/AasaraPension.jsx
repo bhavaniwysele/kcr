@@ -16,6 +16,14 @@ const HERO_SUBTITLE =
 const DURATION = 1.2;
 const EASE = [0.25, 0.1, 0.25, 1];
 
+/** About section circles: top row (text-first) rolls in from the far right; bottom row (image-first) from the far left. Staggered per row. */
+const ABOUT_ROLL_DURATION = 1.1;
+const ABOUT_ROLL_STAGGER = 0.26;
+/** Gentle ease-in-out — slightly longer curve for a smoother feel */
+const ABOUT_ROLL_EASE = [0.45, 0, 0.55, 1];
+/** Single trigger on `.ap-about__grid` so top and bottom rows start together (t=0 for first circle in each row). */
+const ABOUT_GRID_INVIEW = { once: true, amount: 0.22 };
+
 const PILLARS_PRIMARY_HEADING = 'Supporting Lives with Dignity';
 /** Shown under the bento “Secure & Inclusive Future” heading */
 const BENTO_SUBTITLE = PILLARS_PRIMARY_HEADING;
@@ -94,6 +102,9 @@ const PILLAR_CARDS = [
 const BENTO_FROM_TOP = { y: -36, opacity: 0 };
 const BENTO_VISIBLE = { y: 0, opacity: 1 };
 const BENTO_EASE = [0.22, 1, 0.36, 1];
+/** Collage wrapper: keep opacity at 1 so tile flip stays visible (opacity 0 was hiding the whole flip). */
+const BENTO_COLLAGE_INITIAL = { y: 32, opacity: 1 };
+const BENTO_COLLAGE_VISIBLE = { y: 0, opacity: 1 };
 
 const BENTO_TILE_BG = [
   { pos: '0% 0%' },
@@ -101,6 +112,12 @@ const BENTO_TILE_BG = [
   { pos: '0% 100%' },
   { pos: '100% 100%' },
 ];
+
+/** Collage quadrant flip-in (scroll-triggered), smooth stagger */
+const BENTO_FLIP_DURATION = 0.72;
+const BENTO_FLIP_BASE_DELAY = 0.16;
+const BENTO_FLIP_STAGGER = 0.095;
+const BENTO_FLIP_EASE = [0.33, 1, 0.68, 1];
 
 const BENTO_PANELS = [
   {
@@ -225,6 +242,13 @@ function PillarCard({ title, body, Icon, delay, inView, reduceMotion }) {
 }
 
 function AboutBlock({ layout, title, body, img, alt, index, inView, reduceMotion }) {
+  const isTopRow = layout === 'text-first';
+  const rollHidden = isTopRow
+    ? { x: '92vw', rotate: 360 }
+    : { x: '-92vw', rotate: -360 };
+  const rollVisible = { x: 0, rotate: 0 };
+  const rollDelay = (index % 2) * ABOUT_ROLL_STAGGER;
+
   const textEl = (
     <div className="ap-about-block__text">
       <p className="ap-about-block__body">{body}</p>
@@ -237,15 +261,39 @@ function AboutBlock({ layout, title, body, img, alt, index, inView, reduceMotion
   );
   const figureEl = (
     <div className="ap-about-block__figure">
-      <img
-        className="ap-about-block__img"
-        src={img}
-        alt={alt}
-        loading="lazy"
-        decoding="async"
-        width={320}
-        height={320}
-      />
+      {reduceMotion ? (
+        <img
+          className="ap-about-block__img"
+          src={img}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          width={320}
+          height={320}
+        />
+      ) : (
+        <motion.div
+          className="ap-about-block__figure-roll"
+          initial={rollHidden}
+          animate={inView ? rollVisible : rollHidden}
+          transition={{
+            type: 'tween',
+            duration: ABOUT_ROLL_DURATION,
+            delay: inView ? rollDelay : 0,
+            ease: ABOUT_ROLL_EASE,
+          }}
+        >
+          <img
+            className="ap-about-block__img"
+            src={img}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            width={320}
+            height={320}
+          />
+        </motion.div>
+      )}
     </div>
   );
 
@@ -283,16 +331,16 @@ function AboutBlock({ layout, title, body, img, alt, index, inView, reduceMotion
 }
 
 function AasaraAboutSection() {
-  const ref = useRef(null);
+  const gridRef = useRef(null);
   const reduceMotion = useReducedMotion();
-  const inView = useInView(ref, { once: true, amount: 0.12 });
+  const inView = useInView(gridRef, ABOUT_GRID_INVIEW);
 
   return (
-    <section ref={ref} className="ap-about" aria-labelledby="ap-about-heading">
+    <section className="ap-about" aria-labelledby="ap-about-heading">
       <h2 id="ap-about-heading" className="ap-about__heading">
         About <span className="ap-about__heading-accent">Aasara Pension</span>
       </h2>
-      <div className="ap-about__grid">
+      <div ref={gridRef} className="ap-about__grid">
         {ABOUT_BLOCKS.map((b, i) => (
           <AboutBlock key={b.id} {...b} index={i} inView={inView} reduceMotion={reduceMotion} />
         ))}
@@ -385,6 +433,43 @@ function SlideRevealLine({ children, delay = 0, className, inView = true }) {
   );
 }
 
+function BentoCollageTiles({ collageUrl, inView, reduceMotion }) {
+  return (
+    <>
+      {BENTO_TILE_BG.map((tile, i) => {
+        const style = {
+          backgroundImage: `url(${collageUrl})`,
+          backgroundSize: '200% 200%',
+          backgroundPosition: tile.pos,
+          backgroundRepeat: 'no-repeat',
+        };
+        if (reduceMotion) {
+          return <div key={i} className="ap-bento-tile" style={style} />;
+        }
+        const flipHidden = { rotateX: -88, opacity: 1, transformPerspective: 1200 };
+        const flipShown = { rotateX: 0, opacity: 1, transformPerspective: 1200 };
+        return (
+          <motion.div
+            key={i}
+            className="ap-bento-tile-flip"
+            initial={flipHidden}
+            animate={inView ? flipShown : flipHidden}
+            transition={{
+              type: 'tween',
+              duration: BENTO_FLIP_DURATION,
+              delay: inView ? BENTO_FLIP_BASE_DELAY + i * BENTO_FLIP_STAGGER : 0,
+              ease: BENTO_FLIP_EASE,
+            }}
+            style={{ transformStyle: 'preserve-3d' }}
+          >
+            <div className="ap-bento-tile" style={style} />
+          </motion.div>
+        );
+      })}
+    </>
+  );
+}
+
 function BentoPanel({ letter, title, body, delay, inView, reduceMotion, className = '' }) {
   const bodyEl = (
     <>
@@ -419,23 +504,6 @@ function AasaraBentoSection() {
   const reduceMotion = useReducedMotion();
   const inView = useInView(sectionRef, { once: true, amount: 0.12 });
   const collageUrl = asaraCollage;
-
-  const collageInner = (
-    <>
-      {BENTO_TILE_BG.map((tile, i) => (
-        <div
-          key={i}
-          className="ap-bento-tile"
-          style={{
-            backgroundImage: `url(${collageUrl})`,
-            backgroundSize: '200% 200%',
-            backgroundPosition: tile.pos,
-            backgroundRepeat: 'no-repeat',
-          }}
-        />
-      ))}
-    </>
-  );
 
   return (
     <section
@@ -473,18 +541,22 @@ function AasaraBentoSection() {
             role="img"
             aria-label="Telangana families and communities supported through social security"
           >
-            {collageInner}
+            <div className="ap-bento-collage-inner">
+              <BentoCollageTiles collageUrl={collageUrl} inView={inView} reduceMotion={reduceMotion} />
+            </div>
           </div>
         ) : (
           <motion.div
             className="ap-bento-collage ap-bento-cell"
-            initial={BENTO_FROM_TOP}
-            animate={inView ? BENTO_VISIBLE : BENTO_FROM_TOP}
-            transition={{ duration: 0.78, delay: 0.1, ease: BENTO_EASE }}
+            initial={BENTO_COLLAGE_INITIAL}
+            animate={inView ? BENTO_COLLAGE_VISIBLE : BENTO_COLLAGE_INITIAL}
+            transition={{ duration: 0.72, delay: 0.06, ease: BENTO_EASE }}
             role="img"
             aria-label="Telangana families and communities supported through social security"
           >
-            {collageInner}
+            <div className="ap-bento-collage-inner">
+              <BentoCollageTiles collageUrl={collageUrl} inView={inView} reduceMotion={reduceMotion} />
+            </div>
           </motion.div>
         )}
 

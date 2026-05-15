@@ -5,6 +5,7 @@ import RythuBandhu from './RythuBandhu';
 import MissionBhagiratha from './MissionBhagiratha';
 import KCRKit from './KCRKit';
 import AasaraPension from './AasaraPension';
+import DalitBandhu from './DalitBandhu';
 import bhkHeroBg from '../../assets/2bhkherobg.jpg';
 import bhkAboutHero from '../../assets/bhk_about_hero.png';
 import iconCommunity from '../../assets/bhk_icon_community.png';
@@ -704,13 +705,6 @@ const BRIEF_SCHEMES = {
     intro:
       'The 2BHK scheme aims to expand access to quality housing for those who need it most, as part of inclusive urban and rural development.',
   },
-  'dalit-bandhu': {
-    title: 'Dalit Bandhu',
-    subtitle:
-      'An empowerment programme supporting entrepreneurship and economic mobility among Dalit communities through targeted investment.',
-    intro:
-      'Dalit Bandhu is structured to unlock livelihood opportunities and asset creation at the household level, with a focus on long-term uplift.',
-  },
 };
 
 const SCHEME_ANCHOR_IDS = new Set([
@@ -797,9 +791,7 @@ function BriefSchemeSection({ anchorId, scheme }) {
         />
       </h1>
       <p
-        className={
-          is2bhkHero ? 'scheme-hero-subtitle scheme-hero-subtitle--2bhk' : 'scheme-hero-subtitle'
-        }
+        className={is2bhkHero ? 'scheme-hero-subtitle scheme-hero-subtitle--2bhk' : 'scheme-hero-subtitle'}
       >
         <span className="scheme-sr-only">{scheme.subtitle}</span>
         <BriefHeroAnimatedLetters
@@ -813,7 +805,7 @@ function BriefSchemeSection({ anchorId, scheme }) {
     </div>
   );
 
-  const hero2bhkStyle = is2bhkHero ? { '--2bhk-hero-bg': `url(${bhkHeroBg})` } : undefined;
+  const heroPhotoStyle = is2bhkHero ? { '--2bhk-hero-bg': `url(${bhkHeroBg})` } : undefined;
 
   const heroShell = (
     <>
@@ -832,7 +824,7 @@ function BriefSchemeSection({ anchorId, scheme }) {
     >
       <div
         className={heroClassName}
-        style={hero2bhkStyle}
+        style={heroPhotoStyle}
         ref={is2bhkHero ? bhkPageEntryRef : undefined}
       >
         {heroShell}
@@ -877,11 +869,9 @@ const SchemesHub = () => {
       <section id="aasara-pensions" className="schemes-hub-anchor" aria-label="Aasara Pension scheme">
         <AasaraPension />
       </section>
-      <BriefSchemeSection
-        key="dalit-bandhu"
-        anchorId="dalit-bandhu"
-        scheme={BRIEF_SCHEMES['dalit-bandhu']}
-      />
+      <section id="dalit-bandhu" className="schemes-hub-anchor" aria-label="Dalit Bandhu scheme">
+        <DalitBandhu />
+      </section>
     </div>
   );
 };

@@ -1,35 +1,164 @@
 .welfare-page {
   background-color: #fffbfc;
-  padding: 40px 5%;
   font-family: var(--font-body);
+}
+
+/* Hero Section */
+.welfare-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a0a12;
+}
+
+.welfare-hero img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+}
+
+.welfare-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55),
+    rgba(233, 30, 99, 0.15),
+    rgba(0, 0, 0, 0.6)
+  );
+  z-index: 1;
+}
+
+.welfare-hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  pointer-events: none;
+}
+
+.welfare-hero-tagline {
+  margin: 0 0 16px;
+  font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #f8b4cc;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: welfare-hero-tagline-rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.1s;
+}
+
+.welfare-hero-title {
+  margin: 0;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  max-width: 980px;
+  font-size: clamp(2.4rem, 8vw, 5.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.06;
+  color: #fff;
+}
+
+.welfare-hero-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: scale(0.4);
+  will-change: transform, opacity;
+  animation: welfare-hero-letter-pop 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+  animation-delay: calc(var(--letter-delay) + 0.2s);
+}
+
+.welfare-hero-letter-space {
+  width: 0.36em;
+}
+
+.welfare-hero-subtitle {
+  margin: clamp(16px, 3vw, 24px) 0 0;
+  max-width: 720px;
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.92);
+  opacity: 0;
+  transform: translateY(18px);
+  animation: welfare-hero-subtitle-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 1.45s;
+}
+
+@keyframes welfare-hero-letter-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes welfare-hero-tagline-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes welfare-hero-subtitle-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welfare-hero-tagline,
+  .welfare-hero-letter,
+  .welfare-hero-subtitle {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .welfare-container {
   max-width: 1400px;
   margin: 0 auto;
-}
-
-.welfare-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.welfare-subtitle {
-  color: #e91e63;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  margin-bottom: 0px;
-}
-
-.welfare-title {
-  font-size: clamp(3rem, 6vw, 5rem);
-  font-weight: 900;
-  color: #1a1a1a;
-  letter-spacing: -2px;
-  line-height: 1;
-  margin-top: 0px;
+  padding: 40px 5%;
 }
 
 /* Card Styles based on reference */

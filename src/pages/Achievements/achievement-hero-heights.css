@@ -41,16 +41,10 @@ main .state-formation-hero {
   box-sizing: border-box;
 }
 
-main .welfare-page .welfare-header {
+main .welfare-hero {
   min-height: var(--site-hero-band-height);
   height: var(--site-hero-band-height);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
   box-sizing: border-box;
-  padding-inline: 1rem;
 }
 
 @media (max-width: 768px) {

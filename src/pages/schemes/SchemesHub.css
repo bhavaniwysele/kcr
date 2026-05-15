@@ -5,7 +5,7 @@
   --schemes-hub-hero-height: var(--site-hero-band-height);
 }
 
-/* Unify hero height: Rythu, Mission Bhagiratha, KCR Kit, Aasara Pension, brief Dalit */
+/* Unify hero height: Rythu, Mission Bhagiratha, KCR Kit, Aasara Pension, Dalit Bandhu */
 .schemes-hub #rythu-bandhu .rb-hero-shell {
   aspect-ratio: unset;
   max-height: none;
@@ -32,7 +32,12 @@
   height: var(--schemes-hub-hero-height);
 }
 
-/* Brief heroes without the 2BHK immersive block (Dalit) */
+.schemes-hub #dalit-bandhu .db-hero-shell {
+  min-height: var(--schemes-hub-hero-height);
+  height: var(--schemes-hub-hero-height);
+}
+
+/* Brief scheme heroes without full-bleed photo (standalone text hero) */
 .schemes-hub .scheme-hero:not(.scheme-hero--2bhk) {
   min-height: var(--schemes-hub-hero-height);
   height: var(--schemes-hub-hero-height);
@@ -155,3 +160,4 @@
   line-height: 1.45;
   white-space: nowrap;
 }
+

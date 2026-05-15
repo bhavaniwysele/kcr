@@ -2,22 +2,40 @@ import React from 'react';
 import './WelfareSchemes.css';
 
 // Import images from assets
+import welfareHeroImg from '../../assets/welfare_bg.jpg';
 import pensionImg from '../../assets/Aasara-pension.jpg';
 import weddingImg from '../../assets/Kalyana Lakshmi.jpg';
 import healthKitImg from '../../assets/healthandwelfare.webp';
 import welfarePanorama from '../../assets/Dalit Bandhu.jpg';
 import missionBhagiratha from '../../assets/Mission_Bhagiratha.jpg';
 
+const HERO_TITLE = 'WELFARE IMPACT';
+const HERO_SUBTITLE =
+  'Ensuring dignity, security, and opportunity for every family across Telangana.';
+
 const WelfareSchemes = () => {
   return (
     <div className="welfare-page">
-      <div className="welfare-container">
-        
-        <header className="welfare-header">
-          <p className="welfare-subtitle">Compassionate Governance</p>
-          <h1 className="welfare-title">Welfare Impact</h1>
-        </header>
+      <section className="welfare-hero" aria-label="Welfare Schemes hero">
+        <img src={welfareHeroImg} alt="" aria-hidden="true" />
+        <div className="welfare-hero-content">
+          <p className="welfare-hero-tagline">Compassionate Governance</p>
+          <h1 className="welfare-hero-title" aria-label={HERO_TITLE}>
+            {HERO_TITLE.split('').map((char, index) => (
+              <span
+                key={`${char}-${index}`}
+                className={`welfare-hero-letter ${char === ' ' ? 'welfare-hero-letter-space' : ''}`}
+                style={{ '--letter-delay': `${index * 0.08}s` }}
+              >
+                {char === ' ' ? '\u00A0' : char}
+              </span>
+            ))}
+          </h1>
+          <p className="welfare-hero-subtitle">{HERO_SUBTITLE}</p>
+        </div>
+      </section>
 
+      <div className="welfare-container">
         {/* Main Highlight Card - Aasara Pensions */}
         <div className="welfare-card cream full-width">
           <div className="welfare-card-content">
