@@ -174,13 +174,14 @@
   background: #fdfdfd;
   padding: 36px 32px;
   border: 1px solid #efefef;
-  transition: all 0.4s ease;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, translate 0.4s ease;
   position: relative;
   overflow: hidden;
+  will-change: transform, opacity;
 }
 
 .agri-card:hover {
-  transform: translateY(-10px);
+  translate: 0 -10px;
   border-color: #e91e63;
 }
 

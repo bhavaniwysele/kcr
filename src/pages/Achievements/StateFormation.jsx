@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import './StateFormation.css';
 import stateFormationHero from '../../assets/stateformation_hero.png';
 import electionCampaign from '../../assets/election_campaign.png';
@@ -10,6 +11,58 @@ import buildingNewTelangana from '../../assets/Building_a_New_Telangana.jpg';
 import telanganaMovement from '../../assets/telangana_movement.jpg';
 import governanceFinal from '../../assets/governance_final.jpg';
 import birthOfTelangana from '../../assets/birthoftelangana.jpg';
+
+const HERO_TITLE = 'The Formation of Telangana';
+const LETTER_STAGGER = 0.035;
+const LETTER_DURATION = 0.48;
+const LETTER_EASE = [0.22, 1, 0.36, 1];
+
+const heroTitleContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: LETTER_STAGGER, delayChildren: 0.05 },
+  },
+};
+
+const heroTitleLetterVariants = {
+  hidden: { opacity: 0, y: 10, filter: 'blur(3px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: LETTER_DURATION, ease: LETTER_EASE },
+  },
+};
+
+function HeroAnimatedTitle({ text, className }) {
+  const reduceMotion = useReducedMotion();
+
+  if (reduceMotion) {
+    return <h1 className={className}>{text}</h1>;
+  }
+
+  return (
+    <motion.h1
+      className={className}
+      variants={heroTitleContainerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <span className="sf-title-letters" aria-hidden="true">
+        {[...text].map((char, index) => (
+          <motion.span
+            key={`${char}-${index}`}
+            className={`sf-title-letter${char === ' ' ? ' sf-title-letter-space' : ''}`}
+            variants={heroTitleLetterVariants}
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </motion.span>
+        ))}
+      </span>
+      <span className="sf-title-sr-only">{text}</span>
+    </motion.h1>
+  );
+}
 
 const StateFormation = () => {
   const flashcards = [
@@ -161,7 +214,7 @@ const StateFormation = () => {
         aria-label="State Formation hero"
       >
         <div className="state-formation-hero-content">
-          <h1 className="state-formation-hero-title">The Formation of Telangana</h1>
+          <HeroAnimatedTitle text={HERO_TITLE} className="state-formation-hero-title" />
           <p className="state-formation-hero-subtitle">
             A defining journey of resilience, identity, and the creation of a new state.
           </p>
@@ -172,9 +225,14 @@ const StateFormation = () => {
         className="state-formation-flashcards"
         aria-labelledby="state-formation-flashcards-title"
       >
-        <h2 id="state-formation-flashcards-title" className="flashcards-section-title">
-          From Movement to State
-        </h2>
+        <header className="state-formation-section-head">
+          <h2 id="state-formation-flashcards-title" className="state-formation-section-title">
+            From Movement to State
+          </h2>
+          <p className="state-formation-section-subtitle">
+            Stories of the struggle, formation, and renewal that shaped India&apos;s 29th state.
+          </p>
+        </header>
         <div className="flashcards-stage">
           <button type="button" className="flash-nav flash-nav-left" onClick={showPrevCard} aria-label="Previous card">
             &#8592;
@@ -206,8 +264,16 @@ const StateFormation = () => {
       <section
         ref={timelineRef}
         className={`state-formation-timeline-cards ${timelineAnimated ? 'animate-timeline-cards' : ''}`}
-        aria-label="State formation timeline cards"
+        aria-labelledby="state-formation-timeline-title"
       >
+        <header className="state-formation-section-head">
+          <h2 id="state-formation-timeline-title" className="state-formation-section-title">
+            The Journey to Telangana Statehood
+          </h2>
+          <p className="state-formation-section-subtitle">
+            Milestones from the founding of TRS to statehood—and the work of building a new Telangana.
+          </p>
+        </header>
         <div className="timeline-cards-grid">
           {timelineCards.map((card, index) => (
             <article

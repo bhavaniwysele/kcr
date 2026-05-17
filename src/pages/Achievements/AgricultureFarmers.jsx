@@ -1,15 +1,56 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useReducedMotion } from 'framer-motion';
 import './AgricultureFarmers.css';
-
-// Import local images (assuming they are in the specified paths based on generation)
-// Note: You might need to verify the exact filenames from the generated output
 import agriHeroImg from '../../assets/telangana_lush_green_paddy_field_sunset.png';
 import farmerImg from '../../assets/rythu_bandhu_farmer_happy_smiling_field.png';
 import rythuBandhuBg from '../../assets/rythu_bandhu_bg.png';
 import freePowerBg from '../../assets/free_power_bg.png';
 import missionKakatiyaBg from '../../assets/mission_kakatiya_bg.png';
 import loanWaiverBg from '../../assets/loan_waiver_bg.png';
+
+const AGRI_CARD_SLIDE_EASE = [0.16, 1, 0.3, 1];
+const AGRI_CARD_SLIDE_DURATION = 1.35;
+
+const agriCardSlideFromLeftVariants = {
+  hidden: { opacity: 0, x: -48 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: AGRI_CARD_SLIDE_DURATION, ease: AGRI_CARD_SLIDE_EASE, delay },
+  }),
+};
+
+const agriCardSlideFromRightVariants = {
+  hidden: { opacity: 0, x: 48 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: AGRI_CARD_SLIDE_DURATION, ease: AGRI_CARD_SLIDE_EASE, delay },
+  }),
+};
+
+function AgriSlideCard({ delay = 0, className = 'agri-card', from = 'left', children }) {
+  const reduceMotion = useReducedMotion();
+  const variants = from === 'right' ? agriCardSlideFromRightVariants : agriCardSlideFromLeftVariants;
+
+  if (reduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
+  return (
+    <motion.div
+      className={className}
+      variants={variants}
+      custom={delay}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 const EDITORIAL_TOP_OFFSET = 120;
 const EDITORIAL_STICKY_BREAKPOINT = 1024;
@@ -121,7 +162,7 @@ const AgricultureFarmers = () => {
 
       {/* Main Content Grid */}
       <section className="agri-grid">
-        <div className="agri-card">
+        <AgriSlideCard delay={0}>
           <span className="card-num">01</span>
           <h3>Rythu Bandhu</h3>
           <p>
@@ -137,18 +178,18 @@ const AgricultureFarmers = () => {
             </svg>
           </Link>
           <img src={rythuBandhuBg} alt="" className="card-bg-img" />
-        </div>
+        </AgriSlideCard>
 
-        <div className="agri-card">
+        <AgriSlideCard delay={0.22}>
           <span className="card-num">02</span>
           <h3>24/7 Free Power</h3>
           <p>
             Telangana is the only state in India providing 24x7 free, high-quality power to over 27 lakh agricultural pump sets. This revolutionary step has stabilized irrigation and significantly increased crop yields across all seasons.
           </p>
           <img src={freePowerBg} alt="" className="card-bg-img" />
-        </div>
+        </AgriSlideCard>
 
-        <div className="agri-card full-width">
+        <AgriSlideCard className="agri-card full-width" from="right">
           <div className="card-image">
             <img src={farmerImg} alt="Happy Farmer" />
           </div>
@@ -158,25 +199,25 @@ const AgricultureFarmers = () => {
               In an unprecedented move for social security, the KCR government introduced Rythu Bima, a group life insurance scheme. In the unfortunate event of a farmer's death, the family receives ₹5 lakh within 10 days, ensuring they don't fall into poverty. Over 1 lakh families have been supported by this shield of dignity.
             </p>
           </div>
-        </div>
+        </AgriSlideCard>
 
-        <div className="agri-card">
+        <AgriSlideCard delay={0}>
           <span className="card-num">03</span>
           <h3>Mission Kakatiya</h3>
           <p>
             The restoration of over 46,000 age-old tanks and lakes has revived the traditional irrigation system of Telangana. This has led to a dramatic rise in groundwater levels and rejuvenated the rural ecosystem.
           </p>
           <img src={missionKakatiyaBg} alt="" className="card-bg-img" />
-        </div>
+        </AgriSlideCard>
 
-        <div className="agri-card">
+        <AgriSlideCard delay={0.22}>
           <span className="card-num">04</span>
           <h3>Loan Waivers</h3>
           <p>
             Understanding the financial stress on the farming community, the government has implemented multiple rounds of crop loan waivers, clearing thousands of crores in debts to give farmers a fresh start and financial freedom.
           </p>
           <img src={loanWaiverBg} alt="" className="card-bg-img" />
-        </div>
+        </AgriSlideCard>
       </section>
 
       {/* Editorial Section */}
