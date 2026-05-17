@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './VisionMission.css';
 import welcomeImage from '../assets/kcr_vNm.png';
+import priorityKcrImage from '../assets/vNm_kcr.jpg';
 
-const VisionPoint = ({ index, activeIndex, registerRef, children }) => {
+const VisionPoint = ({ index, activeIndex, children }) => {
   const isPassed = activeIndex >= 0 && index <= activeIndex;
   const isActive = activeIndex === index;
 
   return (
     <article
-      ref={registerRef(index)}
       className={`vm-vision-point${isActive ? ' is-active' : ''}${isPassed ? ' is-passed' : ''}`}
       data-point-index={index}
     >
@@ -17,49 +17,153 @@ const VisionPoint = ({ index, activeIndex, registerRef, children }) => {
   );
 };
 
-const useVisionColumnProgress = (pointCount) => {
-  const [activeIndex, setActiveIndex] = useState(-1);
-  const pointsRef = useRef([]);
+const VISION_POINT_COUNT = 3;
+const VISION_STEP_MS = 980;
+const VISION_START_DELAY_MS = 520;
+const FOCUS_FLIP_COUNT = 3;
+const FOCUS_FLIP_STEP_MS = 720;
+const FOCUS_FLIP_START_MS = 400;
 
-  const registerRef = useCallback(
-    (index) => (el) => {
-      pointsRef.current[index] = el;
-    },
-    []
-  );
+/** One-shot timeline: starts when showcase scrolls into view (not scroll-position-linked steps). */
+const useVisionShowcaseSequence = (pointCount) => {
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [sequenceStarted, setSequenceStarted] = useState(false);
+  const [sequenceComplete, setSequenceComplete] = useState(false);
+  const showcaseRef = useRef(null);
+  const hasStartedRef = useRef(false);
+  const timersRef = useRef([]);
 
   useEffect(() => {
-    const updateActive = () => {
-      const focusLine = window.innerHeight * 0.42;
-      let bestIndex = -1;
-      let bestDistance = Infinity;
+    const el = showcaseRef.current;
+    if (!el) return undefined;
 
-      pointsRef.current.forEach((el, index) => {
-        if (!el || index >= pointCount) return;
-        const rect = el.getBoundingClientRect();
-        if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
-
-        const pointCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(pointCenter - focusLine);
-        if (distance < bestDistance) {
-          bestDistance = distance;
-          bestIndex = index;
-        }
-      });
-
-      setActiveIndex((prev) => (prev === bestIndex ? prev : bestIndex));
+    const clearTimers = () => {
+      timersRef.current.forEach(clearTimeout);
+      timersRef.current = [];
     };
 
-    updateActive();
-    window.addEventListener('scroll', updateActive, { passive: true });
-    window.addEventListener('resize', updateActive);
+    const schedule = (fn, ms) => {
+      const id = setTimeout(fn, ms);
+      timersRef.current.push(id);
+    };
+
+    const startSequence = () => {
+      if (hasStartedRef.current) return;
+      hasStartedRef.current = true;
+      setSequenceStarted(true);
+      setActiveIndex(-1);
+      clearTimers();
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) {
+        setActiveIndex(pointCount - 1);
+        setSequenceComplete(true);
+        return;
+      }
+
+      let step = -1;
+      const advance = () => {
+        step += 1;
+        setActiveIndex(step);
+        if (step < pointCount - 1) {
+          schedule(advance, VISION_STEP_MS);
+        } else {
+          schedule(() => setSequenceComplete(true), VISION_STEP_MS + 1100);
+        }
+      };
+      schedule(advance, VISION_START_DELAY_MS);
+    };
+
+    const tryStartIfVisible = () => {
+      const rect = el.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight * 0.88 && rect.bottom > 64;
+      if (inView) startSequence();
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          startSequence();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -4% 0px' }
+    );
+
+    observer.observe(el);
+    requestAnimationFrame(tryStartIfVisible);
+
     return () => {
-      window.removeEventListener('scroll', updateActive);
-      window.removeEventListener('resize', updateActive);
+      observer.disconnect();
+      clearTimers();
     };
   }, [pointCount]);
 
-  return { activeIndex, registerRef };
+  return { activeIndex, sequenceStarted, sequenceComplete, showcaseRef };
+};
+
+/** Reveal focus cards with a 3D flip-in when section scrolls into view (front face only). */
+const useFocusCardsScrollReveal = (cardCount) => {
+  const [revealed, setRevealed] = useState(() => Array(cardCount).fill(false));
+  const sectionRef = useRef(null);
+  const hasStartedRef = useRef(false);
+  const timersRef = useRef([]);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return undefined;
+
+    const clearTimers = () => {
+      timersRef.current.forEach(clearTimeout);
+      timersRef.current = [];
+    };
+
+    const schedule = (fn, ms) => {
+      timersRef.current.push(setTimeout(fn, ms));
+    };
+
+    const startFlips = () => {
+      if (hasStartedRef.current) return;
+      hasStartedRef.current = true;
+      clearTimers();
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) {
+        setRevealed(Array(cardCount).fill(true));
+        return;
+      }
+
+      for (let i = 0; i < cardCount; i += 1) {
+        schedule(() => {
+          setRevealed((prev) => {
+            if (prev[i]) return prev;
+            const next = [...prev];
+            next[i] = true;
+            return next;
+          });
+        }, FOCUS_FLIP_START_MS + i * FOCUS_FLIP_STEP_MS);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          startFlips();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+    );
+
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      clearTimers();
+    };
+  }, [cardCount]);
+
+  return { revealed, sectionRef };
 };
 
 const parseStatValue = (value) => {
@@ -101,12 +205,11 @@ const VisionMission = () => {
       id: 'social-welfare',
       title: 'Social Welfare',
       icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="8" cy="8" r="2.5" />
-          <circle cx="16" cy="8" r="2.5" />
-          <circle cx="12" cy="13" r="2.5" />
-          <path d="M3.5 20a4.5 4.5 0 0 1 9 0" />
-          <path d="M11.5 20a4.5 4.5 0 0 1 9 0" />
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M16 20v-2a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18v2" />
+          <circle cx="9" cy="8" r="3.25" />
+          <path d="M20 20v-2a3.5 3.5 0 0 0-2.5-3.36" />
+          <path d="M16 4.5a3.25 3.25 0 1 1 0 6.5" />
         </svg>
       ),
       body: 'Affordable healthcare, maternal and child health, pensions, and targeted inclusion programmes aim to protect the most vulnerable. Welfare is treated as a bridge to dignity and self-reliance, not dependency.',
@@ -246,8 +349,14 @@ const VisionMission = () => {
   );
   const [statCounts, setStatCounts] = useState(() => statParsed.map(() => 0));
   const [openPriorityId, setOpenPriorityId] = useState(null);
-  const { activeIndex: leftActiveIndex, registerRef: registerLeftPoint } = useVisionColumnProgress(3);
-  const { activeIndex: rightActiveIndex, registerRef: registerRightPoint } = useVisionColumnProgress(3);
+  const {
+    activeIndex: visionActiveIndex,
+    sequenceStarted: visionSequenceStarted,
+    sequenceComplete: visionSequenceComplete,
+    showcaseRef: visionShowcaseRef,
+  } = useVisionShowcaseSequence(VISION_POINT_COUNT);
+  const { revealed: focusRevealed, sectionRef: focusSectionRef } =
+    useFocusCardsScrollReveal(FOCUS_FLIP_COUNT);
 
   const addToRefs = (el) => {
     if (el && !observerRefs.current.includes(el)) {
@@ -257,6 +366,11 @@ const VisionMission = () => {
 
   const bindStatsStripRef = (el) => {
     statsStripRef.current = el;
+    addToRefs(el);
+  };
+
+  const bindFocusSectionRef = (el) => {
+    focusSectionRef.current = el;
     addToRefs(el);
   };
 
@@ -365,7 +479,7 @@ const VisionMission = () => {
     await ensureImageReady(nextImage);
 
     if (slideRequestRef.current === requestId) {
-      setIsDisplayedImageReady(true);
+      setIsDisplayedImageReady(false);
       setPreviousSlide(activeSlide);
       setActiveSlide(nextIndex);
     }
@@ -492,26 +606,26 @@ const VisionMission = () => {
         aria-roledescription="carousel"
         aria-label="Vision and mission highlights"
       >
-        {(previousSlide !== null || activeSlide === 0) && (
+        {previousSlide !== null && (
           <img
-            key={`prev-${previousSlide !== null ? slides[previousSlide].id : `loop-${slides[slides.length - 1].id}`}`}
-            src={previousSlide !== null ? slides[previousSlide].image : slides[slides.length - 1].image}
+            key={`prev-${slides[previousSlide].id}`}
+            src={slides[previousSlide].image}
             alt=""
             aria-hidden="true"
-            className={`vision-hero-bg-image ${previousSlide !== null ? 'vision-hero-bg-image-exit' : 'vision-hero-bg-image-loop'}`}
+            className="vision-hero-bg-image vision-hero-bg-image-exit"
           />
         )}
         <img
           key={slides[activeSlide].id}
           src={slides[activeSlide].image}
           alt={slides[activeSlide].title}
-          className={`vision-hero-bg-image ${isDisplayedImageReady ? 'is-visible' : ''}`}
+          className={`vision-hero-bg-image ${isDisplayedImageReady ? 'is-visible' : 'is-blurred'}`}
           onLoad={() => setIsDisplayedImageReady(true)}
         />
 
         <div className={`vision-hero-content ${isDisplayedImageReady ? 'is-visible' : 'is-hidden'} ${previousSlide === null ? 'is-initial' : 'is-subsequent'}`}>
           <h1 key={`hero-title-${slides[activeSlide].id}`} className="hero-title">{slides[activeSlide].title}</h1>
-          <div className="vm-hero-subtitle-row">
+          <div key={`hero-subtitle-${slides[activeSlide].id}`} className="vm-hero-subtitle-row">
             <span className="vm-hero-subtitle-accent" aria-hidden="true" />
             <p className="vm-hero-subtitle">{slides[activeSlide].subtitle}</p>
           </div>
@@ -534,8 +648,8 @@ const VisionMission = () => {
 
       {/* Welcome Section */}
       <section className="vm-welcome-section" ref={addToRefs}>
-        <div className="vm-welcome-inner anim-fade-up">
-          <div className="vm-welcome-content">
+        <div className="vm-welcome-inner">
+          <div className="vm-welcome-content anim-fade-up">
             <p className="vm-welcome-eyebrow">Our Commitment</p>
             <h2>Our <span>Vision</span></h2>
             <p className="vm-welcome-lead">
@@ -546,9 +660,11 @@ const VisionMission = () => {
             </p>
           </div>
 
-          <div className="vm-vision-showcase">
+          <div ref={visionShowcaseRef}
+            className={`vm-vision-showcase${visionSequenceStarted ? ' is-sequence-started' : ''}${visionSequenceComplete ? ' is-sequence-complete' : ''}`}
+          >
             <div className="vm-vision-column vm-vision-column-left">
-              <VisionPoint index={0} activeIndex={leftActiveIndex} registerRef={registerLeftPoint}>
+              <VisionPoint index={0} activeIndex={visionActiveIndex}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M8 8h8" /><path d="M8 11h8" /><path d="M8 14h5.5l-3.5 5" /><path d="M10 14c4.5 0 4.5-6 0-6" /></svg>
                 </div>
@@ -558,7 +674,7 @@ const VisionMission = () => {
                 </div>
               </VisionPoint>
 
-              <VisionPoint index={1} activeIndex={leftActiveIndex} registerRef={registerLeftPoint}>
+              <VisionPoint index={1} activeIndex={visionActiveIndex}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-4 7 4v13"/><path d="M9 21v-6h6v6"/></svg>
                 </div>
@@ -568,7 +684,7 @@ const VisionMission = () => {
                 </div>
               </VisionPoint>
 
-              <VisionPoint index={2} activeIndex={leftActiveIndex} registerRef={registerLeftPoint}>
+              <VisionPoint index={2} activeIndex={visionActiveIndex}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 20h14" /><path d="M5 15l5-5 4 4 5-8" /><path d="M15 6h4v4" /></svg>
                 </div>
@@ -594,7 +710,7 @@ const VisionMission = () => {
             </article>
 
             <div className="vm-vision-column vm-vision-column-right">
-              <VisionPoint index={0} activeIndex={rightActiveIndex} registerRef={registerRightPoint}>
+              <VisionPoint index={0} activeIndex={visionActiveIndex}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="2.5" /><path d="M17 20c0-2.8-2.2-5-5-5s-5 2.2-5 5" /><path d="M21 18c0-2.2-1.8-4-4-4" /><path d="M3 18c0-2.2 1.8-4 4-4" /><circle cx="18" cy="11" r="2" /><circle cx="6" cy="11" r="2" /></svg>
                 </div>
@@ -604,7 +720,7 @@ const VisionMission = () => {
                 </div>
               </VisionPoint>
 
-              <VisionPoint index={1} activeIndex={rightActiveIndex} registerRef={registerRightPoint}>
+              <VisionPoint index={1} activeIndex={visionActiveIndex}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 0 8.38A7 7 0 0 1 11 20Z" /><path d="M11 20v-8" /></svg>
                 </div>
@@ -614,7 +730,7 @@ const VisionMission = () => {
                 </div>
               </VisionPoint>
 
-              <VisionPoint index={2} activeIndex={rightActiveIndex} registerRef={registerRightPoint}>
+              <VisionPoint index={2} activeIndex={visionActiveIndex}>
                 <div className="vm-vision-point-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l7 3v6c0 4.2-2.8 7.7-7 9-4.2-1.3-7-4.8-7-9V6l7-3z"/><path d="M9.5 12.5l1.8 1.8 3.2-3.2"/></svg>
                 </div>
@@ -646,46 +762,53 @@ const VisionMission = () => {
         </div>
       </section>
 
-      {/* 3 Column Focus Section */}
-      <section className="vision-focus-section" ref={addToRefs}>
+      {/* 3 Column Focus Section — scroll flip-in reveal */}
+      <section className="vision-focus-section" ref={bindFocusSectionRef}>
         <div className="vision-focus-container">
-          {focusCards.map((card, index) => {
-            let animClass = 'anim-fade-up';
-            if (index === 0) animClass = 'anim-slide-left';
-            if (index === 2) animClass = 'anim-slide-right';
-
-            return (
-            <div key={card.id} className={`vision-focus-wrapper ${animClass}`} style={{transitionDelay: `${index * 0.2}s`}}>
-              <article className={`vision-focus-card ${card.theme}`}>
-                <div className="vision-focus-icon" aria-hidden="true">
-                  {card.icon}
-                </div>
-                <h3>{card.title}</h3>
-                <p>{card.desc}</p>
-              </article>
+          {focusCards.map((card, index) => (
+            <div key={card.id} className="vision-focus-wrapper">
+              <div
+                className={`vision-focus-reveal${focusRevealed[index] ? ' is-revealed' : ''}`}
+                style={{ '--reveal-delay': `${index * 0.14}s` }}
+              >
+                <article className={`vision-focus-card ${card.theme}`}>
+                  <div className="vision-focus-icon" aria-hidden="true">
+                    {card.icon}
+                  </div>
+                  <h3>{card.title}</h3>
+                  <p>{card.desc}</p>
+                </article>
+              </div>
             </div>
-            );
-          })}
+          ))}
         </div>
       </section>
 
-      {/* Priority Development Sectors — accordion */}
+      {/* Priority Development Sectors — intro left, accordion right */}
       <section className="vm-services-section" ref={addToRefs}>
         <div className="vm-services-inner">
-          <header className="vm-priority-header anim-fade-up">
-            <p className="vm-priority-eyebrow">Development priorities</p>
-            <h2>Priority Development Sectors</h2>
-            <div className="vm-priority-intro-row">
-              <span className="vm-priority-intro-accent" aria-hidden="true" />
-              <p className="vm-priority-intro-text">
-                Focused policy pillars for inclusive growth, stronger public systems, and
-                measurable progress across Telangana. Select a sector to read more.
-              </p>
-            </div>
-          </header>
+          <div className="vm-priority-layout">
+            <header className="vm-priority-intro anim-fade-up">
+              <p className="vm-priority-eyebrow">Development priorities</p>
+              <h2>Priority Development Sectors</h2>
+              <figure className="vm-priority-intro-media">
+                <img
+                  src={priorityKcrImage}
+                  alt="K. Chandrashekar Rao addressing the media"
+                  loading="lazy"
+                />
+              </figure>
+              <div className="vm-priority-intro-row">
+                <span className="vm-priority-intro-accent" aria-hidden="true" />
+                <p className="vm-priority-intro-text">
+                  Focused policy pillars for inclusive growth, stronger public systems, and
+                  measurable progress across Telangana. Select a sector to read more.
+                </p>
+              </div>
+            </header>
 
-          <div className="vm-priority-list-shell">
-            <div className="vm-priority-accordion anim-fade-up">
+            <div className="vm-priority-list-shell">
+              <div className="vm-priority-accordion anim-fade-up">
             {priorityDevelopmentSectors.map((sector) => {
               const isOpen = openPriorityId === sector.id;
               const panelId = `vm-priority-panel-${sector.id}`;
@@ -723,6 +846,7 @@ const VisionMission = () => {
                 </div>
               );
             })}
+              </div>
             </div>
           </div>
         </div>

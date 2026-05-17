@@ -17,24 +17,41 @@ import politicalImg from '../../assets/overview_main2.jpg';
 import leadershipImg from '../../assets/about_kcr4.jpg';
 import timelineImg from '../../assets/overview.jpg';
 
+const slideTransition = {
+  type: 'spring',
+  visualDuration: 1,
+  bounce: 0.06,
+};
+
 const StoryStep = ({ item, onInView, isActive }) => {
   return (
     <motion.div
       className={`story-card-v ${isActive ? 'is-active' : ''}`}
       onViewportEnter={onInView}
-      viewport={{ amount: 0.55 }}
-      initial={{ opacity: 0, x: 50 }}
-      animate={isActive ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0.55, x: 18, scale: 0.985 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      viewport={{ amount: 0.45, margin: '0px 0px -15% 0px' }}
+      initial={false}
     >
-      <div className="card-v-img-container">
-        <img src={item.img} alt={item.title} />
-      </div>
-      <div className="card-v-content">
-        <h3 className="card-v-title">{item.title}</h3>
-        <p className="card-v-text">{item.text}</p>
-        <button className="card-v-btn">Know More</button>
-      </div>
+      <motion.span
+        className="story-card-accent"
+        aria-hidden="true"
+        animate={{ opacity: isActive ? 1 : 0.35 }}
+        transition={slideTransition}
+      />
+      <motion.div
+        className="story-card-inner"
+        initial={false}
+        style={{ transformOrigin: 'left center' }}
+        animate={isActive ? { x: 0 } : { x: '-100%' }}
+        transition={slideTransition}
+      >
+        <div className="card-v-img-container">
+          <img src={item.img} alt={item.title} />
+        </div>
+        <div className="card-v-content">
+          <h3 className="card-v-title">{item.title}</h3>
+          <p className="card-v-text">{item.text}</p>
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
@@ -148,10 +165,6 @@ const Overview = () => {
               <p>
                 As a child, he was often found with a book in his hand, showing a keen interest in literature and the history of his land. His school days in Dubbak and Siddipet were not just about academics; they were formative years where he developed his articulate nature and a strong sense of justice that would later define his leadership.
               </p>
-              <div className="intro-actions">
-                <button className="btn-primary">Learn More</button>
-                <button className="btn-secondary">View Life</button>
-              </div>
             </div>
           </div>
         </section>
@@ -172,10 +185,10 @@ const Overview = () => {
                     <motion.div
                       key={activeStory.id}
                       className="active-number-wrap is-active"
-                      initial={{ y: 20, opacity: 0, scale: 0.9 }}
+                      initial={{ y: 14, opacity: 0, scale: 0.96 }}
                       animate={{ y: 0, opacity: 1, scale: 1 }}
-                      exit={{ y: -20, opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.38, ease: "easeOut" }}
+                      exit={{ y: -14, opacity: 0, scale: 0.96 }}
+                      transition={{ type: 'spring', visualDuration: 0.55, bounce: 0.1 }}
                     >
                       <span className="count-number">
                         {activeStory.id < 10 ? `0${activeStory.id}` : activeStory.id}

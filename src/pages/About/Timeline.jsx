@@ -20,81 +20,108 @@ const timelineData = [
   {
     year: '1954',
     title: 'A Leader is Born',
-    description: 'Kalvakuntla Chandrashekar Rao was born on February 17 in Chintamadaka village, Telangana.',
-    image: img1954
+    description:
+      'February 17 — Chintamadaka. A child arrives in a village that would one day lend its name to a movement.',
+    quote:
+      'Before the microphones, before the marches — there was only soil, sky, and a name yet to be spoken aloud.',
+    image: img1954,
   },
   {
     year: '1970',
     title: 'Political Prelude',
-    description: 'Began his political journey as a student leader in the Youth Congress during his college years.',
-    image: imgPrelude
+    description:
+      'Student halls and Youth Congress — the first fire of public voice, sharpened on debate and dissent.',
+    quote: 'They asked us to wait. We learned to speak while the room was still listening.',
+    image: imgPrelude,
   },
   {
     year: '1975',
     title: 'Marriage & Personal Life',
-    description: 'Married Smt. Shobha, starting a lifelong partnership that would support his political journey.',
-    image: imgMarriage
+    description:
+      'Smt. Shobha — partnership forged in tradition, steadiness that would anchor decades of struggle.',
+    quote: 'A home built in quiet becomes the fortress from which a people are served.',
+    image: imgMarriage,
   },
   {
     year: '1985',
     title: 'First MLA Victory',
-    description: 'Elected as MLA for the first time from Siddipet, marking the start of his legislative legacy.',
-    image: imgMLA
+    description:
+      'Siddipet sends him to the Assembly — the legislative chapter opens, measured in constituencies kept.',
+    quote: 'Siddipet did not elect a man. It entrusted a promise written in ballot ink.',
+    image: imgMLA,
   },
   {
     year: '1987',
     title: 'Ministerial Debut',
-    description: 'Served as the Minister for Drought and Relief, gaining first-hand experience in public service.',
-    image: imgMinister
+    description:
+      'Minister for Drought and Relief — governance learned in fields cracked by sun and debt.',
+    quote: 'Relief is not charity. It is the state remembering its duty to the hungry.',
+    image: imgMinister,
   },
   {
     year: '1999',
     title: 'Deputy Speaker',
-    description: 'Appointed as the Deputy Speaker of the Andhra Pradesh Legislative Assembly.',
-    image: imgSpeaker
+    description:
+      'The Andhra Pradesh Assembly — order, procedure, and the weight of the chair behind him.',
+    quote: 'In the chamber, every word must carry the weight of those who sent you there.',
+    image: imgSpeaker,
   },
   {
     year: '2001',
     title: 'Birth of TRS',
-    description: 'Resigned from TDP to form the Telangana Rashtra Samithi (TRS) to fight for a separate state.',
-    image: imgTRS
+    description:
+      'Resignation from TDP. Telangana Rashtra Samithi — a separate flag raised for a separate dream.',
+    quote: 'When the door closed on compromise, we opened a new one called Telangana.',
+    image: imgTRS,
   },
   {
     year: '2004',
     title: 'Union Ministry',
-    description: 'Became the Union Minister for Labour and Employment in the UPA government.',
-    image: imgUnion
+    description:
+      'Labour and Employment at the Centre — national corridors, state cause carried in diplomatic tone.',
+    quote: 'Delhi hears many voices. Ours would not be lowered until the nation understood.',
+    image: imgUnion,
   },
   {
     year: '2009',
     title: 'The Great Fast',
-    description: 'His fast-unto-death became the catalyst for the historic announcement of Telangana statehood.',
-    image: imgFast
+    description:
+      'Fast-unto-death — body as argument, silence as thunder, statehood trembling on the edge of announcement.',
+    quote: 'I will not eat until my people are heard. Hunger became our loudest speech.',
+    image: imgFast,
   },
   {
     year: '2014',
     title: 'The First CM',
-    description: 'Sworn in as the first Chief Minister of the newly formed state of Telangana.',
-    image: imgCM
+    description:
+      'Sworn in as Chief Minister of Telangana — a map redrawn, a capital reborn, history divided into before and after.',
+    quote: 'Today we are not a region asking. We are a state answering.',
+    image: imgCM,
   },
   {
     year: '2017',
     title: 'Welfare Revolution',
-    description: 'Launched the KCR Kit and Rythu Bandhu schemes, transforming rural and maternal healthcare.',
-    image: imgWelfare
+    description:
+      'KCR Kit, Rythu Bandhu — schemes written into soil and maternity wards across the newborn state.',
+    quote: 'Welfare is not a slogan. It is grain in the field and breath in the nursery.',
+    image: imgWelfare,
   },
   {
     year: '2019',
     title: 'Engineering Marvel',
-    description: 'Inaugurated the Kaleshwaram Project, the world\'s largest multi-stage lift irrigation system.',
-    image: imgEngineering
+    description:
+      'Kaleshwaram — water lifted across stages, desert logic overturned by engineering will.',
+    quote: 'Rivers do not climb mountains. We taught them how.',
+    image: imgEngineering,
   },
   {
     year: '2022',
     title: 'National Vision',
-    description: 'Transformed TRS into BRS (Bharat Rashtra Samithi) to take the Telangana model of development to the nation.',
-    image: imgNational
-  }
+    description:
+      'TRS becomes BRS — the Telangana model steps beyond borders, seeking a nation-scale echo.',
+    quote: 'What we built here was never meant to stay within these lines on the map.',
+    image: imgNational,
+  },
 ];
 
 const Timeline = () => {
@@ -116,8 +143,23 @@ const Timeline = () => {
                 </div>
               </div>
               <div className="timeline-right">
+                <span className="timeline-chapter-index" aria-hidden="true">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
                 <h2 className="timeline-title">{item.title}</h2>
                 <p className="timeline-desc">{item.description}</p>
+                {item.quote ? (
+                  <blockquote className="timeline-speech">
+                    <span className="timeline-speech-mark" aria-hidden="true">
+                      &ldquo;
+                    </span>
+                    <p className="timeline-speech-text">{item.quote}</p>
+                    <footer className="timeline-speech-footer">
+                      <span className="timeline-speech-line" aria-hidden="true" />
+                      <cite>— recorded in spirit, {item.year}</cite>
+                    </footer>
+                  </blockquote>
+                ) : null}
               </div>
             </div>
           ))}
