@@ -5,6 +5,8 @@
   --bg-light: #ffffff;
   --bg-soft: #f9f9f9;
   --accent-soft: rgba(239, 39, 106, 0.05);
+  --resistance-card-bg: #fdf2f7;
+  --resistance-card-border: rgba(239, 39, 106, 0.14);
   --white: #ffffff;
 }
 
@@ -15,81 +17,66 @@
   overflow-x: hidden;
 }
 
-/* Hero Section - Geometric Style */
-.hero-geometric {
+/* Hero Section */
+.political-hero {
+  position: relative;
+  width: 100%;
+  min-height: var(--site-hero-band-height);
+  height: var(--site-hero-band-height);
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 4rem 0 2rem;
-  gap: 4rem;
-  min-height: 80vh;
-}
-
-.hero-text-side {
-  flex: 1;
-  max-width: 550px;
-  padding-left: 6%;
-}
-
-.hero-text-side h1 {
-  font-size: clamp(2.5rem, 5vw, 3.8rem);
-  font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 2rem;
-  letter-spacing: -2px;
-}
-
-.hero-text-side p {
-  font-size: 1.1rem;
-  color: var(--muted-text);
-  line-height: 1.6;
-  margin-bottom: 2.5rem;
-}
-
-.hero-cta {
-  padding: 1rem 2.5rem;
-  background: #8b9d77; /* Using the olive/greenish tone from reference for buttons or stick to pink? User said layout but KCR is pink. I'll stick to a sophisticated pink or user's preference for layout color. Ref has olive. I'll use a muted pink/gold. */
-  background: var(--primary-pink);
-  color: white;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.3s;
-}
-
-.hero-image-side {
-  flex: 1;
-  position: relative;
-  display: flex;
   justify-content: center;
-}
-
-.arch-shape {
-  width: 320px;
-  height: 450px;
-  background: #e0e0e0;
-  border-radius: 200px 200px 0 0;
   overflow: hidden;
-  position: relative;
-  z-index: 2;
 }
 
-.arch-shape img {
+.political-hero-bg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
-.circle-shape {
+.political-hero::after {
+  content: '';
   position: absolute;
-  width: 250px;
-  height: 250px;
-  background: #f0f0f0;
-  border-radius: 50%;
-  bottom: 0;
-  left: -2px;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.5) 55%,
+    rgba(0, 0, 0, 0.62) 100%
+  );
   z-index: 1;
+}
+
+.political-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+.political-hero-content h1 {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.12;
+  margin: 0 0 1.25rem;
+  letter-spacing: -1px;
+  color: var(--primary-pink);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+.political-hero-content p {
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  line-height: 1.65;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Philosophy Section */
@@ -264,19 +251,167 @@
   cursor: pointer;
 }
 
-/* Full Width Image Section */
-.career-full-width-image {
+/* The Fracture and the Founding */
+.fracture-founding-section {
   padding: 4rem 0;
   width: 100%;
-  background: white; /* Matching image background */
+  background: #ffffff;
 }
 
-.career-full-width-image img {
+.fracture-founding-canvas {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  container-type: inline-size;
+  container-name: fracture;
+}
+
+.fracture-founding-base {
+  display: block;
   width: 100%;
   height: auto;
-  border-radius: 0;
-  box-shadow: none;
-  display: block;
+}
+
+.fracture-callout {
+  position: absolute;
+  margin: 0;
+  padding: 0.25rem 0.45rem;
+  background: transparent;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: auto;
+}
+
+.fracture-callout h3 {
+  margin: 0 0 0.28rem;
+  font-size: clamp(0.82rem, 2.65cqi, 1.18rem);
+  font-weight: 800;
+  color: var(--primary-pink);
+  line-height: 1.1;
+  width: 100%;
+}
+
+.fracture-callout p {
+  margin: 0;
+  width: 100%;
+  max-width: 98%;
+  font-size: clamp(0.7rem, 2.15cqi, 0.96rem);
+  line-height: 1.28;
+  color: #4a5568;
+}
+
+/* Top-right frame */
+.fracture-callout--catalyst {
+  top: 17.35%;
+  bottom: 69.35%;
+  left: 73.5%;
+  right: 3.85%;
+  width: auto;
+  padding: 0.2rem 0.35rem 0.2rem 0.55rem;
+}
+
+/* Bottom-right frame */
+.fracture-callout--vehicle {
+  top: 71.65%;
+  bottom: 12.15%;
+  left: 73.5%;
+  right: 3.85%;
+  width: auto;
+  padding: 0.2rem 0.35rem 0.2rem 0.5rem;
+}
+
+/* Bottom-left frame */
+.fracture-callout--validation {
+  top: 71.65%;
+  bottom: 12.15%;
+  left: 3.85%;
+  right: 73.5%;
+  width: auto;
+  padding: 0.2rem 0.55rem 0.2rem 0.35rem;
+}
+
+.fracture-callout--catalyst p {
+  line-height: 1.24;
+  max-width: 100%;
+}
+
+@media (min-width: 1100px) {
+  .fracture-callout h3 {
+    font-size: clamp(0.9rem, 2.5cqi, 1.22rem);
+  }
+
+  .fracture-callout p {
+    font-size: clamp(0.76rem, 2cqi, 1rem);
+  }
+
+  .fracture-callout--catalyst {
+    top: 17.5%;
+    bottom: 69%;
+    left: 74%;
+    right: 4%;
+  }
+
+  .fracture-callout--vehicle {
+    top: 71.85%;
+    bottom: 11.85%;
+    left: 74%;
+    right: 4%;
+  }
+
+  .fracture-callout--validation {
+    top: 71.85%;
+    bottom: 11.85%;
+    left: 4%;
+    right: 74%;
+  }
+}
+
+@media (max-width: 768px) {
+  .fracture-founding-section {
+    padding: 2rem 0;
+  }
+
+  .fracture-callout {
+    padding: 0.2rem 0.35rem;
+  }
+
+  .fracture-callout h3 {
+    margin-bottom: 0.22rem;
+    font-size: clamp(0.72rem, 3.2cqi, 0.92rem);
+  }
+
+  .fracture-callout p {
+    font-size: clamp(0.62rem, 2.6cqi, 0.8rem);
+    line-height: 1.26;
+  }
+
+  .fracture-callout--catalyst {
+    top: 16.85%;
+    bottom: 68.25%;
+    left: 70.5%;
+    right: 2.5%;
+    padding-left: 0.45rem;
+  }
+
+  .fracture-callout--vehicle {
+    top: 71.15%;
+    bottom: 10.35%;
+    left: 70.5%;
+    right: 2.5%;
+  }
+
+  .fracture-callout--validation {
+    top: 71.15%;
+    bottom: 10.35%;
+    left: 2.5%;
+    right: 70.5%;
+    padding-right: 0.45rem;
+  }
 }
 
 /* Stepper Minimal Section */
@@ -346,91 +481,268 @@
   line-height: 1.5;
 }
 
-/* Pillars Pill Section */
-.career-pillars-pill {
-  padding: 6rem 0;
-  background: white;
-  display: flex;
-  justify-content: center;
-  width: 100%;
+/* Years of Resistance — reference layout */
+.years-resistance-section {
+  padding: 4.5rem 0 4rem;
+  background: #ffffff;
 }
 
-.pill-background-bar {
-  width: 100%;
-  background: #fdf2f7; /* Soft pastel pink */
-  border-radius: 1000px; /* High value for pill shape */
-  padding: 3rem 8% 4rem;
-  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.02);
-  transform-origin: center;
-}
-
-.pillars-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  max-width: 900px;
+.years-resistance-inner {
+  width: min(1140px, calc(100% - 3rem));
   margin: 0 auto;
 }
 
-.pillar-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+.years-resistance-stage {
   position: relative;
+  padding-bottom: 0.5rem;
 }
 
-/* Lifting the circles slightly as in the layout */
-.pillar-circle {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
+.years-resistance-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+  margin-bottom: 0;
+  padding-bottom: 4.25rem;
+}
+
+.years-resistance-intro-media {
+  position: relative;
+  z-index: 1;
+  border-radius: 28px;
   overflow: hidden;
-  margin-top: -5rem; /* Hovering above the bar */
-  margin-bottom: 1.5rem;
-  border: 10px solid white;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  background: white;
+  aspect-ratio: 16 / 10;
+  max-height: 300px;
+  background: #e8e8e6;
 }
 
-.pillar-circle img {
+.years-resistance-intro-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.pillar-item h4 {
-  font-size: 1.4rem;
+.years-resistance-intro-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 0.25rem;
+  padding-bottom: 2rem;
+}
+
+.years-resistance-intro-copy h2 {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.85rem, 3.2vw, 2.65rem);
   font-weight: 800;
-  margin-bottom: 0.8rem;
-  color: var(--dark-text);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--primary-pink);
 }
 
-.pillar-item p {
+.years-resistance-intro-copy p {
+  margin: 0 auto;
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #4a4a4a;
+}
+
+.years-resistance-carousel {
+  position: relative;
+  z-index: 3;
+  margin-top: -5.75rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 0.75rem;
+  row-gap: 1.25rem;
+}
+
+.years-resistance-slider-wrap {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 0.35rem 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+.years-resistance-prev {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.years-resistance-next {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.years-resistance-swiper {
+  overflow: hidden;
+  padding-bottom: 0.25rem;
+  background: #ffffff;
+}
+
+.years-resistance-swiper .swiper-wrapper {
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.years-resistance-swiper .swiper-slide {
+  height: auto;
+  display: flex;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.resistance-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 220px;
+  padding: 1.65rem 1.45rem 1.5rem;
+  background: linear-gradient(160deg, #fff8fb 0%, var(--resistance-card-bg) 55%, #fce4ef 100%);
+  border: 1px solid var(--resistance-card-border);
+  border-radius: 28px;
+  box-sizing: border-box;
+  box-shadow: 0 12px 32px rgba(239, 39, 106, 0.1);
+}
+
+.resistance-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.35rem;
+}
+
+.resistance-card-dot {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary-pink);
+  box-shadow: 0 0 0 3px rgba(239, 39, 106, 0.15);
+}
+
+.resistance-card-head h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.25;
+}
+
+.resistance-card p {
+  margin: 0;
   font-size: 0.95rem;
-  color: var(--muted-text);
-  line-height: 1.6;
-  max-width: 240px;
+  line-height: 1.72;
+  color: #555;
 }
 
-@media (max-width: 1024px) {
-  .pill-background-bar {
-    border-radius: 40px;
-    padding: 10rem 2rem 4rem;
-  }
-  
-  .pillars-container {
+.years-resistance-prev,
+.years-resistance-next {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.years-resistance-prev:hover,
+.years-resistance-next:hover {
+  background: #f8f8f8;
+  transform: translateY(-1px);
+}
+
+.years-resistance-prev:disabled,
+.years-resistance-next:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.years-resistance-pagination {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 1.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.years-resistance-pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  margin: 0 !important;
+  background: rgba(0, 0, 0, 0.22);
+  opacity: 1;
+}
+
+.years-resistance-pagination .swiper-pagination-bullet-active {
+  background: var(--primary-pink);
+}
+
+.years-resistance-swiper .swiper-button-prev,
+.years-resistance-swiper .swiper-button-next {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .years-resistance-intro {
     grid-template-columns: 1fr;
-    gap: 8rem;
+    padding-bottom: 4rem;
   }
 
-  .pillar-circle {
-    width: 180px;
-    height: 180px;
+  .years-resistance-carousel {
+    margin-top: -3.75rem;
+    column-gap: 0.5rem;
+  }
+
+  .years-resistance-intro-media {
+    max-height: 260px;
+  }
+
+  .years-resistance-intro-media {
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .years-resistance-intro-copy {
+    text-align: center;
+    padding-bottom: 0;
+  }
+
+  .years-resistance-intro-copy p {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
 @media (max-width: 1024px) {
+  .years-resistance-section {
+    padding: 3.5rem 0 3rem;
+  }
+
+  .years-resistance-inner {
+    width: min(1140px, calc(100% - 2rem));
+  }
+
   .stepper-minimal-container {
     flex-direction: column;
     padding: 3rem 2rem;
@@ -562,7 +874,7 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .hero-geometric, .values-minimal-grid, .phases-column-grid, .footer-geometric {
+  .values-minimal-grid, .phases-column-grid, .footer-geometric {
     flex-direction: column;
     padding: 4rem 5%;
   }
@@ -580,12 +892,7 @@
     width: 100%;
   }
 
-  .hero-text-side {
-    text-align: center;
-    max-width: 100%;
-  }
-
-  .hero-image-side {
-    margin-top: 3rem;
+  .political-hero-content {
+    padding: 2rem 1.25rem;
   }
 }

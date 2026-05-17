@@ -168,7 +168,13 @@ const StateFormation = () => {
         </div>
       </section>
 
-      <section className="state-formation-flashcards" aria-label="State formation flashcards">
+      <section
+        className="state-formation-flashcards"
+        aria-labelledby="state-formation-flashcards-title"
+      >
+        <h2 id="state-formation-flashcards-title" className="flashcards-section-title">
+          From Movement to State
+        </h2>
         <div className="flashcards-stage">
           <button type="button" className="flash-nav flash-nav-left" onClick={showPrevCard} aria-label="Previous card">
             &#8592;
@@ -177,11 +183,13 @@ const StateFormation = () => {
           <div className="flashcards-track">
             {flashcards.map((card, index) => (
               <article key={card.title} className={`flashcard ${getCardPositionClass(index)}`}>
+                <header className="flashcard-header">
+                  <h3 className="flashcard-title">{card.title}</h3>
+                </header>
                 <div className="flashcard-image-wrap">
                   <img src={card.image} alt={card.title} className="flashcard-image" />
                 </div>
                 <div className="flashcard-content">
-                  <h3 className="flashcard-title">{card.title}</h3>
                   <p className="flashcard-description">{card.description}</p>
                   <span className="flashcard-count">{String(index + 1).padStart(2, '0')}</span>
                 </div>

@@ -47,6 +47,12 @@ main .welfare-hero {
   box-sizing: border-box;
 }
 
+main .political-hero {
+  min-height: var(--site-hero-band-height);
+  height: var(--site-hero-band-height);
+  box-sizing: border-box;
+}
+
 @media (max-width: 768px) {
   main .cultural-revival-hero {
     min-height: var(--site-hero-band-height);

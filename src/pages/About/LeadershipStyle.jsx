@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion, useInView, animate } from 'framer-motion';
+﻿import React from 'react';
+import { motion, useInView, animate, useReducedMotion, AnimatePresence } from 'framer-motion';
 import './LeadershipStyle.css';
 import visionaryImg from '../../assets/National Vision.webp';
 import peopleImg from '../../assets/about_kcr.png';
@@ -11,6 +11,191 @@ import welfareImg from '../../assets/Mission_Bhagiratha.jpg';
 import strategicImg from '../../assets/Kaleshwaram Project.webp';
 import missionKakatiyaImg from '../../assets/mission_kakatiya.jpg';
 import leadershipTopImg from '../../assets/leardership_topmain.png';
+import telanganaMovementImg from '../../assets/telangana_movement.jpg';
+import cultureIdentityImg from '../../assets/culture_stateformation.jpg';
+
+const svgIcon = {
+  width: 26,
+  height: 26,
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: 1.75,
+  strokeLinecap: 'round',
+  strokeLinejoin: 'round',
+};
+
+const IconMovementNav = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+    <path d="M4 22v-7" />
+  </svg>
+);
+
+const IconCrisisNav = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <path d="M12 8v4M12 16h.01" />
+  </svg>
+);
+
+const IconFastNav = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />
+  </svg>
+);
+
+const IconIdentityNav = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M12 2a4 4 0 0 1 4 4c0 2-2 3-2 6H10c0-3-2-4-2-6a4 4 0 0 1 4-4z" />
+    <path d="M8 22h8M10 18h4" />
+    <path d="M9 14h6" />
+  </svg>
+);
+
+const IconUnity = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
+
+const IconFarmer = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M12 22V12" />
+    <path d="M8 12h8" />
+    <path d="M6 8c2-2 10-2 12 0" />
+    <path d="M9 6c1.5-1.5 4.5-1.5 6 0" />
+  </svg>
+);
+
+const IconWater = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+  </svg>
+);
+
+const IconPublic = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M3 21h18" />
+    <path d="M5 21V7l8-4v18" />
+    <path d="M19 21V11l-6-3" />
+    <path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01" />
+  </svg>
+);
+
+const IconTsipass = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+    <path d="m9 15 2 2 4-4" />
+  </svg>
+);
+
+const IconBhagiratha = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M4 14h16" />
+    <path d="M6 18h12" />
+    <path d="M8 10h8l-2-6H10l-2 6z" />
+    <path d="M12 10v8" />
+  </svg>
+);
+
+const IconIrrigation = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M2 20c4-4 8-4 12 0s8 4 12 0" />
+    <path d="M12 4v8M9 7l3-3 3 3" />
+  </svg>
+);
+
+const IconCulture = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M2 20h20" />
+    <path d="M4 20V10l4-2v12M10 20V6l4-2v16M16 20V10l4 2v8" />
+  </svg>
+);
+
+const IconLanguage = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="m5 8 6 6" />
+    <path d="m4 14 6-6 2-3" />
+    <path d="M2 5h12M2 19h12" />
+    <path d="M14 5a7 7 0 0 1 0 14" />
+  </svg>
+);
+
+const IconFestival = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M9 18V5l12-2v13" />
+    <circle cx="6" cy="18" r="3" />
+    <circle cx="18" cy="16" r="3" />
+  </svg>
+);
+
+const IconSelfRespect = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+  </svg>
+);
+
+const leadershipInActionSections = [
+  {
+    id: 'movement',
+    label: 'Section 1',
+    title: 'During The Telangana Movement',
+    summary: 'How leadership united people.',
+    image: telanganaMovementImg,
+    NavIcon: IconMovementNav,
+    topics: [
+      {
+        title: 'How leadership united people',
+        description: 'Mobilising communities, sustaining morale, and turning shared aspiration into a statewide movement for statehood.',
+        Icon: IconUnity,
+      },
+    ],
+  },
+  {
+    id: 'crisis',
+    label: 'Section 2',
+    title: 'Governance During Crisis',
+    summary: 'Responsive administration when livelihoods and public trust were on the line.',
+    image: inclusiveImg,
+    NavIcon: IconCrisisNav,
+    topics: [
+      { title: 'Farmer welfare', description: 'Protecting cultivators through relief, support systems, and policies centred on rural resilience.', Icon: IconFarmer },
+      { title: 'Water reforms', description: 'Prioritising equitable access, conservation, and long-term water security for every region.', Icon: IconWater },
+      { title: 'Public-first administration', description: 'Putting citizens before bureaucracy with transparent, accountable, and humane governance.', Icon: IconPublic },
+    ],
+  },
+  {
+    id: 'fast',
+    label: 'Section 3',
+    title: 'Fast Decision Governance',
+    summary: 'Decisive execution that turned vision into visible outcomes across Telangana.',
+    image: welfareImg,
+    NavIcon: IconFastNav,
+    topics: [
+      { title: 'TS-iPASS', description: 'Single-window clearances that accelerated investment and cut red tape for industry and enterprise.', Icon: IconTsipass },
+      { title: 'Mission Bhagiratha', description: 'Safe drinking water pipelines reaching villages and households at scale and speed.', Icon: IconBhagiratha },
+      { title: 'Irrigation execution', description: 'Major projects delivered with urgency to strengthen agriculture and rural prosperity.', Icon: IconIrrigation },
+    ],
+  },
+  {
+    id: 'identity',
+    label: 'Section 4',
+    title: 'Leadership Rooted In Telangana Identity',
+    summary: 'Celebrating culture and dignity as foundations of confident, self-respecting governance.',
+    image: cultureIdentityImg,
+    NavIcon: IconIdentityNav,
+    topics: [
+      { title: 'Culture', description: 'Honouring arts, heritage, and traditions that define Telangana’s distinct character.', Icon: IconCulture },
+      { title: 'Language', description: 'Elevating Telugu as a symbol of pride, access, and administrative inclusion.', Icon: IconLanguage },
+      { title: 'Festivals', description: 'Recognising public celebrations that unite communities and reinforce shared identity.', Icon: IconFestival },
+      { title: 'Self-respect', description: 'Asserting Telangana’s voice with dignity in policy, symbolism, and public life.', Icon: IconSelfRespect },
+    ],
+  },
+];
 
 const traits = [
   {
@@ -87,7 +272,161 @@ const traits = [
   }
 ];
 
-const StatCounter = ({ value, label, icon, suffix = "", delay = 0 }) => {
+const HERO_TITLE = 'Leadership Philosophy';
+const LETTER_STAGGER = 0.032;
+const LETTER_DURATION = 0.62;
+const LETTER_EASE = [0.16, 1, 0.3, 1];
+const LETTER_INITIAL_DELAY = 0.06;
+
+function HeroAnimatedLetters({ text }) {
+  const reduceMotion = useReducedMotion();
+
+  if (reduceMotion) {
+    return <span aria-hidden="true">{text}</span>;
+  }
+
+  return (
+    <span className="leadership-hero-title-letters" aria-hidden="true">
+      {[...text].map((char, i) => (
+        <motion.span
+          key={`${i}-${char}`}
+          className="leadership-hero-char"
+          initial={{ opacity: 0, y: '-0.72em' }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: LETTER_INITIAL_DELAY + i * LETTER_STAGGER,
+            duration: LETTER_DURATION,
+            ease: LETTER_EASE,
+          }}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
+
+const LeadershipInAction = () => {
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const active = leadershipInActionSections[activeIndex];
+  const ActiveNavIcon = active.NavIcon;
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="leadership-action-section"
+      aria-labelledby="leadership-in-action-title"
+    >
+      <motion.div className="lia-layout">
+        <aside className="lia-sidebar">
+          <div className="lia-sidebar-header">
+            <h2 id="leadership-in-action-title">Leadership In Action</h2>
+            <p>Select a chapter to explore how leadership shaped Telangana.</p>
+          </div>
+          <nav className="lia-nav" aria-label="Leadership chapters">
+            {leadershipInActionSections.map((section, index) => {
+              const NavIcon = section.NavIcon;
+              const isActive = index === activeIndex;
+              return (
+                <button
+                  key={section.id}
+                  type="button"
+                  className={`lia-nav-item${isActive ? ' is-active' : ''}`}
+                  onClick={() => setActiveIndex(index)}
+                  aria-current={isActive ? 'true' : undefined}
+                >
+                  <div className="lia-nav-copy">
+                    <span className="lia-nav-label">{section.label}</span>
+                    <span className="lia-nav-title">{section.title}</span>
+                  </div>
+                  <span className="lia-nav-thumb" aria-hidden="true">
+                    <NavIcon />
+                  </span>
+                </button>
+              );
+            })}
+          </nav>
+        </aside>
+
+        <motion.div className="lia-main">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active.id}
+              className="lia-main-panel"
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -16 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <motion.div className="lia-feature">
+                <div className="lia-feature-visual">
+                  <img src={active.image} alt="" />
+                  <span className="lia-feature-badge" aria-hidden="true">
+                    <ActiveNavIcon />
+                  </span>
+                </div>
+                <div className="lia-feature-copy">
+                  <span className="lia-content-label">{active.label}</span>
+                  <h3>{active.title}</h3>
+                  <p className="lia-summary">{active.summary}</p>
+                  <ul className="lia-topics">
+                    {active.topics.map((topic) => {
+                      const TopicIcon = topic.Icon;
+                      return (
+                        <li key={topic.title} className="lia-topic">
+                          <span className="lia-topic-icon" aria-hidden="true">
+                            <TopicIcon />
+                          </span>
+                          <div className="lia-topic-text">
+                            <strong>{topic.title}</strong>
+                            <p>{topic.description}</p>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
+
+        </motion.div>
+      </motion.div>
+    </motion.section>
+  );
+};
+
+const IconHighlightScroll = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+  </svg>
+);
+
+const IconHighlightLeadership = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+  </svg>
+);
+
+const IconHighlightIdeas = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10c1 .9 1 2 1 3h6c0-1 0-2.1 1-3a6 6 0 0 0-4-10z" />
+  </svg>
+);
+
+const IconHighlightImpact = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
+
+const StatCounter = ({ value, label, icon: Icon, suffix = "", delay = 0 }) => {
   const [count, setCount] = React.useState(0);
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
@@ -112,7 +451,7 @@ const StatCounter = ({ value, label, icon, suffix = "", delay = 0 }) => {
       transition={{ duration: 0.8, delay }}
       className="highlight-card"
     >
-      <div className="h-icon">{icon}</div>
+      <div className="h-icon">{Icon ? <Icon /> : null}</div>
       <div className="h-number">
         {isNumeric ? `${count}${suffix}` : value}
       </div>
@@ -130,12 +469,29 @@ const LeadershipStyle = () => {
       <div className="leadership-hero-wrap">
         <div className="hero-left">
           <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             className="leadership-header"
           >
-            <h2>Leadership Philosophy</h2>
-            <p>A multidimensional approach to governance, combining empathy with decisive strategic action.</p>
+            <h2>
+              <span className="leadership-hero-sr-only">{HERO_TITLE}</span>
+              <HeroAnimatedLetters text={HERO_TITLE} />
+            </h2>
+            <motion.div
+              className="leadership-hero-subtitle-row"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: LETTER_INITIAL_DELAY + HERO_TITLE.length * LETTER_STAGGER + 0.2,
+                duration: 0.55,
+                ease: LETTER_EASE,
+              }}
+            >
+              <span className="leadership-hero-subtitle-accent" aria-hidden="true" />
+              <p className="leadership-hero-subtitle">
+                A multidimensional approach to governance, combining empathy with decisive strategic action.
+              </p>
+            </motion.div>
           </motion.div>
         </div>
         <div className="hero-right">
@@ -149,8 +505,12 @@ const LeadershipStyle = () => {
         </div>
       </div>
 
-      <div className="infographic-wrapper">
-        <div className="bg-watermark">LEADERSHIP</div>
+      <div className="leadership-infographic-section">
+        <h2 className="leadership-infographic-vertical-title">
+          <span className="leadership-hero-sr-only">Leadership</span>
+          <span aria-hidden="true">LEADERSHIP</span>
+        </h2>
+        <div className="infographic-wrapper">
         <motion.div 
           className="center-node"
           style={{ 
@@ -244,117 +604,38 @@ const LeadershipStyle = () => {
           );
         })}
       </div>
+    </div>
 
-      <motion.section 
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="principles-section"
-      >
-        <div className="section-intro">
-          <span>Foundational Tenets</span>
-          <h2>Principles of Progress</h2>
-          <p>The core values that drive every administrative decision and policy implementation in the state of Telangana.</p>
-        </div>
+      <LeadershipInAction />
 
-        <div className="principles-grid">
-          {[
-            {
-              icon: '⚖️',
-              title: 'Empathetic Governance',
-              desc: 'Understanding the pulse of the common man and crafting policies that prioritize human welfare above mere statistics.',
-              initial: { x: -250, scale: 0.6, opacity: 0 },
-              delay: 0.15
-            },
-            {
-              icon: '⚡',
-              title: 'Strategic Speed',
-              desc: 'Moving from conception to implementation with clinical precision, ensuring that large-scale projects are completed in record time.',
-              initial: { y: 100, scale: 0.5, opacity: 0 },
-              delay: 0
-            },
-            {
-              icon: '🌱',
-              title: 'Rooted Innovation',
-              desc: 'Blending modern technological advancements with traditional wisdom to solve local problems with global standards.',
-              initial: { x: 250, scale: 0.6, opacity: 0 },
-              delay: 0.15
-            }
-          ].map((item, i) => (
-            <motion.div 
-              key={i}
-              initial={item.initial}
-              whileInView={{ 
-                x: 0, 
-                y: 0,
-                scale: 1, 
-                opacity: 1
-              }}
-              viewport={{ once: false, amount: 0.4 }}
-              transition={{ 
-                type: "spring",
-                stiffness: 200,
-                damping: 15,
-                mass: 1,
-                delay: item.delay
-              }}
-              whileHover="hover"
-              variants={{
-                hover: { 
-                  scale: 1.05, 
-                  y: -5,
-                  transition: { duration: 0.3, ease: "easeOut" }
-                }
-              }}
-              className="principle-card"
-            >
-              <motion.div 
-                variants={{
-                  hover: { 
-                    scale: 1.4, 
-                    rotate: [0, -20, 20, 0],
-                    transition: { duration: 0.4, ease: "easeInOut" }
-                  }
-                }}
-                className="p-icon"
-              >
-                {item.icon}
-              </motion.div>
-              <h4>{item.title}</h4>
-              <p>{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </motion.section>
 
       <section className="highlights-section">
         <div className="highlights-grid">
-          <StatCounter 
-            icon="📜" 
-            value={30} 
-            suffix="+" 
-            label="Years in Public Service" 
+          <StatCounter
+            icon={IconHighlightScroll}
+            value={30}
+            suffix="+"
+            label="Years in Public Service"
             delay={0.1}
           />
-          <StatCounter 
-            icon="⚖️" 
-            value={10} 
-            suffix="+" 
-            label="Years in Leadership" 
+          <StatCounter
+            icon={IconHighlightLeadership}
+            value={10}
+            suffix="+"
+            label="Years in Leadership"
             delay={0.2}
           />
-          <StatCounter 
-            icon="💡" 
-            value={50} 
-            suffix="+" 
-            label="Key Initiatives" 
+          <StatCounter
+            icon={IconHighlightIdeas}
+            value={50}
+            suffix="+"
+            label="Key Initiatives"
             delay={0.3}
           />
-          <StatCounter 
-            icon="🤝" 
-            value="Millions" 
-            label="Lives Impacted" 
+          <StatCounter
+            icon={IconHighlightImpact}
+            value="Millions"
+            label="Lives Impacted"
             delay={0.4}
           />
         </div>

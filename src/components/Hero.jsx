@@ -25,8 +25,8 @@ const Hero = () => {
       id: 1,
       image: heroBackground,
       personImage: personCutout,
-      lines: ["Visionary Leadership", "For a Progressive", "Telangana"],
-      subtitle: "Driving growth, welfare, and innovation for every citizen across the state.",
+      lines: ['The Voice That Led', 'Telangana'],
+      subtitle: "From a people's movement to the birth of a new state.",
       align: 'left',
       position: 'center 10%',
       personDuration: 3.5, // Slower person entrance
@@ -36,8 +36,8 @@ const Hero = () => {
       id: 2,
       image: backgroundSliding2,
       personImage: sliding2Person,
-      lines: ["For the People", "For the Future"],
-      subtitle: "Committed to inclusive development and the welfare of every community.",
+      lines: ['From Scarcity to', 'Prosperity'],
+      subtitle: 'Transforming lives through irrigation, welfare, and development.',
       align: 'left',
       position: 'center 10%',
       personDuration: 3.5, // Slower person entrance
@@ -49,8 +49,8 @@ const Hero = () => {
       image: backgroundSlide3, // Applied new background image
       bgColor: '#5d1a33', // Keeping as fallback
       personImage: slide3Person,
-      lines: ["Building Telangana", "Stronger Every Day"],
-      subtitle: "Transforming lives through bold initiatives and sustainable development programs.",
+      lines: ['Building Bangaru', 'Telangana'],
+      subtitle: 'Empowering future generations with innovation, growth, and opportunity.',
       align: 'left',
       position: 'center center',
       personDuration: 3.5,
@@ -171,7 +171,7 @@ const Hero = () => {
                                     ease: [0.22, 1, 0.36, 1]
                                   }}
                                 >
-                                  {line === "FUTURE OF" || line === "EVERY WOMAN" || (line === "TELANGANA" && slide.id === 3) ? (
+                                  {line === 'Telangana' || line === 'Prosperity' ? (
                                     <span className="accent-text">{line}</span>
                                   ) : (
                                     line
