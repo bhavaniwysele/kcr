@@ -1,20 +1,21 @@
 :root {
-  --pink: #e91e63;
-  --black: #000000;
-  --white: #ffffff;
-  --bg-pink: #ffe4ed;
+  --irr-pink: #e91e63;
+  --irr-pink-soft: #fce4ec;
+  --irr-pink-pale: #f3e8f8;
+  --irr-ink: #1a1a1a;
+  --irr-muted: #5c667a;
+  --irr-border: #e8eaef;
 }
 
-.achievement-detail-page {
-  font-size: 0.85rem; /* Base reduction */
-  background-color: var(--white);
-  color: var(--black);
+.irrigation-page {
+  background: #fff;
+  color: var(--irr-ink);
   font-family: var(--font-body);
   overflow-x: hidden;
-  padding-bottom: 5rem;
+  padding-bottom: 0;
 }
 
-/* Hero Section */
+/* Hero */
 .irrigation-hero {
   min-height: 50vh;
   display: flex;
@@ -25,290 +26,442 @@
   position: relative;
   background-size: cover;
   background-position: center 20%;
-  background-attachment: fixed;
-  color: var(--white);
+  color: #fff;
   padding: 4rem 2rem;
 }
 
 .irrigation-hero::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.55));
   z-index: 1;
 }
 
-.irrigation-hero h1, .irrigation-hero p {
+.irrigation-hero h1,
+.irrigation-hero p {
   position: relative;
   z-index: 2;
 }
 
 .irrigation-hero h1 {
-  font-size: clamp(2.5rem, 8vw, 6.5rem); /* Reduced by ~20% */
-  font-weight: 800;
   margin: 0;
-  line-height: 0.9;
+  font-size: clamp(2.2rem, 7vw, 5rem);
+  font-weight: 800;
+  line-height: 0.95;
   text-transform: uppercase;
-  color: var(--white);
 }
 
-.irrigation-hero span {
+.irrigation-hero h1 span {
   display: block;
 }
 
-.accent-text {
-  color: var(--pink);
+.irrigation-hero .accent-text {
+  color: var(--irr-pink);
 }
 
-/* Reference 1 Pattern: Image + Overlay + Side Items */
-.ref1-pattern {
-  display: flex;
-  gap: 4rem;
-  align-items: center;
-  max-width: 1200px;
+.irrigation-hero p {
+  margin: 1.25rem 0 0;
+  font-size: clamp(0.85rem, 1.4vw, 1rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.88;
+}
+
+/* Mega irrigation projects */
+.irr-mega-section {
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem 2rem;
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 2.5rem);
 }
 
-.ref1-visual {
-  position: relative;
-  flex: 1;
-}
-
-.ref1-img-box {
-  width: 100%;
-  aspect-ratio: 1/1;
-  overflow: hidden;
-  border-radius: 20px;
-  background: #f0f0f0;
-}
-
-.ref1-img-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(1);
-}
-
-.ref1-overlay {
-  position: absolute;
-  left: -2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--pink);
-  color: var(--white);
-  padding: 3rem 2rem;
-  min-width: 200px;
-  text-align: center;
-  box-shadow: 20px 20px 40px rgba(0,0,0,0.1);
-}
-
-.ref1-overlay .label {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-.ref1-overlay .value {
-  font-size: 2.4rem;
+.irr-section-title {
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.35rem, 2.8vw, 1.85rem);
   font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--irr-ink);
+  text-align: left;
 }
 
-.ref1-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.ref1-item {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-}
-
-.ref1-icon {
-  width: 70px;
-  height: 70px;
-  background: var(--pink);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 10px 20px rgba(233, 30, 99, 0.2);
-}
-
-.ref1-icon svg {
-  width: 30px;
-  height: 30px;
-  fill: white;
-}
-
-.ref1-text h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.ref1-text p {
-  color: #666;
-  line-height: 1.5;
-  font-size: 1rem;
-}
-
-/* Reference 2 Pattern: Ticket Style Section */
-.ticket-section {
-  background: var(--bg-pink);
-  margin: 2rem 2rem;
-  padding: 3rem 3rem;
-  border-radius: 60px;
-  position: relative;
-}
-
-.ticket-header {
-  margin-bottom: 2rem;
-}
-
-.ticket-header h2 {
-  font-size: 2.4rem;
-  font-weight: 800;
-  background: var(--pink);
-  color: white;
-  display: inline-block;
-  padding: 0.4rem 1.6rem;
-  border-radius: 100px;
-}
-
-.ticket-grid {
+.irr-mega-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  align-items: start;
 }
 
-.ticket-card {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 40px;
+.irr-mega-visual {
   position: relative;
-  display: flex;
-  gap: 2rem;
-}
-
-/* The semi-circle cutouts */
-.ticket-section::before,
-.ticket-section::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 60px;
-  height: 60px;
-  background: var(--white);
-  border-radius: 50%;
-}
-
-.ticket-section::before { left: -30px; transform: translateY(-50%); }
-.ticket-section::after { right: -30px; transform: translateY(-50%); }
-
-.ticket-card-img {
-  width: 150px;
-  height: 150px;
-  border-radius: 20px;
+  border-radius: 4px;
   overflow: hidden;
-  flex-shrink: 0;
+  min-height: 420px;
+  background: #e8edf2;
 }
 
-.ticket-card-img img {
+.irr-mega-visual img {
   width: 100%;
   height: 100%;
+  min-height: 420px;
   object-fit: cover;
+  display: block;
 }
 
-/* Reference 4 Pattern: Full width black/pink stats */
-.stats-banner {
-  background: var(--black);
-  color: var(--white);
-  padding: 5rem 2rem;
-  margin-top: 2rem;
+.irr-mega-overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: min(280px, 72%);
+  padding: 1.35rem 1.5rem 1.5rem;
+  background: var(--irr-pink);
+  color: #fff;
   text-align: center;
+  box-shadow: 12px 12px 32px rgba(0, 0, 0, 0.12);
 }
 
-.stats-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  gap: 4rem;
+.irr-mega-overlay-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.95;
 }
 
-.big-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.big-stat .number {
-  font-size: 4.8rem;
+.irr-mega-overlay-value {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: clamp(2.4rem, 5vw, 3.25rem);
   font-weight: 800;
-  color: var(--pink);
   line-height: 1;
 }
 
-.big-stat .label {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  color: #ffffff;
-  opacity: 0.6;
-  letter-spacing: 2px;
-  font-weight: 600;
-}
-
-/* Layout for Water Resource Management */
-.management-row {
-  display: flex;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 2rem;
-}
-
-.m-box {
-  flex: 1;
-  background: #f8f8f8;
-  border-radius: 40px;
-  padding: 3rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.m-box.pink {
-  background: var(--pink);
-  color: var(--white);
-}
-
-.m-box h4 {
-  font-size: 1.6rem;
+.irr-mega-overlay-unit {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 1.15rem;
   font-weight: 800;
-  margin-bottom: 1.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.m-box p {
-  line-height: 1.6;
-  font-size: 1.1rem;
+.irr-mega-overlay-desc {
+  display: block;
+  margin-top: 0.65rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  opacity: 0.95;
 }
 
-@media (max-width: 968px) {
-  .ref1-pattern, .ticket-grid, .management-row, .stats-container {
-    flex-direction: column;
+.irr-mega-projects {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 2.75rem);
+  padding-top: 0.25rem;
+}
+
+.irr-project-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.irr-project-head {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.irr-project-icon {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--irr-pink);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.25);
+}
+
+.irr-project-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.irr-project-head h3 {
+  margin: 0 0 0.45rem;
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-weight: 800;
+  color: var(--irr-ink);
+}
+
+.irr-project-head p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--irr-muted);
+}
+
+.irr-project-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.irr-stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.irr-stat-chip-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--irr-pink-soft);
+  color: var(--irr-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.irr-stat-chip-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 0.5;
+}
+
+.irr-stat-chip-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.irr-stat-chip-text strong {
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--irr-ink);
+}
+
+.irr-stat-chip-text span {
+  font-size: 0.68rem;
+  color: var(--irr-muted);
+  line-height: 1.2;
+}
+
+/* Statewide initiatives */
+.irr-initiatives-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 4vw, 2.5rem) clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.irr-initiatives-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.irr-wave-decor {
+  display: flex;
+  color: var(--irr-pink);
+  width: 72px;
+  height: 24px;
+}
+
+.irr-wave-decor svg {
+  width: 100%;
+  height: 100%;
+}
+
+.irr-wave-decor--flip {
+  transform: scaleX(-1);
+}
+
+.irr-initiatives-title {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: var(--irr-ink);
+}
+
+.irr-initiatives-underline {
+  width: 56px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--irr-pink);
+}
+
+.irr-initiatives-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.irr-initiative-card {
+  background: #fff;
+  border: 1px solid var(--irr-border);
+  border-radius: 12px;
+  padding: 1.5rem 1.35rem 1.35rem;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 100%;
+}
+
+.irr-initiative-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--irr-pink-soft);
+  color: var(--irr-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.irr-initiative-icon svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+.irr-initiative-card h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--irr-ink);
+}
+
+.irr-initiative-subtitle {
+  margin: 0 0 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--irr-pink);
+}
+
+.irr-initiative-desc {
+  margin: 0 0 1.25rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--irr-muted);
+  flex: 1;
+}
+
+.irr-initiative-stats {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--irr-border);
+}
+
+.irr-initiative-stats .irr-stat-chip {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.irr-initiative-stats .irr-stat-chip-text strong {
+  font-size: 0.76rem;
+}
+
+/* Summary bar */
+.irr-summary-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.35rem clamp(1.25rem, 4vw, 2.5rem);
+  background: var(--irr-pink-pale);
+  border-radius: 0;
+}
+
+.irr-summary-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--irr-pink-soft);
+  color: var(--irr-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.irr-summary-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.irr-summary-bar p {
+  margin: 0;
+  max-width: 920px;
+  font-size: clamp(0.82rem, 1.2vw, 0.95rem);
+  line-height: 1.55;
+  color: var(--irr-muted);
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .irr-mega-grid {
     grid-template-columns: 1fr;
   }
-  .ref1-visual { width: 100%; }
-  .ref1-overlay { left: 0; bottom: -2rem; top: auto; transform: none; width: auto; margin: 0 2rem; }
-  .ticket-card { flex-direction: column; }
-  .ticket-card-img { width: 100%; height: 200px; }
+
+  .irr-mega-visual {
+    min-height: 340px;
+  }
+
+  .irr-mega-visual img {
+    min-height: 340px;
+  }
+
+  .irr-initiatives-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .irr-project-stats {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .irr-mega-overlay {
+    width: min(100%, 260px);
+    padding: 1.1rem 1rem;
+  }
+
+  .irr-summary-bar {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .irrigation-page * {
+    animation: none !important;
+    transition: none !important;
+  }
 }

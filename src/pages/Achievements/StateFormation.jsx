@@ -34,6 +34,16 @@ const heroTitleLetterVariants = {
   },
 };
 
+const sectionTitleLetterVariants = {
+  hidden: { opacity: 0, x: -32, filter: 'blur(4px)' },
+  visible: {
+    opacity: 1,
+    x: 0,
+    filter: 'blur(0px)',
+    transition: { duration: LETTER_DURATION, ease: LETTER_EASE },
+  },
+};
+
 function HeroAnimatedTitle({ text, className }) {
   const reduceMotion = useReducedMotion();
 
@@ -61,6 +71,42 @@ function HeroAnimatedTitle({ text, className }) {
       </span>
       <span className="sf-title-sr-only">{text}</span>
     </motion.h1>
+  );
+}
+
+function SectionAnimatedTitle({ text, id, className }) {
+  const reduceMotion = useReducedMotion();
+
+  if (reduceMotion) {
+    return (
+      <h2 id={id} className={className}>
+        {text}
+      </h2>
+    );
+  }
+
+  return (
+    <motion.h2
+      id={id}
+      className={className}
+      variants={heroTitleContainerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.45 }}
+    >
+      <span className="sf-title-letters" aria-hidden="true">
+        {[...text].map((char, index) => (
+          <motion.span
+            key={`${char}-${index}`}
+            className={`sf-title-letter${char === ' ' ? ' sf-title-letter-space' : ''}`}
+            variants={sectionTitleLetterVariants}
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </motion.span>
+        ))}
+      </span>
+      <span className="sf-title-sr-only">{text}</span>
+    </motion.h2>
   );
 }
 
@@ -226,9 +272,11 @@ const StateFormation = () => {
         aria-labelledby="state-formation-flashcards-title"
       >
         <header className="state-formation-section-head">
-          <h2 id="state-formation-flashcards-title" className="state-formation-section-title">
-            From Movement to State
-          </h2>
+          <SectionAnimatedTitle
+            id="state-formation-flashcards-title"
+            className="state-formation-section-title"
+            text="From Movement to State"
+          />
           <p className="state-formation-section-subtitle">
             Stories of the struggle, formation, and renewal that shaped India&apos;s 29th state.
           </p>
