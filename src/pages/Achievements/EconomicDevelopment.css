@@ -575,7 +575,6 @@
     .content-overlay-card { margin-top: -60px; padding: 24px; }
     .digital-layout {
         grid-template-columns: 1fr;
-        min-height: auto;
     }
 
     .digital-hero-content {
