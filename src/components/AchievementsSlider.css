@@ -1,22 +1,19 @@
 .achievements-section {
-  padding: 4rem 1.5rem 4rem; /* Symmetric top/bottom spacing around title area */
-  background: #ffffff;
+  padding: clamp(0.4rem, 0.9vw, 0.75rem) clamp(0.3rem, 1.1vw, 0.85rem)
+    clamp(0.3rem, 0.9vw, 0.65rem);
+  margin-bottom: 0;
+  background: linear-gradient(180deg, #fafbfd 0%, #ffffff 42%, #ffffff 100%);
   font-family: var(--font-body);
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
   box-sizing: border-box;
 }
 
 .achievements-container {
-  max-width: 1440px;
+  max-width: min(1680px, 100%);
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
-}
-
-.section-header-compact {
-  text-align: center;
-  margin-bottom: 4.5rem; /* Increased gap between main title and content */
 }
 
 .main-section-title {
@@ -24,302 +21,503 @@
   font-family: var(--font-title);
   font-weight: 400;
   color: #1a237e;
-  letter-spacing: 4px;
+  letter-spacing: clamp(4px, 0.14em, 8px);
   position: relative;
-  display: inline-block;
+  display: block;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  line-height: 1.1;
+}
+
+/* ─── Cinematic scroll stage ─── */
+.cinematic-scroll-track {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.cinematic-pin {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+  padding: clamp(0.08rem, 0.35vh, 0.25rem) clamp(0.2rem, 0.85vw, 0.5rem) 0;
+  box-sizing: border-box;
+  z-index: 5;
+}
+
+.achievements-title-pinned {
+  flex-shrink: 0;
+  z-index: 10;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  /* Tighter to cinematic stage — animation reads closer to title */
+  padding-top: clamp(2.15rem, 1em + 2.2vw, 3.2rem);
+  padding-bottom: clamp(0.2rem, 0.08em + 0.35vw, 0.5rem);
   margin: 0;
 }
 
-.main-section-title::after {
-  content: none;
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background: #ff2f92;
+.achievements-subtitle-pinned {
+  margin: 0 auto clamp(0.45rem, 0.75vw, 0.8rem);
+  max-width: min(760px, 92%);
+  text-align: center;
+  font-size: clamp(0.92rem, 1.05vw, 1.08rem);
+  line-height: 1.5;
+  color: #4b5563;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transform: translateY(-28px);
+  will-change: transform, opacity;
 }
 
-/* Featured Section */
-.featured-achievement {
+.cinematic-stage {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  flex: 0 1 auto;
   display: flex;
-  gap: 3rem;
-  margin-bottom: 3rem;
-  align-items: flex-start; /* Precise top alignment */
-  flex-wrap: nowrap; /* Keep on the same line for desktop */
+  flex-direction: column;
+  /* Stage + title must fit in viewport while pinned — avoids bottom clip */
+  --ach-pin-title-space: clamp(8.35rem, 23vh, 11.5rem);
+  height: min(calc(100svh - var(--ach-pin-title-space)), 700px);
+  min-height: min(calc(100svh - var(--ach-pin-title-space)), 420px);
+  max-height: calc(100svh - var(--ach-pin-title-space));
+  margin: 0 auto;
+  padding: 0;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
-.featured-image-side {
-  flex: 1 1 400px;
-  height: 360px; /* Reduced to better match content block height */
+/* Five cards: side lanes + center (3 panels) — same row height, no overlap */
+.cinematic-cards-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(0.2rem, 0.55vw, 0.45rem);
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+  transform-origin: 50% 50%;
+}
+
+.side-slot {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-width: 0;
   overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: stretch;
+  align-self: stretch;
+  position: relative;
 }
 
-.featured-image-side img {
+.cinematic-center-wrap {
+  flex: 1 1 0%;
+  min-width: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  position: relative;
+}
+
+/* Unified split visual — one photo, three slices */
+.split-visual-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  z-index: 3;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding-top: 0;
+  transform-origin: center center;
+  will-change: transform, box-shadow;
+  pointer-events: none;
+}
+
+.split-visual-wrap .split-slice,
+.split-visual-wrap .panel-inner,
+.split-visual-wrap a,
+.side-story-card a {
+  pointer-events: auto;
+}
+
+.split-visual__glow {
+  position: absolute;
+  inset: 8%;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse at 28% 38%,
+    rgba(255, 47, 146, 0.2) 0%,
+    transparent 58%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.split-visual {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  will-change: gap;
+  overflow: hidden;
+  border-radius: 20px;
+  /* Remove connector tint between boxes */
+  background: transparent;
+  perspective: 1600px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+}
+
+.split-slice {
+  flex: 1 1 0%;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  will-change: border-radius;
+  position: relative;
+  transform-style: preserve-3d;
+  background: #fff;
+}
+
+/* Single seamless photo — covers slices until scroll split */
+.split-unified-img {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 28%;
+  display: block;
+  pointer-events: none;
+  border-radius: inherit;
+  will-change: opacity;
+}
+
+.panel-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.panel-face {
+  position: absolute;
+  inset: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.panel-front {
+  z-index: 2;
+}
+
+.panel-back {
+  transform: rotateY(180deg);
+  z-index: 1;
+  background: #fff;
+}
+
+.panel-slice {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #0d1230;
+  opacity: 0;
+}
+
+.panel-slice__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 300%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 28%;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.panel-slice[data-slice='1'] .panel-slice__img {
+  left: -100%;
+}
+
+.panel-slice[data-slice='2'] .panel-slice__img {
+  left: -200%;
+}
+
+.panel-slice__sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 45%,
+    transparent 55%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Story cards (panel backs) — opaque, no cross-card blur/shadow bleed */
+.story-card {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e8eaf0;
+  box-shadow: none;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.story-card__thumb {
+  flex: 0 0 42%;
+  height: 42%;
+  max-height: 42%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.story-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
-.featured-content-side {
-  flex: 1 1 400px;
-  padding: 0; /* Removed padding to align with image top */
+.story-card__body {
+  padding: 1.15rem 1.1rem 1.2rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align to the top */
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 0.6rem;
+  overflow: hidden;
 }
 
-.featured-title {
-  font-size: clamp(2rem, 2.55vw, 2.3rem);
+.story-card__body h3 {
+  margin: 0;
   font-family: var(--font-title);
-  font-weight: 400;
-  color: #1a237e;
-  line-height: 1.08;
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-  position: relative;
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.featured-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background: #ff2f92;
-}
-
-.featured-title span {
-  color: #1a237e;
-  font-family: inherit !important;
-  font-size: inherit;
-  font-weight: inherit;
-  letter-spacing: inherit;
-}
-
-.featured-desc {
-  font-size: var(--content-size);
-  font-family: var(--font-body);
-  font-weight: 300;
-  color: #000;
-  line-height: 1.7;
-  margin-bottom: 1rem;
-}
-
-/* Boxes Grid */
-.achievements-boxes-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-.achievement-box-item {
-  background: #ffffff;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  border: 1px solid #f0f0f0;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.box-image {
-  width: 100%;
-  height: 90px; /* Further decreased image height */
-  overflow: hidden;
-}
-
-.box-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.box-content {
-  padding: 0.9rem 0.6rem 0.75rem; /* Consistent top padding across all boxes */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  flex-grow: 1;
-}
-
-.box-amount {
-  font-size: 1rem;
-  font-family: var(--font-body);
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
   font-weight: 500;
   color: #1a237e;
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-  min-height: 2.6em; 
-  display: flex;
+  line-height: 1.25;
+  flex-shrink: 0;
+}
+
+.story-card__body p {
+  margin: 0;
+  font-size: clamp(0.72rem, 0.85vw, 0.8rem);
+  line-height: 1.45;
+  color: #555;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+}
+
+.story-card__cta {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-}
-
-.box-desc {
-  font-size: 0.8rem;
-  font-family: var(--font-body);
-  font-weight: 300;
-  color: #666;
-  line-height: 1.5;
-  margin-bottom: 1rem;
-  flex-grow: 1;
-}
-
-.box-cta {
+  gap: 0.35rem;
   width: 100%;
-  padding: 0.4rem; /* Further decreased padding */
-  background: #e91e63;
-  color: white;
-  text-decoration: none;
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
   margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
+  flex-shrink: 0;
+  padding: 0.65rem 0.9rem;
+  background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  border-radius: 6px;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
+  box-shadow: none;
 }
 
-.box-cta span {
-  font-size: 1.1rem;
-  transition: transform 0.3s ease;
-}
-
-.box-cta:hover span {
-  transform: translateX(5px);
-}
-
-.box-cta:hover {
-  background: #c2185b;
+.story-card__cta:hover {
   transform: translateY(-2px);
+  filter: brightness(1.05);
 }
 
-/* Hover Effects */
-.achievement-box-item:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+/* Side cards — same height as center row; slide in within fixed lane (overflow hidden) */
+.side-story-card {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e8eaf0;
+  box-shadow: 0 12px 28px rgba(26, 35, 126, 0.1);
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
-.achievement-box-item:hover .box-image img {
-  transform: scale(1.1);
+.side-story-card .story-card {
+  border: none;
+  border-radius: 0;
 }
 
-/* Responsiveness */
-@media (max-width: 1200px) {
-  .achievements-boxes-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
+/* ─── Responsive ─── */
 @media (max-width: 992px) {
-  .featured-achievement {
-    flex-wrap: wrap;
-    gap: 2rem;
+  .cinematic-stage {
+    --ach-pin-title-space: clamp(7.9rem, 22vh, 10.25rem);
+    height: min(calc(100svh - var(--ach-pin-title-space)), 620px);
+    min-height: min(calc(100svh - var(--ach-pin-title-space)), 380px);
+    max-height: calc(100svh - var(--ach-pin-title-space));
   }
-  .featured-title {
-    font-size: 2rem;
-    white-space: normal;
-  }
-  .featured-image-side {
-    height: 320px;
-    flex-basis: 100%;
-  }
-  .featured-content-side {
-    flex-basis: 100%;
-  }
+
 }
 
 @media (max-width: 768px) {
-  .featured-achievement {
-    gap: 2rem;
+  .achievements-section {
+    padding-top: 0.65rem;
   }
-  .achievements-boxes-grid {
-    grid-template-columns: repeat(2, 1fr);
+
+  .achievements-title-pinned {
+    padding-top: 1.85rem;
+    padding-bottom: 0.08rem;
   }
-  .featured-title {
-    font-size: 2.2rem;
-    white-space: normal;
+
+  .achievements-subtitle-pinned {
+    margin-bottom: 0.5rem;
+  }
+
+  .cinematic-stage {
+    --ach-pin-title-space: clamp(7.1rem, 21vh, 9.4rem);
+    height: min(calc(100svh - var(--ach-pin-title-space)), 500px);
+    min-height: min(calc(100svh - var(--ach-pin-title-space)), 330px);
+    max-height: calc(100svh - var(--ach-pin-title-space));
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+
+  .cinematic-cards-row {
+    gap: 0.35rem;
+    min-height: 0;
+  }
+
+  .cinematic-center-wrap {
+    min-width: 0;
+  }
+
+  .split-visual-wrap {
+    min-height: 0;
+  }
+
+  .story-card__body p {
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
   }
 }
 
 @media (max-width: 480px) {
-  .achievements-boxes-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Large Screens (1440px - 1919px) */
-@media (min-width: 1440px) {
-  .achievements-container {
-    max-width: 1380px; /* Filling more of the 1440px width */
-  }
-  .featured-title {
-    font-size: 3.2rem;
-  }
-  .featured-image-side {
-    height: 430px;
-  }
-  .box-amount {
-    font-size: 1rem;
-  }
-}
-
-/* Extra Large Screens (1920px+) */
-@media (min-width: 1920px) {
-  .achievements-container {
-    max-width: 1800px; /* Significantly filling the 1920px width */
-  }
-  .featured-achievement {
-    gap: 10rem; /* Massive gap for XL screens */
-    margin-bottom: 6rem;
-  }
-  .featured-title {
-    font-size: 4rem;
-  }
-  .featured-desc {
-    font-size: 1.2rem;
-  }
-  .featured-image-side {
-    height: 520px;
-    flex-basis: 900px; /* Making the image side much wider on XL */
-  }
-  .featured-content-side {
-    flex-basis: 700px;
-  }
-  .box-amount {
-    font-size: 1.2rem;
-  }
-  .box-desc {
+  .story-card__body h3 {
     font-size: 0.9rem;
   }
-  .box-image {
-    height: 140px;
+}
+
+@media (min-width: 1440px) {
+  .achievements-container {
+    max-width: min(1720px, 100%);
   }
+
+}
+
+@media (min-width: 1920px) {
+  .achievements-container {
+    max-width: 1800px;
+  }
+
+  .achievements-section {
+    padding: 4.75rem clamp(0.85rem, 1.85vw, 1.75rem) clamp(0.45rem, 0.9vw, 0.85rem);
+  }
+
+  .achievements-title-pinned {
+    padding-top: 3rem;
+    padding-bottom: 1.65rem;
+  }
+
   .main-section-title {
     letter-spacing: 8px;
-    margin-bottom: 2rem;
   }
-  .section-header-compact {
-    margin-bottom: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achievements-subtitle-pinned {
+    opacity: 1;
+    transform: translateY(0);
   }
-  .achievements-section {
-    padding: 6rem 4rem 6rem;
+
+  .cinematic-cards-row {
+    flex-direction: column;
+    height: auto;
+    gap: 1rem;
+  }
+
+  .side-slot {
+    flex: 1 1 auto;
+    max-width: 100%;
+    width: 100% !important;
+    min-height: 280px;
+  }
+
+  .cinematic-center-wrap {
+    min-height: 360px;
+  }
+
+  .split-visual-wrap {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    min-height: 360px;
+    margin-bottom: 0;
+    transform: none !important;
+  }
+
+  .split-visual {
+    gap: 4px !important;
+  }
+
+  .cinematic-stage {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .side-story-card {
+    opacity: 1;
   }
 }

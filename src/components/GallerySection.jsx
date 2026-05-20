@@ -1,5 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './GallerySection.css';
 
 // Importing assets
@@ -30,55 +31,201 @@ const row2 = [
   { img: img10, title: 'Sustainable Agri' },
 ];
 
+const deckCards = [...row1, ...row2];
+
+gsap.registerPlugin(ScrollTrigger);
+
 const GallerySection = () => {
+  const sectionRef = useRef(null);
+  const pinRef = useRef(null);
+  const stageRef = useRef(null);
+  const deckRef = useRef(null);
+  const cardsRef = useRef([]);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const pin = pinRef.current;
+    const stage = stageRef.current;
+    const deck = deckRef.current;
+    const cards = cardsRef.current.filter(Boolean);
+
+    if (!section || !pin || !stage || !deck || cards.length === 0) return undefined;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const isTablet = window.matchMedia('(max-width: 1100px)').matches;
+    const centerIndex = (cards.length - 1) / 2;
+    const deckCardSize = isMobile ? 160 : isTablet ? 198 : 240;
+    const cardGap = isMobile ? 8 : isTablet ? 10 : 12;
+    const spreadStep = deckCardSize + cardGap;
+
+    if (prefersReducedMotion) {
+      gsap.set(cards, {
+        clearProps: 'all',
+        opacity: 1,
+        x: (index) => (index - centerIndex) * spreadStep,
+        y: 0,
+        rotate: 0,
+      });
+      deck.classList.add('is-spread');
+      return undefined;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.set(stage, { perspective: 1700, transformStyle: 'preserve-3d' });
+      gsap.set(deck, { transformStyle: 'preserve-3d' });
+      gsap.set(cards, {
+        x: (index) => (index - centerIndex) * 3,
+        yPercent: 145,
+        z: (index) => -index * 8,
+        rotate: (index) => (index - centerIndex) * 1.1,
+        scale: 0.92,
+        opacity: 1,
+        transformOrigin: '50% 100%',
+      });
+
+      const overlays = cards.map((card) => card.querySelector('.gallery-card-overlay'));
+      gsap.set(overlays, { opacity: 0.35 });
+      const deckDrift = gsap.to(deck, {
+        x: isMobile ? -22 : -34,
+        duration: isMobile ? 3.4 : 4.2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        paused: true,
+      });
+
+      const tl = gsap.timeline({
+        defaults: { ease: 'none', force3D: true },
+        scrollTrigger: {
+          trigger: pin,
+          start: 'top top',
+          end: '+=230%',
+          pin: true,
+          scrub: 1.1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const shouldAutoScroll = self.progress > 0.83;
+            if (shouldAutoScroll) {
+              deckDrift.play();
+            } else {
+              deckDrift.pause(0);
+              gsap.set(deck, { x: 0 });
+            }
+          },
+        },
+      });
+
+      tl.to(
+        cards,
+        {
+          yPercent: 22,
+          z: (index) => -index * 5,
+          rotate: (index) => (index - centerIndex) * 0.8,
+          scale: 0.95,
+          duration: 0.34,
+          stagger: 0.02,
+          ease: 'power3.out',
+        },
+        0
+      );
+
+      tl.to(
+        cards,
+        {
+          yPercent: 10,
+          duration: 0.12,
+          stagger: 0.018,
+          ease: 'power2.out',
+        },
+        0.32
+      );
+      tl.to(
+        cards,
+        {
+          yPercent: 16,
+          duration: 0.12,
+          stagger: 0.018,
+          ease: 'back.out(1.2)',
+        },
+        0.44
+      );
+
+      tl.to(
+        cards,
+        {
+          x: (index) => (index - centerIndex) * spreadStep,
+          yPercent: 0,
+          z: 0,
+          rotate: (index) => (index - centerIndex) * 0.12,
+          scale: 1,
+          duration: 0.42,
+          stagger: 0.028,
+          ease: 'power3.inOut',
+          onStart: () => deck.classList.add('is-spread'),
+          onReverseComplete: () => deck.classList.remove('is-spread'),
+        },
+        0.54
+      );
+
+      tl.to(
+        overlays,
+        {
+          opacity: 0.08,
+          duration: 0.3,
+          stagger: 0.02,
+          ease: 'power2.out',
+        },
+        0.66
+      );
+
+      tl.call(
+        () => {
+          deck.classList.add('is-spread');
+        },
+        [],
+        0.86
+      );
+    }, section);
+
+    const onResize = () => ScrollTrigger.refresh();
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+      ctx.revert();
+    };
+  }, []);
+
   return (
-    <section id="gallery" className="gallery-section">
-      <div className="gallery-header">
-        <h4 className="subtitle">Visual Legacy</h4>
-        <h2 className="title">Telangana <span>Gallery</span></h2>
-      </div>
-
-      <div className="marquee-wrapper">
-        {/* Row 1 - Scrolling Left */}
-        <div className="marquee-container">
-          <motion.div 
-            className="marquee-track"
-            animate={{ x: [0, -1200] }}
-            transition={{ 
-              x: { repeat: Infinity, duration: 60, ease: 'linear' }
-            }}
-          >
-            {[...row1, ...row1, ...row1].map((item, idx) => (
-              <div key={idx} className="gallery-item">
-                <img src={item.img} alt={item.title} />
-                <div className="item-overlay">
-                  <span>{item.title}</span>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Row 2 - Scrolling Right */}
-        <div className="marquee-container row-reverse">
-          <motion.div 
-            className="marquee-track"
-            animate={{ x: [-1200, 0] }}
-            transition={{ 
-              x: { repeat: Infinity, duration: 55, ease: 'linear' }
-            }}
-          >
-            {[...row2, ...row2, ...row2].map((item, idx) => (
-              <div key={idx} className="gallery-item">
-                <img src={item.img} alt={item.title} />
-                <div className="item-overlay">
-                  <span>{item.title}</span>
-                </div>
-              </div>
-            ))}
-          </motion.div>
+    <section id="gallery" className="gallery-section" ref={sectionRef}>
+      <div className="gallery-cinematic-track">
+        <div className="gallery-cinematic-pin" ref={pinRef}>
+          <div className="gallery-header gallery-header--fixed">
+            <h4 className="subtitle">Visual Legacy</h4>
+            <h2 className="title">Telangana <span>Gallery</span></h2>
+          </div>
+          <div className="gallery-cinematic-stage" ref={stageRef}>
+            <div className="gallery-deck" ref={deckRef}>
+              {deckCards.map((item, index) => (
+                <article
+                  key={`${item.title}-${index}`}
+                  className="gallery-deck-card"
+                  ref={(el) => {
+                    cardsRef.current[index] = el;
+                  }}
+                >
+                  <img src={item.img} alt={item.title} />
+                  <div className="gallery-card-overlay" />
+                  <h3 className="gallery-card-title">{item.title}</h3>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
+
     </section>
   );
 };
