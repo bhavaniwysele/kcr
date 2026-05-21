@@ -269,7 +269,10 @@
   height: 100%;
   width: 0%;
   background: linear-gradient(90deg, #ff5722, var(--tl-accent));
-  animation: tl-progress-fill var(--auto-ms, 3200ms) linear forwards;
+  animation-name: tl-progress-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  /* duration is set inline to match the autoplay timer */
 }
 
 .timeline-editorial-stage:hover .exchange-progress-fill {

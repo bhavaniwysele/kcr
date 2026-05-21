@@ -1,12 +1,18 @@
 .hero-section {
   position: relative;
-  height: 90vh;
+  height: calc(100svh - 92px);
+  min-height: 520px;
   width: 100%;
   overflow: hidden;
   display: block;
   color: white;
   font-family: var(--font-body);
   background-color: #2d0a1a; /* Deep plum/pink background */
+}
+
+/* Artwork slide — full hero height; default contain, optional fill via --fill modifier */
+.hero-section[data-hero-theme='light'] {
+  background-color: #f8f4f6;
 }
 
 .hero-swiper {
@@ -40,6 +46,70 @@
   height: 100%;
   object-fit: cover;
   object-position: center center; /* Default, will be overridden by inline styles */
+}
+
+/* Full composite artwork slide — box matches image aspect ratio */
+.hero-slide-content--artwork {
+  background: #f8f4f6;
+}
+
+.hero-bg--artwork {
+  background: #f8f4f6;
+  overflow: hidden;
+}
+
+.hero-artwork-frame {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.hero-img--artwork {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+}
+
+/* Artwork slides that should edge-to-edge fill the hero (no letterboxing) */
+.hero-artwork-frame--fill {
+  display: block;
+}
+
+.hero-img--artwork--fill {
+  object-fit: cover;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/* Full-bleed hero banner — fills width & height, balanced crop */
+.hero-artwork-frame--hero-fit {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-img--artwork--hero-fit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+@media (max-width: 900px) {
+  .hero-img--artwork--hero-fit {
+    object-position: 42% center;
+  }
 }
 
 .hero-overlay {
@@ -250,6 +320,23 @@
   left: 2.5rem !important;
 }
 
+/* Light artwork slide — keep arrows & dots visible on white */
+.hero-section[data-hero-theme='light'] .hero-swiper .swiper-pagination-bullet {
+  background: rgba(45, 10, 26, 0.28) !important;
+}
+
+.hero-section[data-hero-theme='light'] .hero-swiper .swiper-pagination-bullet-active {
+  background: var(--accent) !important;
+}
+
+.hero-section[data-hero-theme='light'] .hero-swiper .hero-button-next,
+.hero-section[data-hero-theme='light'] .hero-swiper .hero-button-prev {
+  color: var(--accent) !important;
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(233, 30, 99, 0.35);
+  box-shadow: 0 6px 20px rgba(45, 10, 26, 0.12);
+}
+
 .hero-person-img {
   position: absolute;
   bottom: 0;
@@ -303,9 +390,10 @@
   }
   
   .hero-section {
-    height: 80vh;
+    height: calc(100svh - 72px);
+    min-height: 420px;
   }
-  
+
   .hero-overlay {
     background: rgba(0, 0, 0, 0.6); /* Even darker for mobile center text */
   }

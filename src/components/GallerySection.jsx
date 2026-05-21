@@ -32,6 +32,12 @@ const row2 = [
 ];
 
 const deckCards = [...row1, ...row2];
+const LOOP_COPIES = 2;
+
+const loopDeck = Array.from({ length: deckCards.length * LOOP_COPIES }, (_, index) => ({
+  ...deckCards[index % deckCards.length],
+  uid: index,
+}));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,10 +60,12 @@ const GallerySection = () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     const isTablet = window.matchMedia('(max-width: 1100px)').matches;
+    const cardCount = deckCards.length;
     const centerIndex = (cards.length - 1) / 2;
     const deckCardSize = isMobile ? 160 : isTablet ? 198 : 240;
     const cardGap = isMobile ? 8 : isTablet ? 10 : 12;
     const spreadStep = deckCardSize + cardGap;
+    const loopWidth = cardCount * spreadStep;
 
     if (prefersReducedMotion) {
       gsap.set(cards, {
@@ -86,12 +94,12 @@ const GallerySection = () => {
 
       const overlays = cards.map((card) => card.querySelector('.gallery-card-overlay'));
       gsap.set(overlays, { opacity: 0.35 });
-      const deckDrift = gsap.to(deck, {
-        x: isMobile ? -22 : -34,
-        duration: isMobile ? 3.4 : 4.2,
+      const secondsPerCard = isMobile ? 2.8 : 3.6;
+      const deckScroll = gsap.to(deck, {
+        x: -loopWidth,
+        ease: 'none',
+        duration: cardCount * secondsPerCard,
         repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
         paused: true,
       });
 
@@ -108,9 +116,11 @@ const GallerySection = () => {
           onUpdate: (self) => {
             const shouldAutoScroll = self.progress > 0.83;
             if (shouldAutoScroll) {
-              deckDrift.play();
+              stage.classList.add('gallery-auto-scroll');
+              deckScroll.play();
             } else {
-              deckDrift.pause(0);
+              stage.classList.remove('gallery-auto-scroll');
+              deckScroll.pause();
               gsap.set(deck, { x: 0 });
             }
           },
@@ -208,9 +218,9 @@ const GallerySection = () => {
           </div>
           <div className="gallery-cinematic-stage" ref={stageRef}>
             <div className="gallery-deck" ref={deckRef}>
-              {deckCards.map((item, index) => (
+              {loopDeck.map((item, index) => (
                 <article
-                  key={`${item.title}-${index}`}
+                  key={`${item.title}-${item.uid}`}
                   className="gallery-deck-card"
                   ref={(el) => {
                     cardsRef.current[index] = el;

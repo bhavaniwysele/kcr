@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectCreative, Pagination, Navigation } from 'swiper/modules';
-import { motion, AnimatePresence } from 'framer-motion';
-
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-creative';
@@ -11,57 +8,66 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './Hero.css';
 
-import heroBackground from '../assets/background.png';
-import sliding2Img from '../assets/sliding2_img.png';
-import backgroundSliding2 from '../assets/background_sliding2.png';
-import personCutout from '../assets/final_landing-removebg-preview.png';
-import sliding2Person from '../assets/slide2_mainimg_final-removebg-preview.png';
-import slide3Person from '../assets/slide3_removebg.png';
-import backgroundSlide3 from '../assets/slide3_bg.jpg';
+import slide2HeroArtwork from '../assets/slide2_hero.png';
+import slide3Artwork from '../assets/slide3.png';
+import slide4Artwork from '../assets/slide4edited.png';
 
+/** Native dimensions of full artwork slides — drives hero aspect metadata */
+const ARTWORK_WIDTH = 1672;
+const ARTWORK_HEIGHT = 941;
 const Hero = () => {
+  const [heroTheme, setHeroTheme] = useState('dark');
+
   const slides = [
     {
       id: 1,
-      image: heroBackground,
-      personImage: personCutout,
-      lines: ['The Voice That Led', 'Telangana'],
-      subtitle: "From a people's movement to the birth of a new state.",
-      align: 'left',
-      position: 'center 10%',
-      personDuration: 3.5, // Slower person entrance
-      overlay: 'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 45%, transparent 90%)' // Lightened Black for Slide 1
+      variant: 'artwork',
+      image: slide2HeroArtwork,
+      alt: 'From Struggle to Statehood — the Telangana movement journey',
+      bgColor: '#1a0a10',
+      heroTheme: 'dark',
+      artworkFill: true,
+      artworkPosition: 'center 60%',
     },
     {
-      id: 2,
-      image: backgroundSliding2,
-      personImage: sliding2Person,
-      lines: ['From Scarcity to', 'Prosperity'],
-      subtitle: 'Transforming lives through irrigation, welfare, and development.',
-      align: 'left',
-      position: 'center 10%',
-      personDuration: 3.5, // Slower person entrance
-      subtitleDelay: 1.2,    // Delayed subtitle for better pacing
-      overlay: 'linear-gradient(to right, rgba(45, 10, 26, 0.7) 0%, rgba(45, 10, 26, 0.3) 45%, transparent 90%)' // Lightened Pink for Slide 2
+      id: 4,
+      variant: 'artwork',
+      image: slide3Artwork,
+      alt: 'Building Tomorrow, Today — infrastructure and opportunity for Telangana',
+      bgColor: '#f8f4f6',
+      heroTheme: 'light',
+      artworkFill: true,
+      artworkPosition: 'center 38%',
     },
     {
-      id: 3,
-      image: backgroundSlide3, // Applied new background image
-      bgColor: '#5d1a33', // Keeping as fallback
-      personImage: slide3Person,
-      lines: ['Building Bangaru', 'Telangana'],
-      subtitle: 'Empowering future generations with innovation, growth, and opportunity.',
-      align: 'left',
-      position: 'center center',
-      personDuration: 3.5,
-      subtitleDelay: 1.0,
-      personRight: '8%', // Shifting left to avoid overlapping arrow
-      overlay: 'linear-gradient(to right, rgba(93, 26, 51, 0.85) 0%, rgba(93, 26, 51, 0.4) 45%, transparent 90%)' // Transparent gradient to show background image
-    }
+      id: 5,
+      variant: 'artwork',
+      image: slide4Artwork,
+      alt: 'A State on the Rise — infrastructure, investment and growth for Telangana',
+      bgColor: '#f8f4f6',
+      heroTheme: 'light',
+      artworkFill: true,
+      artworkFitHero: true,
+      artworkPosition: 'center center',
+    },
   ];
 
+  const handleSlideTheme = (swiper) => {
+    const active = slides[swiper.realIndex];
+    setHeroTheme(active?.heroTheme || 'light');
+  };
+
+  const handleSwiperInit = (swiper) => {
+    if (swiper.params.loop) {
+      swiper.slideToLoop(0, 0);
+    } else {
+      swiper.slideTo(0, 0);
+    }
+    handleSlideTheme(swiper);
+  };
+
   return (
-    <section className="hero-section">
+    <section className="hero-section" data-hero-theme={heroTheme}>
       <Swiper
         modules={[Autoplay, EffectCreative, Pagination, Navigation]}
         effect="creative"
@@ -77,6 +83,7 @@ const Hero = () => {
             shadow: true,
           },
         }}
+        initialSlide={0}
         autoplay={{
           delay: 5200,
           disableOnInteraction: false,
@@ -87,134 +94,39 @@ const Hero = () => {
           prevEl: '.hero-button-prev',
         }}
         loop={true}
+        loopAdditionalSlides={1}
         className="hero-swiper"
+        onSwiper={handleSwiperInit}
+        onSlideChange={handleSlideTheme}
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            {({ isActive }) => {
-              if (isActive) console.log(`[Antigravity] Hero Slide ${slide.id} is active`);
-              
-              return (
-                <div className="hero-slide-content" style={{ backgroundColor: slide.bgColor || 'transparent' }}>
-                  <div className="hero-bg">
-                  {slide.image && (
-                    <img 
-                      src={slide.image} 
-                      alt="Background" 
-                      className="hero-img" 
-                      style={{ 
-                        objectPosition: slide.position,
-                        width: slide.width || '100%',
-                        height: slide.height || '100%',
-                        objectFit: slide.fit || 'cover',
-                        position: 'absolute',
-                        right: slide.position?.includes('right') ? 0 : 'auto',
-                        bottom: slide.position?.includes('bottom') ? 0 : 'auto',
-                        left: slide.position?.includes('left') ? 0 : (slide.position?.includes('right') ? 'auto' : 0),
-                        top: slide.position?.includes('top') ? 0 : (slide.position?.includes('bottom') ? 'auto' : 0),
-                      }}
-                    />
-                  )}
-                    <div className="hero-overlay" style={{ background: slide.overlay }}></div>
-                  </div>
-                  
-                  <AnimatePresence>
-                    {isActive && slide.personImage && (
-                      <motion.img 
-                        key={`hero-person-${slide.id}`}
-                        src={slide.personImage} 
-                        alt="Portrait" 
-                        className="hero-person-img"
-                        initial={{ y: "100%", opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: "100%", opacity: 0 }}
-                        transition={{ 
-                          duration: slide.personDuration || 1.5, 
-                          delay: 0.2, 
-                          ease: [0.16, 1, 0.3, 1] 
-                        }}
-                        style={{ right: slide.personRight || 0 }}
-                      />
-                    )}
-                  </AnimatePresence>
-                  
-                  <div className={`hero-container ${slide.align === 'right' ? 'content-right' : ''}`}>
-                    <div className={`hero-content ${slide.align === 'right' ? 'content-right' : ''}`}>
-                      <AnimatePresence mode="wait">
-                        {isActive && (
-                          <motion.div 
-                            key={`content-${slide.id}`}
-                            initial={{ opacity: 1 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                          >
-                            <h1 className="hero-title">
-                              {slide.lines.map((line, lIndex) => (
-                                <motion.span
-                                  key={lIndex}
-                                  className="hero-title-line"
-                                  initial={{ 
-                                    opacity: 0, 
-                                    x: -80,
-                                    letterSpacing: "-15px",
-                                    filter: "blur(4px)" 
-                                  }}
-                                  animate={{ 
-                                    opacity: 1, 
-                                    x: 0,
-                                    letterSpacing: "0px",
-                                    filter: "blur(0px)" 
-                                  }}
-                                  transition={{ 
-                                    duration: 2.2,
-                                    delay: lIndex * 0.2 + 0.1,
-                                    ease: [0.22, 1, 0.36, 1]
-                                  }}
-                                >
-                                  {line === 'Telangana' || line === 'Prosperity' ? (
-                                    <span className="accent-text">{line}</span>
-                                  ) : (
-                                    line
-                                  )}
-                                </motion.span>
-                              ))}
-                            </h1>
-                            <motion.p 
-                              className="hero-subtitle"
-                              initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-                              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                              transition={{ duration: 1.8, delay: slide.subtitleDelay || 0.8, ease: [0.22, 1, 0.36, 1] }}
-                            >
-                              {slide.subtitle}
-                            </motion.p>
-                            <motion.div 
-                              className="hero-quick-links-inline"
-                              initial={{ y: 50, opacity: 0, filter: "blur(8px)" }}
-                              animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                              transition={{ duration: 1.8, delay: (slide.subtitleDelay || 0.8) + 0.2, ease: [0.22, 1, 0.36, 1] }}
-                            >
-                             <Link to="/news-media" className="hero-btn">
-                                <span>Our Events</span>
-                                <svg width="100%" height="100%">
-                                  <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
-                                </svg>
-                              </Link>
-                              
-                              <Link to="/contact" className="hero-btn">
-                                <span>Contact Us</span>
-                                <svg width="100%" height="100%">
-                                  <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
-                                </svg>
-                              </Link>
-                            </motion.div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </div>
+            <div
+              className="hero-slide-content hero-slide-content--artwork"
+              style={{ backgroundColor: slide.bgColor || 'transparent' }}
+            >
+              <div className="hero-bg hero-bg--artwork">
+                <div
+                  className={`hero-artwork-frame${slide.artworkFill ? ' hero-artwork-frame--fill' : ''}${slide.artworkFitHero ? ' hero-artwork-frame--hero-fit' : ''}`}
+                >
+                  <img
+                    src={slide.image}
+                    alt={slide.alt || 'Hero slide background'}
+                    className={`hero-img hero-img--artwork${slide.artworkFill ? ' hero-img--artwork--fill' : ''}${slide.artworkFitHero ? ' hero-img--artwork--hero-fit' : ''}`}
+                    width={ARTWORK_WIDTH}
+                    height={ARTWORK_HEIGHT}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="sync"
+                    style={
+                      slide.artworkPosition
+                        ? { objectPosition: slide.artworkPosition }
+                        : undefined
+                    }
+                  />
                 </div>
-              );
-            }}
+              </div>
+            </div>
           </SwiperSlide>
         ))}
         <div className="hero-carousel-line" role="group" aria-label="Featured slides">

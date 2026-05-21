@@ -150,6 +150,8 @@ const TimelineSection = () => {
   );
 
   const autoplayTimerRef = useRef(null);
+  const [progressDurationMs, setProgressDurationMs] = useState(AUTO_ADVANCE_MS);
+  const [progressEpoch, setProgressEpoch] = useState(0);
 
   const clearAutoplayTimer = useCallback(() => {
     if (autoplayTimerRef.current !== null) {
@@ -158,33 +160,51 @@ const TimelineSection = () => {
     }
   }, []);
 
+  const getAutoplayDelay = useCallback(() => {
+    const sinceInteraction = Date.now() - lastInteractionRef.current;
+    const interactionRemainder = Math.max(0, RESUME_AFTER_INTERACTION_MS - sinceInteraction);
+    const baseDelay = reduceMotion ? AUTO_ADVANCE_MS + 1200 : AUTO_ADVANCE_MS;
+    return Math.max(baseDelay, interactionRemainder);
+  }, [reduceMotion]);
+
   const scheduleAutoplay = useCallback(() => {
     clearAutoplayTimer();
 
     const tryAdvance = () => {
       autoplayTimerRef.current = null;
-      if (hoverPauseRef.current) return;
-
-      const sinceInteraction = Date.now() - lastInteractionRef.current;
-      if (sinceInteraction < RESUME_AFTER_INTERACTION_MS) {
-        autoplayTimerRef.current = window.setTimeout(
-          tryAdvance,
-          RESUME_AFTER_INTERACTION_MS - sinceInteraction
-        );
+      if (hoverPauseRef.current) {
+        autoplayTimerRef.current = window.setTimeout(tryAdvance, 200);
         return;
       }
 
       setActiveIndex((prev) => (prev + 1) % TIMELINE_DATA.length);
     };
 
-    const delay = reduceMotion ? AUTO_ADVANCE_MS + 1200 : AUTO_ADVANCE_MS;
+    const delay = getAutoplayDelay();
+    setProgressDurationMs(delay);
     autoplayTimerRef.current = window.setTimeout(tryAdvance, delay);
-  }, [reduceMotion, clearAutoplayTimer]);
+  }, [getAutoplayDelay, clearAutoplayTimer]);
 
   useEffect(() => {
     scheduleAutoplay();
     return clearAutoplayTimer;
   }, [activeIndex, scheduleAutoplay, clearAutoplayTimer]);
+
+  useEffect(() => {
+    const releaseHoverPause = () => {
+      if (!hoverPauseRef.current) return;
+      hoverPauseRef.current = false;
+      setProgressEpoch((n) => n + 1);
+      scheduleAutoplay();
+    };
+
+    window.addEventListener('blur', releaseHoverPause);
+    document.documentElement.addEventListener('mouseleave', releaseHoverPause);
+    return () => {
+      window.removeEventListener('blur', releaseHoverPause);
+      document.documentElement.removeEventListener('mouseleave', releaseHoverPause);
+    };
+  }, [scheduleAutoplay]);
 
   const morphTransition = reduceMotion
     ? { duration: 0.28 }
@@ -297,9 +317,9 @@ const TimelineSection = () => {
           </button>
           <div className="exchange-progress" aria-hidden="true">
             <span
-              key={`progress-${item.year}`}
+              key={`progress-${item.year}-${progressEpoch}`}
               className="exchange-progress-fill"
-              style={{ animationDuration: `${AUTO_ADVANCE_MS}ms` }}
+              style={{ animationDuration: `${progressDurationMs}ms` }}
             />
           </div>
         </div>
@@ -361,6 +381,7 @@ const TimelineSection = () => {
             }}
             onMouseLeave={() => {
               hoverPauseRef.current = false;
+              setProgressEpoch((n) => n + 1);
               scheduleAutoplay();
             }}
           >
