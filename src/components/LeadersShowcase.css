@@ -1,0 +1,281 @@
+.leaders-showcase {
+  --leader-card-w: 240px;
+  --leader-card-h: 320px;
+  --leader-card-gap: 22px;
+  --leader-card-radius: 22px;
+
+  position: relative;
+  padding: 1.5rem 0 4rem;
+  background: #ffffff;
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+
+.leaders-showcase-header {
+  text-align: center;
+  margin: 0 auto 1.4rem;
+  padding: 0 2rem;
+  max-width: 760px;
+}
+
+.leaders-showcase-eyebrow {
+  display: inline-block;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: var(--font-subtitle);
+  font-weight: 500;
+  font-size: var(--subtitle-size, 0.85rem);
+  margin-bottom: 0.45rem;
+}
+
+.leaders-showcase-title {
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  color: var(--landing-title);
+  margin: 0 0 0.6rem;
+  line-height: 1.1;
+}
+
+.leaders-showcase-title span {
+  color: var(--accent);
+}
+
+.leaders-showcase-subtitle {
+  color: #5a5f6b;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Viewport: clips the moving track and hides any card edges that drift out. */
+.leaders-showcase-viewport {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 1.5rem 0;
+  /* Soft fade on the edges so cards melt into the background. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 80px,
+    #000 calc(100% - 80px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 80px,
+    #000 calc(100% - 80px),
+    transparent 100%
+  );
+}
+
+.leaders-showcase-track {
+  display: flex;
+  align-items: center;
+  gap: var(--leader-card-gap);
+  width: max-content;
+  padding: 0 max(2rem, calc((100% - var(--leader-card-w)) / 2));
+  animation: leaders-marquee 60s linear infinite;
+  will-change: transform;
+}
+
+.leaders-showcase-viewport:hover .leaders-showcase-track {
+  animation-play-state: paused;
+}
+
+@keyframes leaders-marquee {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* === Individual card === */
+.leader-show-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--leader-card-w);
+  height: var(--leader-card-h);
+  border-radius: var(--leader-card-radius);
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow:
+    0 24px 50px rgba(17, 24, 39, 0.18),
+    0 6px 16px rgba(17, 24, 39, 0.12);
+  transform: scale(0.92);
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+}
+
+.leader-show-card.is-active {
+  transform: scale(1.06);
+  box-shadow:
+    0 38px 80px rgba(17, 24, 39, 0.28),
+    0 10px 24px rgba(17, 24, 39, 0.16);
+  z-index: 2;
+}
+
+.leader-show-card:hover {
+  transform: scale(1.09);
+  box-shadow:
+    0 42px 90px rgba(17, 24, 39, 0.32),
+    0 12px 26px rgba(17, 24, 39, 0.2);
+}
+
+/* Large initials motif acting as the "portrait" placeholder. */
+.leader-show-card-pattern {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.leader-show-card-pattern span {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: clamp(6rem, 10vw, 9rem);
+  color: rgba(255, 255, 255, 0.14);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.leader-show-card:hover .leader-show-card-pattern span {
+  transform: scale(1.08);
+}
+
+.leader-show-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 12, 35, 0) 35%,
+    rgba(7, 12, 35, 0.55) 70%,
+    rgba(7, 12, 35, 0.92) 100%
+  );
+  z-index: 1;
+}
+
+.leader-show-card-content {
+  position: absolute;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  z-index: 3;
+  color: #fff;
+  text-align: left;
+}
+
+.leader-show-card-area {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 0.55rem;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.leader-show-card-name {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  margin: 0 0 0.25rem;
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+
+.leader-show-card-role {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.35;
+}
+
+/* Featured (KCR) card gets a touch more visual weight when not active */
+.leader-show-card.is-featured {
+  transform: scale(0.96);
+}
+
+.leader-show-card.is-featured.is-active {
+  transform: scale(1.08);
+}
+
+/* === Responsive === */
+@media (max-width: 1100px) {
+  .leaders-showcase {
+    --leader-card-w: 210px;
+    --leader-card-h: 290px;
+    --leader-card-gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .leaders-showcase {
+    --leader-card-w: 190px;
+    --leader-card-h: 270px;
+    --leader-card-gap: 14px;
+    padding: 3.5rem 0 4.5rem;
+  }
+
+  .leaders-showcase-header {
+    margin-bottom: 1.6rem;
+  }
+
+  .leaders-showcase-viewport {
+    padding: 2rem 0;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 32px,
+      #000 calc(100% - 32px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 32px,
+      #000 calc(100% - 32px),
+      transparent 100%
+    );
+  }
+
+  .leader-show-card-name {
+    font-size: 1.18rem;
+  }
+
+  .leaders-showcase-track {
+    animation-duration: 48s;
+  }
+}
+
+@media (max-width: 480px) {
+  .leaders-showcase {
+    --leader-card-w: 170px;
+    --leader-card-h: 240px;
+    --leader-card-gap: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaders-showcase-track {
+    animation: none;
+  }
+}

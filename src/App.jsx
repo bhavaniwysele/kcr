@@ -11,6 +11,7 @@ import Schemes from './pages/Schemes';
 import NewsMedia from './pages/NewsMedia';
 import Contact from './pages/Contact';
 import JoinUs from './pages/JoinUs';
+import Leadership from './pages/Leadership';
 import Overview from './pages/About/Overview';
 import PoliticalCareer from './pages/About/PoliticalCareer';
 import LeadershipStyle from './pages/About/LeadershipStyle';
@@ -39,6 +40,7 @@ function App() {
             <Route path="/about-kcr/political-career" element={<PoliticalCareer />} />
             <Route path="/about-kcr/leadership-style" element={<LeadershipStyle />} />
             <Route path="/about-kcr/timeline" element={<Timeline />} />
+            <Route path="/leadership" element={<Leadership />} />
             <Route path="/vision-mission" element={<VisionMission />} />
             <Route path="/achievements" element={<Navigate to="/achievements/irrigation" replace />} />
             <Route path="/achievements/irrigation" element={<AchievementDetail />} />

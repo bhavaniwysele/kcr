@@ -1,7 +1,7 @@
 .gallery-section {
-  --gallery-card-size: 240px;
-  --gallery-card-gap: 12px;
-  padding: 1rem 0 3.2rem;
+  --gallery-card-size: 260px;
+  --gallery-card-gap: 22px;
+  padding: 1rem 0 0.5rem;
   background: white;
   font-family: var(--font-body);
   overflow-x: clip;
@@ -36,7 +36,7 @@
 
 .gallery-cinematic-track {
   position: relative;
-  margin-bottom: 1.15rem;
+  margin-bottom: 0;
 }
 
 .gallery-cinematic-pin {
@@ -46,14 +46,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 0;
+  padding-top: clamp(5rem, 9vh, 8rem);
   box-sizing: border-box;
 }
 
 .gallery-cinematic-stage {
-  width: min(1700px, 100%);
-  height: min(60vh, 470px);
-  min-height: 320px;
+  width: min(1900px, 100%);
+  height: min(72vh, 580px);
+  min-height: 400px;
   position: relative;
   display: flex;
   align-items: center;
@@ -87,7 +87,7 @@
 .gallery-deck-card {
   position: absolute;
   left: 50%;
-  top: 43%;
+  top: 50%;
   width: var(--gallery-card-size);
   aspect-ratio: 1 / 1;
   border-radius: 14px;
@@ -112,25 +112,27 @@
 .gallery-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(7, 12, 35, 0.1) 0%, rgba(7, 12, 35, 0.5) 100%);
+  background: linear-gradient(180deg, rgba(7, 12, 35, 0) 35%, rgba(7, 12, 35, 0.85) 100%);
   pointer-events: none;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.35s ease, background 0.35s ease;
 }
 
 .gallery-card-title {
   position: absolute;
-  left: 0.8rem;
-  right: 0.8rem;
-  bottom: 0.8rem;
+  left: 0.9rem;
+  right: 0.9rem;
+  bottom: 0.9rem;
   margin: 0;
   color: #fff;
-  font-size: clamp(0.74rem, 0.95vw, 0.92rem);
-  font-weight: 500;
+  font-size: clamp(0.85rem, 1.05vw, 1.05rem);
+  font-weight: 600;
   letter-spacing: 0.015em;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.9);
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .gallery-deck.is-spread .gallery-deck-card {
@@ -139,8 +141,8 @@
 
 .gallery-deck.is-spread .gallery-deck-card:hover {
   box-shadow:
-    0 34px 80px rgba(17, 24, 39, 0.24),
-    0 8px 22px rgba(17, 24, 39, 0.18);
+    0 34px 80px rgba(17, 24, 39, 0.32),
+    0 8px 22px rgba(17, 24, 39, 0.22);
 }
 
 .gallery-deck.is-spread .gallery-deck-card:hover img {
@@ -148,7 +150,8 @@
 }
 
 .gallery-deck.is-spread .gallery-deck-card:hover .gallery-card-overlay {
-  opacity: 0.16 !important;
+  opacity: 1 !important;
+  background: linear-gradient(180deg, rgba(7, 12, 35, 0.1) 0%, rgba(7, 12, 35, 0.85) 100%);
 }
 
 .gallery-deck.is-spread .gallery-deck-card:hover .gallery-card-title {
@@ -233,8 +236,8 @@
 
 @media (max-width: 768px) {
   .gallery-section {
-    --gallery-card-size: 160px;
-    --gallery-card-gap: 8px;
+    --gallery-card-size: 175px;
+    --gallery-card-gap: 14px;
   }
 
   .gallery-header {
@@ -242,13 +245,13 @@
   }
 
   .gallery-cinematic-pin {
-    min-height: 58vh;
-    padding-top: 0;
+    min-height: 68vh;
+    padding-top: clamp(3.5rem, 8vh, 6rem);
   }
 
   .gallery-cinematic-stage {
-    min-height: 245px;
-    height: 42vh;
+    min-height: 310px;
+    height: 52vh;
     padding: 0 0.4rem;
   }
 
@@ -263,8 +266,8 @@
 
 @media (min-width: 769px) and (max-width: 1100px) {
   .gallery-section {
-    --gallery-card-size: 198px;
-    --gallery-card-gap: 10px;
+    --gallery-card-size: 215px;
+    --gallery-card-gap: 18px;
   }
 }
 

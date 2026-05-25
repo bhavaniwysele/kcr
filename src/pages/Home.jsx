@@ -6,7 +6,6 @@ import NewsSection from '../components/NewsSection';
 import AchievementsSlider from '../components/AchievementsSlider';
 import TimelineSection from '../components/TimelineSection';
 import GallerySection from '../components/GallerySection';
-import StayConnected from '../components/StayConnected';
 import './Home.css';
 
 const Home = () => {
@@ -31,7 +30,6 @@ const Home = () => {
       <NewsSection />
       <TimelineSection />
       <GallerySection />
-      <StayConnected />
       {/* Additional sections can be added here */}
     </div>
   );

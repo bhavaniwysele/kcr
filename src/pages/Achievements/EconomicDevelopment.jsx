@@ -83,7 +83,7 @@ const EconomicDevelopment = () => {
     };
 
     return (
-        <div className="economic-page editorial-layout">
+        <div className="economic-page">
             
             {/* HERO SECTION - Inspired by Starbucks (Image 1) */}
             <section 

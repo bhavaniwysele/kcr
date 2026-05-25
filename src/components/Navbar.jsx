@@ -149,6 +149,9 @@ const Navbar = () => {
               </ul>
             </li>
             <li className="nav-item">
+              <Link to="/leadership" className="nav-link">Leadership</Link>
+            </li>
+            <li className="nav-item">
               <Link to="/vision-mission" className="nav-link">Vision & Mission</Link>
             </li>
             <li className="nav-item dropdown">
@@ -174,7 +177,7 @@ const Navbar = () => {
               </ul>
             </li>
             <li className="nav-item">
-              <Link to="/news-media" className="nav-link">News & Media</Link>
+              <Link to="/news-media" className="nav-link">Media</Link>
             </li>
           </ul>
           <div className="nav-actions">

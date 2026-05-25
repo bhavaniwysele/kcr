@@ -62,8 +62,8 @@ const GallerySection = () => {
     const isTablet = window.matchMedia('(max-width: 1100px)').matches;
     const cardCount = deckCards.length;
     const centerIndex = (cards.length - 1) / 2;
-    const deckCardSize = isMobile ? 160 : isTablet ? 198 : 240;
-    const cardGap = isMobile ? 8 : isTablet ? 10 : 12;
+    const deckCardSize = isMobile ? 175 : isTablet ? 215 : 260;
+    const cardGap = isMobile ? 14 : isTablet ? 18 : 22;
     const spreadStep = deckCardSize + cardGap;
     const loopWidth = cardCount * spreadStep;
 
@@ -72,6 +72,7 @@ const GallerySection = () => {
         clearProps: 'all',
         opacity: 1,
         x: (index) => (index - centerIndex) * spreadStep,
+        yPercent: -50,
         y: 0,
         rotate: 0,
       });
@@ -84,7 +85,7 @@ const GallerySection = () => {
       gsap.set(deck, { transformStyle: 'preserve-3d' });
       gsap.set(cards, {
         x: (index) => (index - centerIndex) * 3,
-        yPercent: 145,
+        yPercent: 95,
         z: (index) => -index * 8,
         rotate: (index) => (index - centerIndex) * 1.1,
         scale: 0.92,
@@ -130,7 +131,7 @@ const GallerySection = () => {
       tl.to(
         cards,
         {
-          yPercent: 22,
+          yPercent: -28,
           z: (index) => -index * 5,
           rotate: (index) => (index - centerIndex) * 0.8,
           scale: 0.95,
@@ -144,7 +145,7 @@ const GallerySection = () => {
       tl.to(
         cards,
         {
-          yPercent: 10,
+          yPercent: -40,
           duration: 0.12,
           stagger: 0.018,
           ease: 'power2.out',
@@ -154,7 +155,7 @@ const GallerySection = () => {
       tl.to(
         cards,
         {
-          yPercent: 16,
+          yPercent: -34,
           duration: 0.12,
           stagger: 0.018,
           ease: 'back.out(1.2)',
@@ -166,7 +167,7 @@ const GallerySection = () => {
         cards,
         {
           x: (index) => (index - centerIndex) * spreadStep,
-          yPercent: 0,
+          yPercent: -50,
           z: 0,
           rotate: (index) => (index - centerIndex) * 0.12,
           scale: 1,

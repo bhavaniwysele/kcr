@@ -7,7 +7,6 @@ import news1 from '../assets/jeevan-reddy-kcr.webp';
 import news2 from '../assets/brs-telangana-expired-medicines.jpeg';
 import news3 from '../assets/kcr-press-conference.avif';
 import news4 from '../assets/newsNreports.webp';
-import newsHeroBg from '../assets/newsNmedia_hero.png';
 
 const NewsMedia = () => {
   const [activeFilter, setActiveFilter] = useState('ALL');
@@ -55,10 +54,7 @@ const NewsMedia = () => {
 
   return (
     <div className="news-media-page">
-      <header
-        className="news-media-hero"
-        style={{ backgroundImage: `url(${newsHeroBg})` }}
-      >
+      <header className="news-media-hero">
         <h1>News & Media</h1>
       </header>
 

@@ -9,11 +9,18 @@
     --featured-shadow: 0 40px 80px rgba(0,0,0,0.15);
 }
 
-.editorial-layout {
+.economic-page {
     background-color: var(--bg-light);
     color: #111;
     font-family: var(--font-body);
     overflow-x: hidden;
+    display: block;
+    width: 100%;
+}
+
+.economic-page > section {
+    display: block;
+    width: 100%;
 }
 
 .container {
