@@ -6,6 +6,11 @@ import {
   ContactIconLocation,
   ContactIconPhone,
 } from './ContactIcons';
+import {
+  FacebookIcon,
+  InstagramIcon,
+  XIcon,
+} from '../components/SocialBrandIcons';
 
 const CONTACT_ITEMS = [
   {
@@ -48,6 +53,12 @@ const INTERESTS = [
   'Local Events',
   'Welfare Outreach',
   'Membership',
+];
+
+const SOCIAL_LINKS = [
+  { id: 'x', label: 'X (Twitter)', href: 'https://x.com', Icon: XIcon },
+  { id: 'facebook', label: 'Facebook', href: 'https://facebook.com', Icon: FacebookIcon },
+  { id: 'instagram', label: 'Instagram', href: 'https://instagram.com', Icon: InstagramIcon },
 ];
 
 const VIEW_SWAP_MS = 420;
@@ -246,6 +257,26 @@ const Contact = () => {
                 </li>
               ))}
             </ul>
+
+            <div className="contact-touch-follow">
+              <hr className="contact-touch-follow__rule" />
+              <p className="contact-touch-follow__label">Follow Us</p>
+              <ul className="contact-touch-follow__list">
+                {SOCIAL_LINKS.map(({ id, label, href, Icon }) => (
+                  <li key={id}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="contact-touch-follow__link"
+                      aria-label={label}
+                    >
+                      <Icon size={16} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </aside>
 
           <div

@@ -10,7 +10,7 @@ import inclusiveImg from '../../assets/agriculture.jpg';
 import welfareImg from '../../assets/Mission_Bhagiratha.jpg';
 import strategicImg from '../../assets/Kaleshwaram Project.webp';
 import missionKakatiyaImg from '../../assets/mission_kakatiya.jpg';
-import leadershipTopImg from '../../assets/leardership_topmain.png';
+import leadershipHeroBg from '../../assets/newsNmedia_hero.png';
 import telanganaMovementImg from '../../assets/telangana_movement.jpg';
 import cultureIdentityImg from '../../assets/culture_stateformation.jpg';
 
@@ -58,6 +58,21 @@ const IconUnity = (props) => (
     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
     <circle cx="9" cy="7" r="4" />
     <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
+
+const IconMegaphone = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z" />
+    <path d="M15 8a4 4 0 0 1 0 8" />
+    <path d="M18 5a8 8 0 0 1 0 14" />
+  </svg>
+);
+
+const IconResolve = (props) => (
+  <svg {...svgIcon} {...props} aria-hidden="true">
+    <path d="M12 2c1.5 3 4 4.5 4 8a4 4 0 0 1-8 0c0-1.5.5-2.5 1.5-3.5" />
+    <path d="M6.5 14a6 6 0 1 0 11 0c0-2-1-3.5-2.5-5" />
   </svg>
 );
 
@@ -152,6 +167,16 @@ const leadershipInActionSections = [
         title: 'How leadership united people',
         description: 'Mobilising communities, sustaining morale, and turning shared aspiration into a statewide movement for statehood.',
         Icon: IconUnity,
+      },
+      {
+        title: 'Mass mobilisation and voice',
+        description: 'Rallying students, farmers, and workers across districts — amplifying a single message of Telangana self-determination.',
+        Icon: IconMegaphone,
+      },
+      {
+        title: 'Sacrifice and resolve',
+        description: 'Sustained agitations, fasts, and personal sacrifice that kept the movement alive through years of opposition and uncertainty.',
+        Icon: IconResolve,
       },
     ],
   },
@@ -466,9 +491,13 @@ const LeadershipStyle = () => {
 
   return (
     <div className="leadership-container">
-      <div className="leadership-hero-wrap">
-        <div className="hero-left">
-          <motion.div 
+      <div
+        className="leadership-hero-wrap"
+        style={{ backgroundImage: `url(${leadershipHeroBg})` }}
+      >
+        <div className="leadership-hero-overlay" aria-hidden="true" />
+        <div className="hero-center">
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="leadership-header"
@@ -494,15 +523,6 @@ const LeadershipStyle = () => {
             </motion.div>
           </motion.div>
         </div>
-        <div className="hero-right">
-          <motion.img 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            src={leadershipTopImg} 
-            alt="Leadership" 
-            className="hero-main-img"
-          />
-        </div>
       </div>
 
       <div className="leadership-infographic-section">
@@ -510,6 +530,11 @@ const LeadershipStyle = () => {
           <span className="leadership-hero-sr-only">Leadership</span>
           <span aria-hidden="true">LEADERSHIP</span>
         </h2>
+        <div className="leadership-infographic-subtitle">
+          <h3 className="leadership-infographic-subtitle-heading">
+            Eight Pillars Of His Governance
+          </h3>
+        </div>
         <div className="infographic-wrapper">
         <motion.div 
           className="center-node"

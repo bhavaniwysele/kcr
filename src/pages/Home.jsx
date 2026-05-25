@@ -6,6 +6,7 @@ import NewsSection from '../components/NewsSection';
 import AchievementsSlider from '../components/AchievementsSlider';
 import TimelineSection from '../components/TimelineSection';
 import GallerySection from '../components/GallerySection';
+import ContactJoinCard from '../components/ContactJoinCard';
 import './Home.css';
 
 const Home = () => {
@@ -30,6 +31,7 @@ const Home = () => {
       <NewsSection />
       <TimelineSection />
       <GallerySection />
+      <ContactJoinCard />
       {/* Additional sections can be added here */}
     </div>
   );

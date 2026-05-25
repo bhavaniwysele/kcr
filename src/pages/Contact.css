@@ -279,6 +279,59 @@ a.contact-touch-item__value:hover {
   text-underline-offset: 3px;
 }
 
+/* —— Follow Us block inside the Get In Touch card —— */
+.contact-touch-follow {
+  margin-top: auto;
+  padding-top: 1.25rem;
+}
+
+.contact-touch-follow__rule {
+  margin: 0 0 1rem;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.contact-touch-follow__label {
+  margin: 0 0 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--contact-white);
+  letter-spacing: 0.01em;
+}
+
+.contact-touch-follow__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.contact-touch-follow__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--contact-white);
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.contact-touch-follow__link:hover,
+.contact-touch-follow__link:focus-visible {
+  background: var(--contact-white);
+  color: var(--contact-accent);
+  border-color: var(--contact-white);
+  transform: translateY(-2px);
+  outline: none;
+}
+
 /* ——— Right: Form panel ——— */
 .contact-form-panel {
   position: relative;
