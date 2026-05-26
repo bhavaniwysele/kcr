@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -43,47 +43,15 @@ const resistanceTopics = [
 
 // Import assets
 import politicalHeroImg from '../../assets/political_career_hero.jpg';
-import fractureBgImg from '../../assets/political_career_2.png';
 import mainImg4 from '../../assets/political_main4.jpg';
 import resistanceIntroImg from '../../assets/pl_2.jpg';
-
-const slideFromTopTransition = {
-  duration: 1.1,
-  ease: [0.22, 1, 0.36, 1],
-};
 
 const heroSlideFromLeftTransition = {
   duration: 1.45,
   ease: [0.16, 1, 0.3, 1],
 };
 
-const fractureCallouts = [
-  {
-    id: 'catalyst',
-    title: 'The Catalyst:',
-    text:
-      'Deeply rooted discrimination. KCR argued the Telangana region suffered a raw deal, citing farmer suicides, distress sales of infants, and the closure of key industrial plants while other regions prospered.',
-    placement: 'catalyst',
-  },
-  {
-    id: 'vehicle',
-    title: 'The Vehicle:',
-    text:
-      'Formed the Telangana Rashtra Samithi (TRS) at Jala Drushyam, Hyderabad. The single-point agenda: achieving separate Telangana statehood.',
-    placement: 'vehicle',
-  },
-  {
-    id: 'validation',
-    title: 'Early Validation:',
-    text:
-      'Won five MP seats in the 2004 general elections allied with Congress, elevating KCR to Union Cabinet Minister of Labour and Employment.',
-    placement: 'validation',
-  },
-];
-
 const PoliticalCareer = () => {
-  const fractureSectionRef = useRef(null);
-  const fractureInView = useInView(fractureSectionRef, { once: true, amount: 0.12 });
   return (
     <div className="political-career-new">
       {/* Hero Section */}
@@ -112,34 +80,6 @@ const PoliticalCareer = () => {
           </motion.p>
         </motion.div>
 
-      </section>
-
-      {/* The Fracture and the Founding */}
-      <section
-        className="fracture-founding-section"
-        ref={fractureSectionRef}
-        aria-label="The Fracture and the Founding"
-      >
-        <div className="fracture-founding-canvas">
-          <img
-            src={fractureBgImg}
-            alt="The Fracture and the Founding: Andhra Pradesh map splitting at 2001"
-            className="fracture-founding-base"
-          />
-
-          {fractureCallouts.map((item, index) => (
-            <motion.article
-              key={item.id}
-              className={`fracture-callout fracture-callout--${item.placement}`}
-              initial={false}
-              animate={fractureInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -56 }}
-              transition={{ ...slideFromTopTransition, delay: 0.08 + index * 0.12 }}
-            >
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </motion.article>
-          ))}
-        </div>
       </section>
 
       {/* Path to Statehood Section */}

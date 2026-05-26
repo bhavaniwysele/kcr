@@ -33,14 +33,22 @@ const ScrollToTop = () => {
     // smooth-scroll passing over the cards on the new page.
     if (!hash) {
       const behavior = pathChanged ? 'auto' : prefersReduced ? 'auto' : 'smooth';
-      // Use a double rAF so we run AFTER React commits the new page DOM —
-      // otherwise the scroll can land on stale layout.
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          window.scrollTo({ top: 0, left: 0, behavior });
+
+      // 1) Snap immediately so the old scroll position is never visible on the new page.
+      window.scrollTo({ top: 0, left: 0, behavior });
+      // 2) Hard-reset for browsers that ignore scrollTo while the document is still committing.
+      if (document?.documentElement) document.documentElement.scrollTop = 0;
+      if (document?.body) document.body.scrollTop = 0;
+
+      // 3) Reaffirm after React commits the new page DOM — in case any post-mount
+      //    layout shift (images, fonts, etc.) bumps the scroll position back down.
+      const raf1 = requestAnimationFrame(() => {
+        const raf2 = requestAnimationFrame(() => {
+          window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
         });
+        return () => cancelAnimationFrame(raf2);
       });
-      return undefined;
+      return () => cancelAnimationFrame(raf1);
     }
 
     // In-page anchor (#hash) navigation can keep smooth behavior.

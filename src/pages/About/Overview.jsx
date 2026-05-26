@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useInView } from 'framer-motion';
 import './Overview.css';
 
 // Image Imports
-import topBanner from '../../assets/overview_top_edited.jpg';
+import heroPortrait from '../../assets/kcr_about6.jpg';
 import main3 from '../../assets/overview_main3.jpg';
 import main4 from '../../assets/overview_main4.jpg';
 import main5 from '../../assets/overview_main5.jpg';
@@ -36,6 +36,15 @@ const introSlideTransition = {
   ease: [0.22, 1, 0.36, 1],
 };
 
+const heroDropVariants = {
+  hidden: { opacity: 0, y: -40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 const StoryStep = ({ item, index, maxRevealedStep, onInView, isActive }) => {
   const isRevealed = index <= maxRevealedStep;
 
@@ -43,7 +52,7 @@ const StoryStep = ({ item, index, maxRevealedStep, onInView, isActive }) => {
     <motion.div
       className={`story-card-v ${isActive ? 'is-active' : ''}`}
       onViewportEnter={onInView}
-      viewport={{ amount: 0.45, margin: '0px 0px -15% 0px' }}
+      viewport={{ amount: 'some', margin: '-45% 0px -45% 0px' }}
       initial={false}
     >
       <motion.span
@@ -151,7 +160,6 @@ const Overview = () => {
   ];
 
   React.useEffect(() => {
-    const topOffset = 130;
     const counterHeight = 120;
 
     const updateCounterPosition = () => {
@@ -162,18 +170,19 @@ const Overview = () => {
         return;
       }
 
-      // Bound fixed behavior to the cards container only (prevents overlap with section title).
+      // Anchor the fixed counter to the vertical center of the viewport,
+      // and bound fixed behavior to the cards container so it doesn't escape.
       const containerRect = storyContainerRef.current.getBoundingClientRect();
       const containerTop = window.scrollY + containerRect.top;
       const containerBottom = containerTop + storyContainerRef.current.offsetHeight;
-      const triggerLine = window.scrollY + topOffset;
+      const viewportCenter = window.scrollY + (window.innerHeight / 2);
 
       const columnRect = counterColumnRef.current.getBoundingClientRect();
       setCounterLeft(columnRect.left + (columnRect.width / 2));
 
       const canFix =
-        triggerLine >= containerTop &&
-        triggerLine + counterHeight <= containerBottom;
+        viewportCenter - counterHeight / 2 >= containerTop &&
+        viewportCenter + counterHeight / 2 <= containerBottom;
 
       setIsCounterFixed(canFix);
     };
@@ -190,9 +199,62 @@ const Overview = () => {
 
   return (
     <div className="overview-page">
-      {/* Top Banner (Already requested in previous turns) */}
+      {/* Top Hero — portrait (left) and content panel (right) */}
       <section className="overview-header">
-        <img src={topBanner} alt="KCR Overview Header" className="header-bg-image" />
+        <div className="overview-header-media">
+          <img
+            src={heroPortrait}
+            alt="K. Chandrashekar Rao addressing the public"
+            className="overview-header-image"
+            loading="eager"
+          />
+        </div>
+        <motion.div
+          className="overview-header-panel"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.14, delayChildren: 0.15 },
+            },
+          }}
+        >
+          <motion.span
+            className="overview-header-eyebrow"
+            variants={heroDropVariants}
+          >
+            a leader’s legacy
+          </motion.span>
+          <motion.h1
+            className="overview-header-title"
+            variants={heroDropVariants}
+          >
+            The Architect of Telangana
+          </motion.h1>
+          <motion.p
+            className="overview-header-subtitle"
+            variants={heroDropVariants}
+          >
+            Decoding the rise, reign, and fault lines of K. Chandrashekar Rao —
+            the regional activist who engineered India’s 29th state and shaped
+            its first decade.
+          </motion.p>
+          <motion.a
+            href="#story"
+            className="overview-header-cta"
+            variants={heroDropVariants}
+          >
+            Know More
+          </motion.a>
+          <motion.span
+            className="overview-header-badge"
+            aria-hidden="true"
+            variants={heroDropVariants}
+          >
+            KCR
+          </motion.span>
+        </motion.div>
       </section>
 
       <main className="overview-container">
@@ -221,7 +283,7 @@ const Overview = () => {
             <h2 className="section-title">The Journey of a Visionary</h2>
             <div className="narrative-text">
               <p>
-                Born in the quiet village of Chintamadaka in Medak district, Kalvakuntla Chandrashekar Rao—fondly known as KCR—was shaped by the very soil and culture of Telangana. Growing up in a traditional family, he developed a deep-rooted connection to the land and its people from a very young age.
+                Born in the quiet village of Chintamadaka in Medak district, Kalvakuntla Chandrashekar Rao fondly known as KCR was shaped by the very soil and culture of Telangana. Growing up in a traditional family, he developed a deep rooted connection to the land and its people from a very young age.
               </p>
               <p>
                 As a child, he was often found with a book in his hand, showing a keen interest in literature and the history of his land. His school days in Dubbak and Siddipet were not just about academics; they were formative years where he developed his articulate nature and a strong sense of justice that would later define his leadership.

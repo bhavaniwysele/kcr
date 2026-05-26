@@ -4,10 +4,10 @@ import './NewsSection.css';
 import { UserIcon, CalendarIcon, CommentIcon } from './NewsMetaIcons';
 
 // Import images
-import news1 from '../assets/jeevan-reddy-kcr.webp';
-import news2 from '../assets/brs-telangana-expired-medicines.jpeg';
-import news3 from '../assets/kcr-press-conference.avif';
-import news4 from '../assets/newsNreports.webp'; // Using as a placeholder for others if needed
+import news1 from '../assets/jeevanreddy4k.png';
+import news2 from '../assets/brstelanganaexpiredmedicine4k.png';
+import news3 from '../assets/pressconfference4k.png';
+import news4 from '../assets/newsreport4k.png'; // Using as a placeholder for others if needed
 
 const NewsSection = () => {
   const newsData = [
@@ -19,6 +19,7 @@ const NewsSection = () => {
       source: "NDTV",
       author: "Ashish Kumar Pandey",
       image: news1,
+      imagePosition: 'center 20%',
       excerpt: "Reddy was with the Congress for over 40 years. His meeting with KCR signals a significant shift in Telangana politics."
     },
     {
@@ -29,6 +30,7 @@ const NewsSection = () => {
       source: "NDTV",
       author: "Manne Krishank",
       image: news2,
+      imagePosition: 'center 30%',
       excerpt: "In a shocking discovery, BRS Official Spokesperson revealed that patients were being administered medicines that expired three months ago."
     },
     {
@@ -39,6 +41,7 @@ const NewsSection = () => {
       source: "NDTV",
       author: "Press Trust of India",
       image: news3,
+      imagePosition: 'center 25%',
       excerpt: "Former Chief Minister K Chandrasekhar Rao was questioned by the Telangana Police SIT in connection with a case related to alleged phone tapping."
     },
     {
@@ -48,7 +51,8 @@ const NewsSection = () => {
       date: "January 31, 2026",
       source: "NDTV",
       author: "ANI",
-      image: news3, 
+      image: news3,
+      imagePosition: 'center 25%',
       excerpt: "BRS party leaders have called for massive protests to condemn the undemocratic and politically motivated actions against KCR."
     },
     {
@@ -59,9 +63,13 @@ const NewsSection = () => {
       source: "KCR Official",
       author: "Admin",
       image: news4,
+      imagePosition: 'center 30%',
       excerpt: "Detailed report on how the foundations laid by KCR continue to drive Telangana's economic and social parameters."
     }
   ];
+
+  const imgStyle = (slide) =>
+    slide.imagePosition ? { '--news-img-pos': slide.imagePosition } : undefined;
 
   return (
     <section id="news-media" className="news-section">
@@ -80,7 +88,7 @@ const NewsSection = () => {
             transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="card-image">
-              <img src={newsData[0].image} alt={newsData[0].title} />
+              <img src={newsData[0].image} alt={newsData[0].title} style={imgStyle(newsData[0])} />
               <span className="badge">{newsData[0].category}</span>
             </div>
             <div className="card-content">
@@ -109,7 +117,7 @@ const NewsSection = () => {
             transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="card-image">
-              <img src={newsData[1].image} alt={newsData[1].title} />
+              <img src={newsData[1].image} alt={newsData[1].title} style={imgStyle(newsData[1])} />
               <span className="badge">{newsData[1].category}</span>
             </div>
             <div className="card-content">
@@ -129,7 +137,7 @@ const NewsSection = () => {
             transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="card-image">
-              <img src={newsData[2].image} alt={newsData[2].title} />
+              <img src={newsData[2].image} alt={newsData[2].title} style={imgStyle(newsData[2])} />
               <span className="badge">{newsData[2].category}</span>
             </div>
             <div className="card-content">
@@ -149,7 +157,7 @@ const NewsSection = () => {
             transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="card-image">
-              <img src={newsData[3].image} alt={newsData[3].title} />
+              <img src={newsData[3].image} alt={newsData[3].title} style={imgStyle(newsData[3])} />
               <span className="badge">{newsData[3].category}</span>
             </div>
             <div className="card-content">
@@ -169,7 +177,7 @@ const NewsSection = () => {
             transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="card-image">
-              <img src={newsData[4].image} alt={newsData[4].title} />
+              <img src={newsData[4].image} alt={newsData[4].title} style={imgStyle(newsData[4])} />
               <span className="badge">{newsData[4].category}</span>
             </div>
             <div className="card-content">
