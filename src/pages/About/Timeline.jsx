@@ -1,4 +1,10 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useMotionValueEvent,
+} from 'framer-motion';
 import './Timeline.css';
 
 // Importing images for timeline milestones
@@ -124,48 +130,207 @@ const timelineData = [
   },
 ];
 
+const cardEase = [0.22, 1, 0.36, 1];
+
+// Position each card relative to the active one.
+// offset 0 = center stage, +1/+2 = preview stack on the right, -1 = exiting left.
+function getCardState(offset) {
+  if (offset === 0) {
+    return {
+      x: '0%',
+      y: '0%',
+      scale: 1,
+      opacity: 1,
+      rotate: 0,
+      filter: 'blur(0px)',
+    };
+  }
+  if (offset === 1) {
+    return {
+      x: '78%',
+      y: '-26%',
+      scale: 0.52,
+      opacity: 1,
+      rotate: 6,
+      filter: 'blur(0px)',
+    };
+  }
+  if (offset === 2) {
+    return {
+      x: '82%',
+      y: '30%',
+      scale: 0.44,
+      opacity: 0.9,
+      rotate: 8,
+      filter: 'blur(0px)',
+    };
+  }
+  if (offset > 2) {
+    return {
+      x: '95%',
+      y: '38%',
+      scale: 0.36,
+      opacity: 0,
+      rotate: 10,
+      filter: 'blur(6px)',
+    };
+  }
+  if (offset === -1) {
+    return {
+      x: '-130%',
+      y: '-4%',
+      scale: 0.7,
+      opacity: 0,
+      rotate: -10,
+      filter: 'blur(6px)',
+    };
+  }
+  return {
+    x: '-160%',
+    y: '0%',
+    scale: 0.5,
+    opacity: 0,
+    rotate: -12,
+    filter: 'blur(10px)',
+  };
+}
+
+const splitTitle = (title) => {
+  const words = title.split(' ');
+  if (words.length === 1) return { head: '', tail: words[0] };
+  return {
+    head: words.slice(0, -1).join(' '),
+    tail: words[words.length - 1],
+  };
+};
+
 const Timeline = () => {
+  const containerRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    const next = Math.min(
+      timelineData.length - 1,
+      Math.max(0, Math.floor(latest * timelineData.length))
+    );
+    // Use functional setState so we always compare against the latest
+    // committed value, regardless of any stale closure in this callback.
+    setActiveIndex((prev) => (prev !== next ? next : prev));
+  });
+
+  const active = timelineData[activeIndex];
+  const total = timelineData.length;
+  const { head, tail } = splitTitle(active.title);
+
   return (
-    <div className="timeline-section">
-      <div className="timeline-container">
-        <header className="timeline-header">
-          <h1>The Journey</h1>
-          <p>Chronological highlights of a transformative career.</p>
+    <section
+      ref={containerRef}
+      className="journey-scroll"
+      style={{ height: `${total * 65}vh` }}
+      aria-label="The Journey timeline"
+    >
+      <div className="journey-sticky">
+        <header className="journey-top">
+          <div className="journey-brand">
+            <span className="journey-brand-dot" aria-hidden="true" />
+            The Journey
+          </div>
         </header>
-        
-        <div className="timeline-list">
-          {timelineData.map((item, index) => (
-            <div key={index} className="timeline-row">
-              <div className="timeline-left">
-                <div className="timeline-image-container">
-                  <img src={item.image} alt={item.year} className="timeline-bg-image" />
-                  <span className="timeline-year">{item.year}</span>
-                </div>
-              </div>
-              <div className="timeline-right">
-                <span className="timeline-chapter-index" aria-hidden="true">
-                  {String(index + 1).padStart(2, '0')}
+
+        <div className="journey-grid">
+          <div className="journey-content">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                className="journey-content-inner"
+                initial={{ opacity: 0, y: 36 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -28 }}
+                transition={{ duration: 0.55, ease: cardEase }}
+              >
+                <span className="journey-chapter">
+                  Chapter {String(activeIndex + 1).padStart(2, '0')} ·{' '}
+                  {active.year}
                 </span>
-                <h2 className="timeline-title">{item.title}</h2>
-                <p className="timeline-desc">{item.description}</p>
-                {item.quote ? (
-                  <blockquote className="timeline-speech">
-                    <span className="timeline-speech-mark" aria-hidden="true">
+                <h2 className="journey-title">
+                  {head ? <>{head} </> : null}
+                  <em>{tail}</em>
+                </h2>
+                <p className="journey-desc">{active.description}</p>
+                {active.quote ? (
+                  <blockquote className="journey-quote">
+                    <span className="journey-quote-mark" aria-hidden="true">
                       &ldquo;
                     </span>
-                    <p className="timeline-speech-text">{item.quote}</p>
-                    <footer className="timeline-speech-footer">
-                      <span className="timeline-speech-line" aria-hidden="true" />
-                      <cite>— recorded in spirit, {item.year}</cite>
+                    <p>{active.quote}</p>
+                    <footer>
+                      <span className="journey-quote-line" aria-hidden="true" />
+                      <cite>— recorded in spirit, {active.year}</cite>
                     </footer>
                   </blockquote>
                 ) : null}
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="journey-stage" aria-hidden="true">
+            <span className="journey-stage-ring journey-stage-ring--lg" />
+            <span className="journey-stage-ring journey-stage-ring--sm" />
+            {timelineData.map((item, i) => {
+              const offset = i - activeIndex;
+              return (
+                <motion.article
+                  key={item.year}
+                  className="journey-card"
+                  initial={false}
+                  animate={getCardState(offset)}
+                  transition={{ duration: 0.95, ease: cardEase }}
+                  style={{ zIndex: 100 - Math.abs(offset) }}
+                >
+                  <img src={item.image} alt={item.title} />
+                  <div className="journey-card-year">{item.year}</div>
+                  <div className="journey-card-foot">
+                    <span className="journey-card-title">{item.title}</span>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
         </div>
+
+        <footer className="journey-bottom">
+          <div className="journey-progress" aria-hidden="true">
+            <strong>{String(activeIndex + 1).padStart(2, '0')}</strong>
+            <span className="journey-progress-bar">
+              <motion.span
+                animate={{ width: `${((activeIndex + 1) / total) * 100}%` }}
+                transition={{ duration: 0.7, ease: cardEase }}
+              />
+            </span>
+            <span className="journey-progress-total">
+              {String(total).padStart(2, '0')}
+            </span>
+          </div>
+        </footer>
+
+        <svg
+          className="journey-wave"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M0,64 C240,120 480,16 720,40 C960,64 1200,112 1440,64 L1440,120 L0,120 Z"
+            fill="currentColor"
+          />
+        </svg>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -47,8 +47,24 @@ import mainImg4 from '../../assets/political_main4.jpg';
 import resistanceIntroImg from '../../assets/pl_2.jpg';
 
 const heroSlideFromLeftTransition = {
-  duration: 1.45,
-  ease: [0.16, 1, 0.3, 1],
+  duration: 1.9,
+  ease: [0.22, 1, 0.36, 1],
+};
+
+const heroContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.32, delayChildren: 0.2 },
+  },
+};
+
+const heroSlideLeftVariants = {
+  hidden: { opacity: 0, x: -160 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: heroSlideFromLeftTransition,
+  },
 };
 
 const PoliticalCareer = () => {
@@ -62,19 +78,16 @@ const PoliticalCareer = () => {
           className="political-hero-bg"
           aria-hidden="true"
         />
-        <motion.div className="political-hero-content">
-          <motion.h1
-            initial={{ opacity: 0, x: -48 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={heroSlideFromLeftTransition}
-          >
+        <motion.div
+          className="political-hero-content"
+          initial="hidden"
+          animate="visible"
+          variants={heroContainerVariants}
+        >
+          <motion.h1 variants={heroSlideLeftVariants}>
             Journey of a Visionary Architect
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, x: -48 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ ...heroSlideFromLeftTransition, delay: 0.4 }}
-          >
+          <motion.p variants={heroSlideLeftVariants}>
             Redefining the political landscape of a nation through resilience,
             strategic brilliance, and the unwavering pursuit of a people&apos;s dream.
           </motion.p>

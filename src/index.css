@@ -75,7 +75,10 @@ body {
   padding: 0;
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  /* `overflow-x: clip` prevents horizontal overflow without creating a
+     scrolling ancestor — required for `position: sticky` to work anywhere
+     inside the app (e.g. the Journey scroll-driven stage). */
+  overflow-x: clip;
   font-family: var(--font-body);
   font-weight: var(--font-weight-body);
 }
@@ -108,7 +111,7 @@ body {
 html {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 #root {
@@ -119,7 +122,8 @@ html {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  overflow-x: hidden;
+  /* must be `clip` (not `hidden`) so `position: sticky` works inside */
+  overflow-x: clip;
 }
 
 h1,

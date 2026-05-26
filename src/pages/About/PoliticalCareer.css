@@ -14,7 +14,10 @@
   font-family: var(--font-body);
   color: var(--dark-text);
   background: var(--bg-light);
-  overflow-x: hidden;
+  /* `overflow-x: clip` prevents horizontal overflow without creating a
+     scrolling ancestor — which is required for `position: sticky` to work
+     on the Journey scroll-driven stage below. */
+  overflow-x: clip;
 }
 
 /* Hero Section */
