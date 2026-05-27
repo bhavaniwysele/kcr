@@ -7,13 +7,7 @@
 
 .journey-scroll {
   position: relative;
-  background:
-    radial-gradient(
-      120% 60% at 80% 0%,
-      rgba(234, 88, 12, 0.08) 0%,
-      transparent 60%
-    ),
-    linear-gradient(180deg, #fbf5ec 0%, #f3e8d6 100%);
+  background: #f8f3ee;
   color: #1c1209;
   font-family: var(--sans);
 }
@@ -29,6 +23,7 @@
   padding: clamp(1rem, 2vw, 1.6rem) clamp(1.25rem, 5vw, 4.5rem)
     clamp(1rem, 2vw, 1.4rem);
   overflow: hidden;
+  /* Pastel bg is animated inline via framer-motion per slide */
 }
 
 /* -------- Top bar -------- */
@@ -290,22 +285,78 @@
   letter-spacing: 0.15em;
 }
 
-.journey-progress-bar {
-  position: relative;
-  display: inline-block;
-  width: clamp(120px, 18vw, 200px);
-  height: 2px;
-  background: rgba(28, 18, 9, 0.15);
-  border-radius: 2px;
-  overflow: hidden;
+.journey-slider {
+  --slider-fill: 0%;
+  -webkit-appearance: none;
+  appearance: none;
+  width: clamp(160px, 22vw, 280px);
+  height: 4px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    #ea580c 0%,
+    #ea580c var(--slider-fill),
+    rgba(28, 18, 9, 0.15) var(--slider-fill),
+    rgba(28, 18, 9, 0.15) 100%
+  );
+  outline: none;
 }
 
-.journey-progress-bar > span {
-  position: absolute;
-  inset: 0 auto 0 0;
-  height: 100%;
+.journey-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.journey-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  border-radius: 50%;
   background: #ea580c;
-  border-radius: 2px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(28, 18, 9, 0.25);
+  cursor: grab;
+  transition: transform 0.15s ease;
+}
+
+.journey-slider:active::-webkit-slider-thumb {
+  cursor: grabbing;
+  transform: scale(1.12);
+}
+
+.journey-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(28, 18, 9, 0.15);
+}
+
+.journey-slider::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: #ea580c;
+}
+
+.journey-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ea580c;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(28, 18, 9, 0.25);
+  cursor: grab;
+}
+
+.journey-slider:focus-visible::-webkit-slider-thumb,
+.journey-slider:focus-visible::-moz-range-thumb {
+  outline: 2px solid #ea580c;
+  outline-offset: 2px;
 }
 
 .journey-progress-total {
@@ -319,9 +370,8 @@
   left: 0;
   width: 100%;
   height: clamp(60px, 8vw, 110px);
-  color: #f3e8d6;
   pointer-events: none;
-  opacity: 0.85;
+  opacity: 0.92;
 }
 
 /* -------- Responsive -------- */
@@ -367,8 +417,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .journey-card,
-  .journey-progress-bar > span {
+  .journey-card {
     transition: none !important;
   }
   .journey-hint-arrow {

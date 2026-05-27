@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import {
   motion,
   AnimatePresence,
@@ -21,6 +21,23 @@ import imgCM from '../../assets/kcr The First CM.jpg';
 import imgWelfare from '../../assets/healthandwelfare.webp';
 import imgEngineering from '../../assets/Kaleshwaram Project.webp';
 import imgNational from '../../assets/National Vision.webp';
+
+// Warm editorial pastels — subtle shifts, same family, smooth scroll blends
+const pastelPalette = [
+  { bg: '#faf7f4', bgAlt: '#f2ebe4' }, // ivory
+  { bg: '#f8f3ee', bgAlt: '#efe6dc' }, // cream
+  { bg: '#f6efe8', bgAlt: '#ebe0d4' }, // almond
+  { bg: '#f4ebe3', bgAlt: '#e7d8ca' }, // bisque
+  { bg: '#f2e8df', bgAlt: '#e3d2c2' }, // warm sand
+  { bg: '#f0e5db', bgAlt: '#dfcfbe' }, // taupe
+  { bg: '#eee3d8', bgAlt: '#dcc9b8' }, // oatmeal
+  { bg: '#ebe8e2', bgAlt: '#d8d2c8' }, // soft stone
+  { bg: '#efe6de', bgAlt: '#ddd0c2' }, // linen
+  { bg: '#ede3d6', bgAlt: '#d9c8b4' }, // wheat
+  { bg: '#ebe0d2', bgAlt: '#d4c4ae' }, // caramel cream
+  { bg: '#e8ddd0', bgAlt: '#cfbeb0' }, // mocha cream
+  { bg: '#f0e8dc', bgAlt: '#e2d4c4' }, // champagne
+];
 
 const timelineData = [
   {
@@ -128,9 +145,12 @@ const timelineData = [
     quote: 'What we built here was never meant to stay within these lines on the map.',
     image: imgNational,
   },
-];
+].map((item, i) => ({ ...item, ...pastelPalette[i] }));
 
 const cardEase = [0.22, 1, 0.36, 1];
+const AUTO_SCROLL_MS = 2000;
+const AUTO_PAUSE_AFTER_USER_MS = 8000;
+const AUTO_SCROLL_ANIM_MS = 900;
 
 // Position each card relative to the active one.
 // offset 0 = center stage, +1/+2 = preview stack on the right, -1 = exiting left.
@@ -147,8 +167,8 @@ function getCardState(offset) {
   }
   if (offset === 1) {
     return {
-      x: '78%',
-      y: '-26%',
+      x: '86%',
+      y: '-28%',
       scale: 0.52,
       opacity: 1,
       rotate: 6,
@@ -157,8 +177,8 @@ function getCardState(offset) {
   }
   if (offset === 2) {
     return {
-      x: '82%',
-      y: '30%',
+      x: '92%',
+      y: '36%',
       scale: 0.44,
       opacity: 0.9,
       rotate: 8,
@@ -206,26 +226,152 @@ const splitTitle = (title) => {
 
 const Timeline = () => {
   const containerRef = useRef(null);
+  const isDraggingRef = useRef(false);
+  const isAutoScrollingRef = useRef(false);
+  const isInViewRef = useRef(false);
+  const pauseAutoRef = useRef(false);
+  const activeIndexRef = useRef(0);
+  const autoPauseTimerRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const total = timelineData.length;
+
+  const pauseAutoScroll = useCallback((duration = AUTO_PAUSE_AFTER_USER_MS) => {
+    pauseAutoRef.current = true;
+    if (autoPauseTimerRef.current) clearTimeout(autoPauseTimerRef.current);
+    autoPauseTimerRef.current = setTimeout(() => {
+      pauseAutoRef.current = false;
+      autoPauseTimerRef.current = null;
+    }, duration);
+  }, []);
+
+  const scrollToChapter = useCallback(
+    (index, smooth = true) => {
+      const el = containerRef.current;
+      if (!el) return;
+
+      const rect = el.getBoundingClientRect();
+      const scrollTop = window.scrollY ?? document.documentElement.scrollTop;
+      const sectionTop = scrollTop + rect.top;
+      const scrollable = el.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+
+      const targetProgress = Math.min(1, Math.max(0, (index + 0.5) / total));
+      window.scrollTo({
+        top: sectionTop + targetProgress * scrollable,
+        behavior: smooth ? 'smooth' : 'auto',
+      });
+    },
+    [total]
+  );
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
 
+  const updateInView = useCallback((latest) => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const rect = el.getBoundingClientRect();
+    const inScrollRange = latest > 0.001 && latest < 0.999;
+    // Sticky is active while the tall section spans the viewport
+    const inStickyZone = rect.top <= 0 && rect.bottom >= window.innerHeight;
+    isInViewRef.current = inScrollRange || inStickyZone;
+  }, []);
+
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    updateInView(latest);
+
+    if (isDraggingRef.current || isAutoScrollingRef.current) return;
+
     const next = Math.min(
-      timelineData.length - 1,
-      Math.max(0, Math.floor(latest * timelineData.length))
+      total - 1,
+      Math.max(0, Math.floor(latest * total))
     );
-    // Use functional setState so we always compare against the latest
-    // committed value, regardless of any stale closure in this callback.
     setActiveIndex((prev) => (prev !== next ? next : prev));
   });
 
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  // Auto-advance chapters while the section is in view
+  useEffect(() => {
+    const prefersReduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReduced) return;
+
+    const id = setInterval(() => {
+      if (
+        pauseAutoRef.current ||
+        isDraggingRef.current ||
+        isAutoScrollingRef.current ||
+        !isInViewRef.current
+      ) {
+        return;
+      }
+
+      const next = (activeIndexRef.current + 1) % total;
+      isAutoScrollingRef.current = true;
+      setActiveIndex(next);
+      scrollToChapter(next, true);
+
+      setTimeout(() => {
+        isAutoScrollingRef.current = false;
+      }, AUTO_SCROLL_ANIM_MS + 400);
+    }, AUTO_SCROLL_MS);
+
+    return () => clearInterval(id);
+  }, [total, scrollToChapter]);
+
+  // Seed in-view state on mount (scrollYProgress may not fire until scroll)
+  useEffect(() => {
+    const latest = scrollYProgress.get();
+    updateInView(latest);
+  }, [scrollYProgress, updateInView]);
+
+  // Pause autoplay after manual scroll / touch inside the section
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const onUserScroll = () => {
+      if (isAutoScrollingRef.current) return;
+      pauseAutoScroll();
+    };
+
+    el.addEventListener('wheel', onUserScroll, { passive: true });
+    el.addEventListener('touchstart', onUserScroll, { passive: true });
+
+    return () => {
+      el.removeEventListener('wheel', onUserScroll);
+      el.removeEventListener('touchstart', onUserScroll);
+      if (autoPauseTimerRef.current) clearTimeout(autoPauseTimerRef.current);
+    };
+  }, [pauseAutoScroll]);
+
+  const handleSliderChange = (e) => {
+    const index = Number(e.target.value);
+    setActiveIndex(index);
+    scrollToChapter(index, false);
+    pauseAutoScroll();
+  };
+
+  const handleSliderPointerDown = () => {
+    isDraggingRef.current = true;
+    pauseAutoScroll(AUTO_PAUSE_AFTER_USER_MS * 2);
+  };
+
+  const handleSliderRelease = () => {
+    isDraggingRef.current = false;
+  };
+
   const active = timelineData[activeIndex];
-  const total = timelineData.length;
   const { head, tail } = splitTitle(active.title);
+  const sliderFill = total > 1 ? (activeIndex / (total - 1)) * 100 : 0;
 
   return (
     <section
@@ -234,7 +380,17 @@ const Timeline = () => {
       style={{ height: `${total * 65}vh` }}
       aria-label="The Journey timeline"
     >
-      <div className="journey-sticky">
+      <motion.div
+        className="journey-sticky"
+        initial={false}
+        animate={{
+          background: [
+            `radial-gradient(ellipse 90% 70% at 75% 15%, ${active.bgAlt}99 0%, transparent 55%)`,
+            `linear-gradient(165deg, ${active.bg} 0%, ${active.bgAlt} 48%, ${active.bg} 100%)`,
+          ].join(', '),
+        }}
+        transition={{ duration: 0.95, ease: cardEase }}
+      >
         <header className="journey-top">
           <div className="journey-brand">
             <span className="journey-brand-dot" aria-hidden="true" />
@@ -304,32 +460,53 @@ const Timeline = () => {
         </div>
 
         <footer className="journey-bottom">
-          <div className="journey-progress" aria-hidden="true">
-            <strong>{String(activeIndex + 1).padStart(2, '0')}</strong>
-            <span className="journey-progress-bar">
-              <motion.span
-                animate={{ width: `${((activeIndex + 1) / total) * 100}%` }}
-                transition={{ duration: 0.7, ease: cardEase }}
-              />
-            </span>
+          <div
+            className="journey-progress"
+            role="group"
+            aria-label="Chapter navigation"
+          >
+            <strong aria-live="polite">
+              {String(activeIndex + 1).padStart(2, '0')}
+            </strong>
+            <input
+              type="range"
+              className="journey-slider"
+              min={0}
+              max={total - 1}
+              step={1}
+              value={activeIndex}
+              onChange={handleSliderChange}
+              onPointerDown={handleSliderPointerDown}
+              onPointerUp={handleSliderRelease}
+              onPointerCancel={handleSliderRelease}
+              onBlur={handleSliderRelease}
+              style={{ '--slider-fill': `${sliderFill}%` }}
+              aria-label={`Chapter ${activeIndex + 1} of ${total}`}
+              aria-valuemin={1}
+              aria-valuemax={total}
+              aria-valuenow={activeIndex + 1}
+            />
             <span className="journey-progress-total">
               {String(total).padStart(2, '0')}
             </span>
           </div>
         </footer>
 
-        <svg
+        <motion.svg
           className="journey-wave"
           viewBox="0 0 1440 120"
           preserveAspectRatio="none"
           aria-hidden="true"
+          initial={false}
+          animate={{ color: active.bgAlt }}
+          transition={{ duration: 0.95, ease: cardEase }}
         >
           <path
             d="M0,64 C240,120 480,16 720,40 C960,64 1200,112 1440,64 L1440,120 L0,120 Z"
             fill="currentColor"
           />
-        </svg>
-      </div>
+        </motion.svg>
+      </motion.div>
     </section>
   );
 };
