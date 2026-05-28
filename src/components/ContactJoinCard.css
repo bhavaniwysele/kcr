@@ -11,7 +11,7 @@
   --qc-radius-lg: 18px;
   --qc-radius-md: 10px;
 
-  padding: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 3vw, 2rem);
+  padding: clamp(0.2rem, 0.9vw, 0.55rem) clamp(1rem, 3vw, 2rem);
   background: #ffffff;
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   color: var(--qc-ink);

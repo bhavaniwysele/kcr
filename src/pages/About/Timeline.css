@@ -6,8 +6,12 @@
    ============================================================ */
 
 .journey-scroll {
+  --journey-navy: #1a2f5c;
+  --journey-burgundy: #9f1239;
+  --journey-bg: #faf8f9;
+  --journey-bg-alt: #f3ebef;
   position: relative;
-  background: #f8f3ee;
+  background: var(--journey-bg);
   color: #1c1209;
   font-family: var(--sans);
 }
@@ -23,7 +27,18 @@
   padding: clamp(1rem, 2vw, 1.6rem) clamp(1.25rem, 5vw, 4.5rem)
     clamp(1rem, 2vw, 1.4rem);
   overflow: hidden;
-  /* Pastel bg is animated inline via framer-motion per slide */
+  background:
+    radial-gradient(
+      ellipse 90% 70% at 75% 15%,
+      rgba(243, 235, 239, 0.85) 0%,
+      transparent 55%
+    ),
+    linear-gradient(
+      165deg,
+      var(--journey-bg) 0%,
+      var(--journey-bg-alt) 48%,
+      var(--journey-bg) 100%
+    );
 }
 
 /* -------- Top bar -------- */
@@ -43,15 +58,15 @@
   letter-spacing: 0.32em;
   text-transform: uppercase;
   font-weight: 700;
-  color: #6b4a2b;
+  color: var(--journey-navy);
 }
 
 .journey-brand-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #ea580c;
-  box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.15);
+  background: var(--journey-burgundy);
+  box-shadow: 0 0 0 4px rgba(159, 18, 57, 0.14);
 }
 
 /* -------- Grid -------- */
@@ -81,7 +96,7 @@
   letter-spacing: 0.32em;
   font-weight: 700;
   text-transform: uppercase;
-  color: #ea580c;
+  color: var(--journey-burgundy);
 }
 
 .journey-title {
@@ -96,7 +111,7 @@
 .journey-title em {
   display: inline-block;
   font-style: italic;
-  color: #ea580c;
+  color: var(--journey-burgundy);
   font-weight: 700;
 }
 
@@ -112,8 +127,8 @@
   position: relative;
   margin: 0.5rem 0 0;
   padding: 1.15rem 1.25rem 1rem 1.5rem;
-  background: rgba(234, 88, 12, 0.08);
-  border-left: 4px solid #ea580c;
+  background: rgba(159, 18, 57, 0.07);
+  border-left: 4px solid var(--journey-burgundy);
   border-radius: 0 16px 16px 0;
   max-width: 38rem;
 }
@@ -132,7 +147,7 @@
   left: 0.6rem;
   font-size: 2.5rem;
   line-height: 1;
-  color: #ea580c;
+  color: var(--journey-burgundy);
   opacity: 0.4;
 }
 
@@ -146,7 +161,7 @@
 .journey-quote-line {
   flex: 0 0 1.5rem;
   height: 1px;
-  background: #ea580c;
+  background: var(--journey-burgundy);
   opacity: 0.7;
 }
 
@@ -170,7 +185,7 @@
 .journey-stage-ring {
   position: absolute;
   border-radius: 50%;
-  border: 1px dashed rgba(234, 88, 12, 0.25);
+  border: 1px dashed rgba(26, 47, 92, 0.22);
   pointer-events: none;
 }
 
@@ -188,12 +203,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-color: rgba(234, 88, 12, 0.4);
+  border-color: rgba(26, 47, 92, 0.35);
 }
 
 .journey-card {
   position: absolute;
-  width: clamp(280px, 30vw, 420px);
+  width: clamp(340px, 36vw, 520px);
   aspect-ratio: 3 / 4;
   border-radius: 28px;
   overflow: hidden;
@@ -280,7 +295,7 @@
 }
 
 .journey-progress strong {
-  color: #1c1209;
+  color: var(--journey-navy);
   font-size: 1.05rem;
   letter-spacing: 0.15em;
 }
@@ -298,8 +313,8 @@
   cursor: pointer;
   background: linear-gradient(
     to right,
-    #ea580c 0%,
-    #ea580c var(--slider-fill),
+    var(--journey-burgundy) 0%,
+    var(--journey-burgundy) var(--slider-fill),
     rgba(28, 18, 9, 0.15) var(--slider-fill),
     rgba(28, 18, 9, 0.15) 100%
   );
@@ -319,7 +334,7 @@
   height: 16px;
   margin-top: -6px;
   border-radius: 50%;
-  background: #ea580c;
+  background: var(--journey-burgundy);
   border: 2px solid #fff;
   box-shadow: 0 2px 8px rgba(28, 18, 9, 0.25);
   cursor: grab;
@@ -340,14 +355,14 @@
 .journey-slider::-moz-range-progress {
   height: 4px;
   border-radius: 999px;
-  background: #ea580c;
+  background: var(--journey-burgundy);
 }
 
 .journey-slider::-moz-range-thumb {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #ea580c;
+  background: var(--journey-burgundy);
   border: 2px solid #fff;
   box-shadow: 0 2px 8px rgba(28, 18, 9, 0.25);
   cursor: grab;
@@ -355,7 +370,7 @@
 
 .journey-slider:focus-visible::-webkit-slider-thumb,
 .journey-slider:focus-visible::-moz-range-thumb {
-  outline: 2px solid #ea580c;
+  outline: 2px solid var(--journey-burgundy);
   outline-offset: 2px;
 }
 
@@ -370,6 +385,7 @@
   left: 0;
   width: 100%;
   height: clamp(60px, 8vw, 110px);
+  color: var(--journey-bg-alt);
   pointer-events: none;
   opacity: 0.92;
 }

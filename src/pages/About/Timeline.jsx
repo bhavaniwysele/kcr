@@ -22,23 +22,6 @@ import imgWelfare from '../../assets/healthandwelfare.webp';
 import imgEngineering from '../../assets/Kaleshwaram Project.webp';
 import imgNational from '../../assets/National Vision.webp';
 
-// Warm editorial pastels — subtle shifts, same family, smooth scroll blends
-const pastelPalette = [
-  { bg: '#faf7f4', bgAlt: '#f2ebe4' }, // ivory
-  { bg: '#f8f3ee', bgAlt: '#efe6dc' }, // cream
-  { bg: '#f6efe8', bgAlt: '#ebe0d4' }, // almond
-  { bg: '#f4ebe3', bgAlt: '#e7d8ca' }, // bisque
-  { bg: '#f2e8df', bgAlt: '#e3d2c2' }, // warm sand
-  { bg: '#f0e5db', bgAlt: '#dfcfbe' }, // taupe
-  { bg: '#eee3d8', bgAlt: '#dcc9b8' }, // oatmeal
-  { bg: '#ebe8e2', bgAlt: '#d8d2c8' }, // soft stone
-  { bg: '#efe6de', bgAlt: '#ddd0c2' }, // linen
-  { bg: '#ede3d6', bgAlt: '#d9c8b4' }, // wheat
-  { bg: '#ebe0d2', bgAlt: '#d4c4ae' }, // caramel cream
-  { bg: '#e8ddd0', bgAlt: '#cfbeb0' }, // mocha cream
-  { bg: '#f0e8dc', bgAlt: '#e2d4c4' }, // champagne
-];
-
 const timelineData = [
   {
     year: '1954',
@@ -145,7 +128,7 @@ const timelineData = [
     quote: 'What we built here was never meant to stay within these lines on the map.',
     image: imgNational,
   },
-].map((item, i) => ({ ...item, ...pastelPalette[i] }));
+];
 
 const cardEase = [0.22, 1, 0.36, 1];
 const AUTO_SCROLL_MS = 2000;
@@ -380,17 +363,7 @@ const Timeline = () => {
       style={{ height: `${total * 65}vh` }}
       aria-label="The Journey timeline"
     >
-      <motion.div
-        className="journey-sticky"
-        initial={false}
-        animate={{
-          background: [
-            `radial-gradient(ellipse 90% 70% at 75% 15%, ${active.bgAlt}99 0%, transparent 55%)`,
-            `linear-gradient(165deg, ${active.bg} 0%, ${active.bgAlt} 48%, ${active.bg} 100%)`,
-          ].join(', '),
-        }}
-        transition={{ duration: 0.95, ease: cardEase }}
-      >
+      <div className="journey-sticky">
         <header className="journey-top">
           <div className="journey-brand">
             <span className="journey-brand-dot" aria-hidden="true" />
@@ -492,21 +465,18 @@ const Timeline = () => {
           </div>
         </footer>
 
-        <motion.svg
+        <svg
           className="journey-wave"
           viewBox="0 0 1440 120"
           preserveAspectRatio="none"
           aria-hidden="true"
-          initial={false}
-          animate={{ color: active.bgAlt }}
-          transition={{ duration: 0.95, ease: cardEase }}
         >
           <path
             d="M0,64 C240,120 480,16 720,40 C960,64 1200,112 1440,64 L1440,120 L0,120 Z"
             fill="currentColor"
           />
-        </motion.svg>
-      </motion.div>
+        </svg>
+      </div>
     </section>
   );
 };

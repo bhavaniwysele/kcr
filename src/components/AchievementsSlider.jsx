@@ -44,7 +44,7 @@ const sidePanelStories = [
   {
     title: 'Economic Development',
     description:
-      'Driving TS-iPASS and making Telangana a global destination for investment and industry.',
+      'Driving TS-iPASS with transparent approvals and rapid clearances, making Telangana a global hub for industry, innovation, and jobs.',
     image: economic,
     slug: 'economic',
     cta: 'Explore Growth',
@@ -53,7 +53,7 @@ const sidePanelStories = [
   {
     title: 'Cultural Revival',
     description:
-      'Restoring and celebrating the unique identity, heritage, and festivals of Telangana.',
+      'Restoring Telangana’s unique identity by preserving heritage,folk arts, and celebrating festivals with pride across every region.',
     image: culture,
     slug: 'culture',
     cta: 'Discover Culture',

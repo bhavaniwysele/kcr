@@ -12,7 +12,6 @@ import slide4Artwork from '../assets/slide4edited.png';
 import slide5Artwork from '../assets/slide5edited.png';
 import slide6Artwork from '../assets/slide6edited.png';
 import slide7Artwork from '../assets/slide7.png';
-import slide8Artwork from '../assets/slide8.png';
 
 const ARTWORK_WIDTH = 1672;
 const ARTWORK_HEIGHT = 941;
@@ -51,7 +50,7 @@ const slides = [
     heroTheme: 'light',
     artworkFill: true,
     artworkFitHero: true,
-    artworkPosition: 'center center',
+    artworkPosition: 'center top',
     artworkFit: 'contain',
   },
   {
@@ -72,18 +71,6 @@ const slides = [
     image: slide7Artwork,
     alt: 'Empowered Women, Stronger Telangana — Women, dignity, empowerment and progress for Telangana',
     bgColor: '#fdf4f6',
-    heroTheme: 'light',
-    artworkFill: true,
-    artworkFitHero: true,
-    artworkPosition: 'center center',
-    artworkFit: 'contain',
-  },
-  {
-    id: 9,
-    variant: 'artwork',
-    image: slide8Artwork,
-    alt: 'Rooted in Culture, United in Pride — Telangana culture, heritage, festivals and progress',
-    bgColor: '#fbf9fa',
     heroTheme: 'light',
     artworkFill: true,
     artworkFitHero: true,

@@ -10,7 +10,7 @@ import inclusiveImg from '../../assets/agriculture.jpg';
 import welfareImg from '../../assets/Mission_Bhagiratha.jpg';
 import strategicImg from '../../assets/Kaleshwaram Project.webp';
 import missionKakatiyaImg from '../../assets/mission_kakatiya.jpg';
-import leadershipHeroBg from '../../assets/newsNmedia_hero.png';
+import leadershipHeroBg from '../../assets/leadershiphero.jpg';
 import telanganaMovementImg from '../../assets/telangana_movement.jpg';
 import cultureIdentityImg from '../../assets/culture_stateformation.jpg';
 

@@ -43,7 +43,7 @@ const resistanceTopics = [
 
 // Import assets
 import politicalHeroImg from '../../assets/political_career_hero.jpg';
-import mainImg4 from '../../assets/political_main4.jpg';
+import mainImg4 from '../../assets/new_kcr.jpg';
 import resistanceIntroImg from '../../assets/pl_2.jpg';
 
 const heroSlideFromLeftTransition = {
@@ -66,6 +66,13 @@ const heroSlideLeftVariants = {
     transition: heroSlideFromLeftTransition,
   },
 };
+
+const statehoodSteps = [
+  { label: 'The Foundation', title: '2001: TRS Founding', desc: 'Resigned as Deputy Speaker to float TRS with a single-point agenda.' },
+  { label: 'The Agitation', title: '2009: The Historic Fast', desc: 'Undertook a fast unto death, forcing national focus on the demand.' },
+  { label: 'The Breakthrough', title: '2013: Cabinet Approval', desc: 'The Union Cabinet finally approves the formation of the new state.' },
+  { label: 'The Vision Realized', title: '2014: State Formation', desc: 'Telangana is officially formed, and KCR takes oath as the first CM.' },
+];
 
 const PoliticalCareer = () => {
   return (
@@ -105,43 +112,68 @@ const PoliticalCareer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <motion.img 
-              src={mainImg4} 
-              alt="Historical context" 
-              className="stepper-title-image"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-            />
+            <div className="stepper-title-image-wrap">
+              <motion.img
+                src={mainImg4}
+                alt="KCR and leaders at the Telangana statehood movement"
+                className="stepper-title-image"
+                initial={{ opacity: 0, scale: 1.04 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
+              />
+            </div>
             <h2>The Path to Telangana <br/> Statehood</h2>
           </motion.div>
           
           <div className="stepper-right">
-            <motion.div 
-              className="vertical-line"
-              initial={{ height: 0 }}
-              whileInView={{ height: '100%' }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-            ></motion.div>
-            {[
-              { label: 'The Foundation', title: '2001: TRS Founding', desc: 'Resigned as Deputy Speaker to float TRS with a single-point agenda.' },
-              { label: 'The Agitation', title: '2009: The Historic Fast', desc: 'Undertook a fast unto death, forcing national focus on the demand.' },
-              { label: 'The Breakthrough', title: '2013: Cabinet Approval', desc: 'The Union Cabinet finally approves the formation of the new state.' },
-              { label: 'The Vision Realized', title: '2014: State Formation', desc: 'Telangana is officially formed, and KCR takes oath as the first CM.' }
-            ].map((item, idx) => (
-              <motion.div 
-                className="minimal-step-item" 
-                key={idx}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.5 }}
-                transition={{ duration: 0.6, delay: idx * 0.3 }}
-              >
-                <h3>{item.label}</h3>
-                <p><strong>{item.title}</strong> - {item.desc}</p>
-              </motion.div>
+            {statehoodSteps.map((item, idx) => (
+              <div className="minimal-step-item" key={idx}>
+                <div className="minimal-step-rail" aria-hidden="true">
+                  <motion.span
+                    className="minimal-step-marker"
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: false, amount: 0.55 }}
+                    transition={{
+                      duration: 0.45,
+                      delay: idx * 0.18,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    <span className="minimal-step-marker-inner" />
+                  </motion.span>
+                  {idx < statehoodSteps.length - 1 && (
+                    <motion.span
+                      className="minimal-step-connector"
+                      initial={{ scaleY: 0 }}
+                      whileInView={{ scaleY: 1 }}
+                      viewport={{ once: false, amount: 0.35 }}
+                      transition={{
+                        duration: 0.55,
+                        delay: idx * 0.18 + 0.1,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                    />
+                  )}
+                </div>
+                <motion.div
+                  className="minimal-step-body"
+                  initial={{ opacity: 0, y: -32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.45 }}
+                  transition={{
+                    duration: 0.7,
+                    delay: idx * 0.18 + 0.2,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <h3>{item.label}</h3>
+                  <p>
+                    <strong>{item.title}</strong> - {item.desc}
+                  </p>
+                </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -177,15 +209,14 @@ const PoliticalCareer = () => {
             viewport={{ once: true, amount: 0.12 }}
             transition={{ duration: 0.8, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
+            <div className="years-resistance-slider-wrap">
             <button type="button" className="years-resistance-prev" aria-label="Previous slide">
               ←
             </button>
-
-            <div className="years-resistance-slider-wrap">
             <Swiper
               className="years-resistance-swiper"
               modules={[Autoplay, Navigation, Pagination]}
-              spaceBetween={14}
+              spaceBetween={20}
               slidesPerView={1}
               loop
               speed={950}
@@ -204,8 +235,8 @@ const PoliticalCareer = () => {
                 el: '.years-resistance-pagination',
               }}
               breakpoints={{
-                640: { slidesPerView: 2, spaceBetween: 14 },
-                1024: { slidesPerView: 3, spaceBetween: 14 },
+                640: { slidesPerView: 2, spaceBetween: 20 },
+                1024: { slidesPerView: 3, spaceBetween: 20 },
               }}
             >
               {resistanceTopics.map((topic) => (
@@ -220,11 +251,10 @@ const PoliticalCareer = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            </div>
-
             <button type="button" className="years-resistance-next" aria-label="Next slide">
               →
             </button>
+            </div>
 
             <div className="years-resistance-pagination" aria-label="Slide pagination" />
           </motion.div>
