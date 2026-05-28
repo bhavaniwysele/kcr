@@ -7,7 +7,7 @@
 }
 
 .news-media-hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../assets/newsandmedia_bg.png') center/cover no-repeat;
+  background: url('../assets/bgnewsandmedia2.jpg') center/cover no-repeat;
   color: #fff;
   box-sizing: border-box;
   min-height: var(--site-hero-band-height);
@@ -94,12 +94,14 @@
 
 .news-articles-grid {
   position: relative;
-  max-width: 1300px;
+  width: min(1500px, 100%);
+  max-width: none;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.5rem;
-  padding: 0 5%;
+  padding: 0 2%;
+  box-sizing: border-box;
 }
 
 .news-item-card {
@@ -169,8 +171,8 @@
 .press-kit-section {
   max-width: 1300px;
   margin: 6rem auto 0;
-  padding: 4rem 5%;
-  background: #f9f9f9;
+  padding: 2.5rem 3.5%;
+  background: #ffffff;
   border-radius: 12px;
   text-align: center;
 }
@@ -182,88 +184,128 @@
 }
 
 .press-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+  padding: 1rem;
+  border-radius: 16px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.84)),
+    url('../assets/bg3.jpg') center/cover no-repeat;
 }
 
 .press-kit-card {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  position: relative;
+  background:
+    linear-gradient(92deg, rgba(246, 233, 255, 0.78) 0%, rgba(251, 231, 243, 0.74) 52%, rgba(255, 238, 222, 0.72) 100%);
+  color: #4b2b4f;
+  border-radius: 999px;
+  min-height: 106px;
+  padding: 1.05rem 2.4rem 1.05rem 6rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  text-align: left;
+  overflow: visible;
+}
+
+.press-kit-card--icon-left {
+  border-radius: 999px;
+  padding: 1.35rem 2.8rem 1.35rem 6.8rem;
+}
+
+.press-kit-content {
+  flex: 1;
+  min-width: 0;
+  max-width: 980px;
+}
+
+.press-kit-icon-wrap {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 106px;
+  height: 106px;
+  border-radius: 50%;
+  background: #eef2ef;
+  border: 4px solid rgba(255, 255, 255, 0.72);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+}
+
+.press-kit-card--icon-left .press-kit-icon-wrap {
+  left: -34px;
+}
+
+.press-kit-icon-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 3px dashed rgba(26, 45, 37, 0.85);
 }
 
 .press-kit-icon {
-  font-size: 2.5rem;
+  font-size: 2.1rem;
+  line-height: 1;
 }
 
 .press-kit-card h3 {
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   margin: 0;
+  color: #6b2d60;
+}
+
+.press-title-bullet {
+  font-size: 1.55rem;
+  line-height: 1;
+  transform: translateY(-1px);
 }
 
 .press-kit-card p {
-  font-size: 0.8rem;
-  color: #666;
-  margin: 0;
+  font-size: 1.35rem;
+  color: rgba(93, 56, 98, 0.9);
+  margin: 0.55rem 0 0;
+  line-height: 1.55;
+  max-width: 76ch;
 }
 
-.download-btn {
-  position: relative;
-  overflow: hidden;
+.press-strip-btn {
+  margin-left: auto;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.8rem 2.2rem;
+  padding: 0.9rem 2.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(233, 30, 99, 0.28);
   background: #ffffff;
   color: #e91e63;
-  border-radius: 50px;
   text-decoration: none;
   font-weight: 700;
-  font-size: 0.9rem;
-  transition: all 0.6s ease-in-out, transform 0.2s ease;
-  border: 1px solid rgba(233, 30, 99, 0.2);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  font-size: 1.02rem;
+  line-height: 1;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.download-btn span {
-  position: relative;
-  z-index: 2;
-  transition: color 0.6s ease-in-out;
+.press-strip-btn:hover {
+  background: #fff4fa;
+  border-color: rgba(233, 30, 99, 0.45);
+  color: #c2185b;
+  box-shadow: 0 8px 18px rgba(233, 30, 99, 0.16);
 }
 
-.download-btn svg {
-  position: absolute;
-  inset: 0;
-  fill: none;
-  stroke: #e91e63;
-  stroke-width: 4px;
-  stroke-dasharray: 200 640;
-  stroke-dashoffset: 200;
-  transition: all 0.8s ease-in-out;
-  pointer-events: none;
-}
-
-.download-btn:hover {
-  transform: translateY(-3px);
-  background: #e91e63;
-  color: #ffffff;
-  box-shadow: 0 10px 20px rgba(233, 30, 99, 0.2);
-}
-
-.download-btn:hover span {
-  color: #ffffff;
-}
-
-.download-btn:hover svg {
-  stroke: #ffffff;
-  stroke-dashoffset: -640;
+@media (max-width: 1200px) {
+  .news-articles-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 1024px) {
@@ -278,6 +320,69 @@
   }
   .news-media-hero h1 {
     font-size: 3.2rem;
+  }
+  .press-kit-card,
+  .press-kit-card--icon-left {
+    border-radius: 24px;
+    padding: 2.2rem 1.3rem 1.3rem;
+    text-align: center;
+    min-height: unset;
+  }
+  .press-kit-icon-wrap,
+  .press-kit-card--icon-right .press-kit-icon-wrap,
+  .press-kit-card--icon-left .press-kit-icon-wrap {
+    position: static;
+    transform: none;
+    margin: 0 auto 0.95rem;
+    width: 92px;
+    height: 92px;
+  }
+  .press-kit-icon-wrap::after {
+    inset: -8px;
+    border-width: 2px;
+  }
+  .press-kit-content {
+    max-width: 100%;
+  }
+  .press-kit-card h3 {
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+  .press-title-bullet {
+    font-size: 1.4rem;
+  }
+  .press-kit-card p {
+    font-size: 1rem;
+  }
+  .press-strip-btn {
+    margin: 0.95rem auto 0;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .press-kit-card {
+    padding: 1.1rem 2rem 1.1rem 5.3rem;
+    min-height: 102px;
+  }
+  .press-kit-card--icon-left {
+    padding: 1.1rem 2rem 1.1rem 5.3rem;
+  }
+  .press-kit-icon-wrap {
+    width: 84px;
+    height: 84px;
+  }
+  .press-kit-card--icon-left .press-kit-icon-wrap {
+    left: -30px;
+  }
+  .press-kit-card h3 {
+    font-size: 1.2rem;
+  }
+  .press-kit-card p {
+    font-size: 0.95rem;
+  }
+  .press-strip-btn {
+    padding: 0.66rem 1.35rem;
+    font-size: 0.88rem;
   }
 }
 

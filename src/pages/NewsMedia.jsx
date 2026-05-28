@@ -47,6 +47,32 @@ const NewsMedia = () => {
   ];
 
   const categories = ['ALL', 'POLITICAL', 'HEALTH', 'LEGAL', 'DEVELOPMENT'];
+  const pressResources = [
+    {
+      icon: '📸',
+      title: 'Photos',
+      description: 'Official high-resolution photography and portraits.',
+      cta: 'View Photos'
+    },
+    {
+      icon: '🎥',
+      title: 'Videos',
+      description: 'Archive of video footage and campaign media.',
+      cta: 'View Videos'
+    },
+    {
+      icon: '🏛️',
+      title: 'Public Appearances',
+      description: 'Chronicles of presence at public forums and rallies.',
+      cta: 'View Log'
+    },
+    {
+      icon: '📅',
+      title: 'Major Events',
+      description: 'Media kits for significant political milestones.',
+      cta: 'See Events'
+    }
+  ];
 
   const filteredNews = activeFilter === 'ALL' 
     ? newsData 
@@ -120,50 +146,34 @@ const NewsMedia = () => {
         <h2>Press Resources</h2>
         <p>Official assets for media and press organizations.</p>
         <div className="press-grid">
-          <div className="press-kit-card">
-            <span className="press-kit-icon">📸</span>
-            <h3>Photos</h3>
-            <p>Official high-resolution photography and portraits.</p>
-            <a href="#" className="download-btn">
-              <span>View Photos</span>
-              <svg width="100%" height="100%">
-                <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
-              </svg>
-            </a>
-          </div>
-          <div className="press-kit-card">
-            <span className="press-kit-icon">🎥</span>
-            <h3>Videos</h3>
-            <p>Archive of video footage and campaign media.</p>
-            <a href="#" className="download-btn">
-              <span>View Videos</span>
-              <svg width="100%" height="100%">
-                <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
-              </svg>
-            </a>
-          </div>
-          <div className="press-kit-card">
-            <span className="press-kit-icon">🏛️</span>
-            <h3>Public Appearances</h3>
-            <p>Chronicles of presence at public forums and rallies.</p>
-            <a href="#" className="download-btn">
-              <span>View Log</span>
-              <svg width="100%" height="100%">
-                <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
-              </svg>
-            </a>
-          </div>
-          <div className="press-kit-card">
-            <span className="press-kit-icon">📅</span>
-            <h3>Major Events</h3>
-            <p>Media kits for significant political milestones.</p>
-            <a href="#" className="download-btn">
-              <span>See Events</span>
-              <svg width="100%" height="100%">
-                <rect x="0" y="0" width="100%" height="100%" rx="25" ry="25"/>
-              </svg>
-            </a>
-          </div>
+          {pressResources.map((resource, index) => (
+            <motion.article
+              key={resource.title}
+              className="press-kit-card press-kit-card--icon-left"
+              initial={{ opacity: 0, x: -120 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{
+                duration: 0.9,
+                delay: index * 0.1,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+            >
+              <span className="press-kit-icon-wrap">
+                <span className="press-kit-icon">{resource.icon}</span>
+              </span>
+              <div className="press-kit-content">
+                <h3>
+                  <span className="press-title-bullet">•</span>
+                  {resource.title.toUpperCase()}
+                </h3>
+                <p>{resource.description}</p>
+              </div>
+              <a href="#" className="press-strip-btn">
+                {resource.cta}
+              </a>
+            </motion.article>
+          ))}
         </div>
       </section>
     </div>
