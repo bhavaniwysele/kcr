@@ -41,6 +41,13 @@
 .kit-hero-media {
   z-index: 0;
   background:
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--contact-dark) 62%, transparent) 0%,
+      color-mix(in srgb, var(--contact-dark-mid) 52%, transparent) 52%,
+      color-mix(in srgb, var(--contact-dark-mid) 45%, var(--contact-sage-hover)) 100%
+    ),
+    var(--kit-hero-bg) center center / cover no-repeat,
     radial-gradient(
       120% 80% at 85% 20%,
       color-mix(in srgb, var(--contact-sage) 28%, transparent) 0%,

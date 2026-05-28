@@ -9,12 +9,6 @@ import farmerImg from '../../assets/rythu_bandhu_farmer_happy_smiling_field.png'
 import agricultureImg from '../../assets/rythubandu_bghero.jpg';
 import rythubandu2Img from '../../assets/rythubandu_bghero.jpg';
 
-import number1Img from '../../assets/number1rb.png';
-import number2Img from '../../assets/image2rb.png';
-import number3Img from '../../assets/image3rb.png';
-import number4Img from '../../assets/image4rb.png';
-import number5Img from '../../assets/image5rb.png';
-
 const RYTHU_HERO_LINES = ['KNOW ABOUT', 'THE RYTHU BANDHU', 'SCHEME'];
 const RYTHU_HERO_SR_TITLE = 'Know about the Rythu Bandhu scheme';
 
@@ -430,159 +424,6 @@ function ImpactSection() {
   );
 }
 
-const BENEFITS = [
-  {
-    num: '01',
-    numImg: number1Img,
-    title: 'Direct Financial Support',
-    desc: 'Provides direct investment assistance to farmers for seeds, fertilizers, labor, and other cultivation expenses.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M12 3C9.5 3 8 4.5 8 7V8H16V7C16 4.5 14.5 3 12 3Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M6 9H18L19 14C19.5 16.5 18 18 15.5 18H8.5C6 18 4.5 16.5 5 14L6 9Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M12 11V15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M10 13H14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    num: '02',
-    numImg: number2Img,
-    title: 'Agricultural Stability',
-    desc: 'Reduces financial burden on farmers and promotes consistent and stable agricultural productivity.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M12 20V11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M12 11C8 11 6 8 6 4C10 4 12 7 12 11Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M12 14C16 14 18 11 18 7C14 7 12 10 12 14Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M8 20H16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    num: '03',
-    numImg: number3Img,
-    title: 'Seasonal Assistance',
-    desc: 'Ensures timely financial support during crop seasons to help farmers plan and cultivate with confidence.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none">
-        <rect x="4" y="5" width="14" height="14" rx="2" stroke="currentColor" strokeWidth="1.8" />
-        <path d="M4 10H18" stroke="currentColor" strokeWidth="1.8" />
-        <path d="M8 3V7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M14 3V7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <circle cx="18.5" cy="18.5" r="3.5" stroke="currentColor" strokeWidth="1.6" />
-        <path d="M18.5 17V18.8L20 19.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    num: '04',
-    numImg: number4Img,
-    title: 'Farmer Welfare Focus',
-    desc: 'A farmer-first initiative focused on improving livelihoods and ensuring overall well-being.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.8" />
-        <path d="M5 20C6 16.5 8.5 14 12 14C15.5 14 18 16.5 19 20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M8 5C9 3.5 10.5 3 12 3C13.5 3 15 3.5 16 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    num: '05',
-    numImg: number5Img,
-    title: 'Sustainable Growth',
-    desc: 'Encourages sustainable farming practices and long-term agricultural development in Telangana.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M12 20V13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M12 13C8 13 6 10 6 6C10 6 12 9 12 13Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M12 16C16 16 18 13 18 9C14 9 12 12 12 16Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M7 20H17" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-];
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 48 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.15,
-      duration: 0.9,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  }),
-};
-
-function BenefitsSection() {
-  return (
-    <section className="rb-benefits">
-      <div className="rb-benefits-inner">
-        <motion.div
-          className="rb-benefits-header"
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <span className="rb-benefits-label">Benefits & Assistance</span>
-          <h2 className="rb-benefits-heading">
-            Supporting <em>Farmers,</em>
-            <br />
-            Strengthening <em>Agriculture</em>
-          </h2>
-          <p className="rb-benefits-sub">
-            Rythu Bandhu provides timely investment support and essential assistance
-            to empower farmers and build a stronger agricultural future.
-          </p>
-        </motion.div>
-
-        <div className="rb-benefits-zigzag">
-          {BENEFITS.map((b, i) => (
-            <motion.div
-              className={`rb-benefits-row ${i % 2 === 0 ? 'rb-benefits-row--left' : 'rb-benefits-row--right'}`}
-              key={b.num}
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
-            >
-              <div className="rb-benefits-card">
-                <div className="rb-benefits-icon-wrap">
-                  <div className="rb-benefits-icon">{b.icon}</div>
-                </div>
-                <h3 className="rb-benefits-card-title">{b.title}</h3>
-                <p className="rb-benefits-card-desc">{b.desc}</p>
-                <div className="rb-benefits-card-leaf" aria-hidden="true">
-                  <span className="rb-benefits-card-leaf-line rb-benefits-card-leaf-line--l" />
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 20V13" />
-                    <path d="M12 13C8 13 6 10 6 6C10 6 12 9 12 13Z" />
-                    <path d="M12 16C16 16 18 13 18 9C14 9 12 12 12 16Z" />
-                  </svg>
-                  <span className="rb-benefits-card-leaf-line rb-benefits-card-leaf-line--r" />
-                </div>
-              </div>
-              <div className="rb-benefits-num" aria-hidden="true">
-                <span
-                  className="rb-benefits-num-text"
-                  style={{ backgroundImage: `url(${b.numImg})` }}
-                >
-                  {b.num}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 const VISION_ITEMS = [
   {
     title: 'Sustainable Agriculture',
@@ -735,7 +576,6 @@ const RythuBandhu = () => {
       <RythuHero />
       <ImpactSection />
       <FutureVisionSection />
-      <BenefitsSection />
     </div>
   );
 };

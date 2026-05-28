@@ -9,7 +9,6 @@ import developmentImg from '../../assets/Growth & Infrastructure.jpg';
 import inclusiveImg from '../../assets/agriculture.jpg';
 import welfareImg from '../../assets/Mission_Bhagiratha.jpg';
 import strategicImg from '../../assets/Kaleshwaram Project.webp';
-import missionKakatiyaImg from '../../assets/mission_kakatiya.jpg';
 import leadershipHeroBg from '../../assets/leadershiphero.jpg';
 import telanganaMovementImg from '../../assets/telangana_movement.jpg';
 import cultureIdentityImg from '../../assets/culture_stateformation.jpg';
@@ -486,9 +485,6 @@ const StatCounter = ({ value, label, icon: Icon, suffix = "", delay = 0 }) => {
 };
 
 const LeadershipStyle = () => {
-  const [hoveredTrait, setHoveredTrait] = React.useState(null);
-  const radius = 260; // Reduced radius for a tighter, more cohesive look
-
   return (
     <div className="leadership-container">
       <div
@@ -525,111 +521,50 @@ const LeadershipStyle = () => {
         </div>
       </div>
 
-      <div className="leadership-infographic-section">
-        <h2 className="leadership-infographic-vertical-title">
-          <span className="leadership-hero-sr-only">Leadership</span>
-          <span aria-hidden="true">LEADERSHIP</span>
-        </h2>
-        <div className="leadership-infographic-subtitle">
-          <h3 className="leadership-infographic-subtitle-heading">
-            Eight Pillars Of His Governance
-          </h3>
-        </div>
-        <div className="infographic-wrapper">
-        <motion.div 
-          className="center-node"
-          style={{ 
-            background: 'var(--bg)',
-            borderColor: hoveredTrait ? hoveredTrait.color.replace('0.7', '1') : 'var(--accent)',
-            boxShadow: hoveredTrait ? `0 20px 50px ${hoveredTrait.color}` : '0 15px 40px var(--accent-bg)',
-            transition: 'all 0.4s ease',
-            position: 'relative'
-          }}
-        >
-          {/* Background Image Layer */}
-          <motion.div 
-            initial={{ opacity: 1 }}
-            animate={{ opacity: hoveredTrait ? 0.15 : 1 }}
-            className="center-bg-image"
-            style={{ 
-              backgroundImage: `url(${missionKakatiyaImg})`,
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              zIndex: 0
-            }}
-          />
-
-          <motion.div
-            key={hoveredTrait ? hoveredTrait.title : 'default'}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.3 }}
-            className="center-content"
-            style={{ position: 'relative', zIndex: 1 }}
-          >
-            {hoveredTrait ? (
-              <div className="center-trait-detail">
-                <h3>{hoveredTrait.title}</h3>
-                <p>{hoveredTrait.description}</p>
-              </div>
-            ) : (
-              <h3></h3>
-            )}
-          </motion.div>
-        </motion.div>
-
-        {traits.map((trait, index) => {
-          const angle = (index * (360 / traits.length)) * (Math.PI / 180);
-          const x = Math.cos(angle) * radius;
-          const y = Math.sin(angle) * radius;
-          const isRightSide = x >= 0;
-
-          return (
-            <React.Fragment key={index}>
-              {/* Connector Line */}
-              <motion.div 
-                initial={false}
-                animate={{ width: radius, opacity: 0.4 }}
-                transition={{ duration: 0 }}
-                className="connector-line"
-                style={{
-                  transform: `rotate(${index * (360 / traits.length)}deg)`,
-                  background: `linear-gradient(90deg, var(--accent) 0%, ${trait.color} 100%)`,
-                  width: radius
-                }}
-              />
-              
-              {/* Trait Node */}
+      <section className="leadership-infographic-section">
+        <h2 className="leadership-infographic-title">Leadership</h2>
+        <h3 className="leadership-infographic-subtitle-heading">
+          Eight Pillars Of His Governance
+        </h3>
+        <div className="leadership-pillars-slider">
+          <div className="leadership-pillars-track">
+            {[...traits, ...traits].map((trait, index) => (
+            <motion.article
+              key={`${trait.title}-${index}`}
+              className="leadership-pillar-card"
+              style={{ '--pillar-accent': trait.color }}
+              initial={{ opacity: 0, y: -72, scale: 0.92 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 0.68,
+                delay: index * 0.08,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              whileHover={{ y: -8, scale: 1.02 }}
+            >
               <motion.div
-                initial={false}
-                animate={{ opacity: 1, scale: 1, x: x, y: y }}
-                transition={{ duration: 0 }}
-                whileHover={{ scale: 1.15, zIndex: 10 }}
-                onMouseEnter={() => setHoveredTrait(trait)}
-                onMouseLeave={() => setHoveredTrait(null)}
-                className={`trait-node pos-${isRightSide ? 'right' : 'left'}`}
-                style={{ 
-                  background: trait.color, 
-                  borderColor: trait.color.replace('0.7', '1'),
-                  opacity: hoveredTrait && hoveredTrait !== trait ? 0.3 : 1,
-                  filter: hoveredTrait && hoveredTrait !== trait ? 'grayscale(40%)' : 'none',
-                  transition: 'all 0.3s ease'
+                className="leadership-pillar-card-content"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.2 + index * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                <div className="trait-icon">{trait.icon}</div>
-                <div className="trait-label">{trait.title}</div>
+                <span className="leadership-pillar-icon" aria-hidden="true">
+                  {trait.icon}
+                </span>
+                <h4>{trait.title}</h4>
+                <p>{trait.description}</p>
               </motion.div>
-            </React.Fragment>
-          );
-        })}
-      </div>
-    </div>
+            </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <LeadershipInAction />
 

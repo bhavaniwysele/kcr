@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion as Motion, useReducedMotion, useInView } from 'framer-motion';
 import './KCRKit.css';
 import kcrKitLogo from '../../assets/kcr_kit_logo.png';
+import kcrKitBg from '../../assets/kcrkitbg.jpg';
 import healthWomenImg from '../../assets/healthNwomen2.png';
 import healthWelfareImg from '../../assets/healthandwelfare.webp';
 import welfareSchemesImg from '../../assets/welfareschemes.jpg';
@@ -304,7 +305,12 @@ const KCRKit = () => {
 
   return (
     <div className="kit-page">
-      <section ref={heroRef} className="kit-hero" aria-labelledby="kit-hero-title">
+      <section
+        ref={heroRef}
+        className="kit-hero"
+        aria-labelledby="kit-hero-title"
+        style={{ '--kit-hero-bg': `url(${kcrKitBg})` }}
+      >
         <div className="kit-hero-media" aria-hidden="true" />
         <div className="kit-hero-overlay" />
 
