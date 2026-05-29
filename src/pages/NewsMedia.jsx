@@ -81,7 +81,9 @@ const NewsMedia = () => {
   return (
     <div className="news-media-page">
       <header className="news-media-hero">
-        <h1>News & Media</h1>
+        <h1 className="news-media-hero-title">
+          <span className="news-media-hero-title-mark">News & Media</span>
+        </h1>
       </header>
 
       <section className="news-filter-container">
@@ -149,28 +151,32 @@ const NewsMedia = () => {
           {pressResources.map((resource, index) => (
             <motion.article
               key={resource.title}
-              className="press-kit-card press-kit-card--icon-left"
-              initial={{ opacity: 0, x: -120 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              className={`press-kit-card press-kit-card--col-${index % 2 === 0 ? 'left' : 'right'} press-kit-card--theme-${index}`}
+              initial={{ opacity: 0, y: 36 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
               transition={{
-                duration: 0.9,
-                delay: index * 0.1,
+                duration: 0.75,
+                delay: index * 0.08,
                 ease: [0.16, 1, 0.3, 1]
               }}
             >
-              <span className="press-kit-icon-wrap">
-                <span className="press-kit-icon">{resource.icon}</span>
+              <span className="press-kit-icon" aria-hidden="true">
+                {resource.icon}
               </span>
-              <div className="press-kit-content">
-                <h3>
-                  <span className="press-title-bullet">•</span>
-                  {resource.title.toUpperCase()}
-                </h3>
-                <p>{resource.description}</p>
-              </div>
-              <a href="#" className="press-strip-btn">
-                {resource.cta}
+              <h3>{resource.title}</h3>
+              <p>{resource.description}</p>
+              <a href="#" className="press-kit-link">
+                <span>{resource.cta}</span>
+                <svg
+                  className="press-kit-link-outline"
+                  width="100%"
+                  height="100%"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" />
+                </svg>
               </a>
             </motion.article>
           ))}
