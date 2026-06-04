@@ -1,0 +1,252 @@
+.login-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+  backdrop-filter: blur(8px); /* Blur behind the modal overlay */
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999; /* Higher than navbar and all content */
+  box-sizing: border-box;
+}
+
+/* Background image card - pops up instantly */
+.login-modal-container {
+  position: relative;
+  width: 800px;
+  height: 480px;
+  max-width: 95vw;
+  max-height: 90vh;
+  border-radius: 0;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #111; /* Fallback background color */
+}
+
+/* Image pane for the 50% split layout */
+.login-modal-image-pane {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* North West logo on top of the image */
+.login-modal-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+  z-index: 10;
+}
+
+/* Form pane containing the flipping forms */
+.login-modal-form-pane {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1500px; /* Crucial for 3D card flipping effect */
+  position: relative;
+}
+
+/* Close button - circular pink button in the corner */
+.login-modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--accent, #e91e63) !important; /* Pink cross color */
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  padding: 0;
+  line-height: 1;
+}
+
+.login-modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+/* 3D card flipping inner wrapper */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* ONLY ALLOWED TRANSITION */
+}
+
+/* Perform the rotation */
+.flip-card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* Form pane faces on front and back */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 48px;
+  box-sizing: border-box;
+}
+
+.flip-card-front {
+  /* Front login is centered vertically */
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Form Headings */
+.modal-title {
+  margin: 0 0 18px 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Form Styles */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form-group input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  color: #ffffff;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  outline: none;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.form-group input:focus {
+  border-color: var(--accent, #e91e63);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Submit Button - no hover transition */
+.modal-submit-btn {
+  background: var(--accent, #e91e63);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 8px;
+  box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.modal-submit-btn:hover {
+  background: #c2185b;
+}
+
+.modal-submit-btn:active {
+  transform: scale(0.98);
+}
+
+/* Bottom Toggle text */
+.modal-switch-text {
+  margin: 14px 0 0 0;
+  font-size: 0.85rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Inner Switch Button link - no hover transition */
+.modal-switch-link-btn {
+  background: transparent;
+  border: none;
+  color: var(--accent, #e91e63);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.modal-switch-link-btn:hover {
+  color: #ff6090;
+}
+
+/* Responsiveness for smaller screens */
+@media (max-width: 768px) {
+  .login-modal-container {
+    width: 400px;
+    height: 480px;
+  }
+  .login-modal-image-pane {
+    display: none;
+  }
+  .login-modal-form-pane {
+    width: 100%;
+  }
+}
+

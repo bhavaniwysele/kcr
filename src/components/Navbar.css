@@ -994,8 +994,86 @@
   
   .nav-lang-trigger,
   .nav-contact-btn,
+  .nav-login-btn,
   .nav-join-btn {
     font-size: 0.85rem;
     padding: 0.6rem 1.6rem;
   }
 }
+
+/* Login Button Styles (matching Contact Button) */
+.nav-login-btn {
+  position: relative;
+  overflow: hidden;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  line-height: 1.25;
+  transition: all 0.6s ease-in-out, transform 0.2s ease !important;
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #ffffff;
+  color: var(--nav-accent) !important;
+  border: 1px solid rgba(233, 30, 99, 0.2);
+}
+
+.nav-bottom .nav-icon-btn.nav-login-btn {
+  background: transparent;
+  color: #ffffff !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+
+.nav-login-btn > span {
+  position: relative;
+  z-index: 2;
+  transition: color 0.6s ease-in-out;
+}
+
+.nav-login-btn svg {
+  position: absolute;
+  inset: 0;
+  fill: none;
+  stroke-width: 3px;
+  transition: all 0.8s ease-in-out;
+  pointer-events: none;
+  stroke: var(--nav-accent);
+  stroke-dasharray: 140 540;
+  stroke-dashoffset: 140;
+}
+
+.nav-login-btn:hover {
+  transform: translateY(-2px);
+  color: white !important;
+  background: var(--nav-accent);
+  border-color: transparent;
+}
+
+.nav-bottom .nav-icon-btn.nav-login-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(233, 30, 99, 0.45);
+}
+
+.nav-login-btn:hover > span {
+  color: white;
+}
+
+.nav-login-btn:hover svg {
+  stroke: #ffffff;
+  stroke-dashoffset: -540;
+}
+
+@media (min-width: 1920px) {
+  .nav-login-btn {
+    font-size: 0.85rem;
+    padding: 0.6rem 1.6rem;
+  }
+}
+

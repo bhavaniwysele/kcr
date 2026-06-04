@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import LoginModal from './components/LoginModal';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import AboutKCR from './pages/AboutKCR';
@@ -10,7 +11,6 @@ import Achievements from './pages/Achievements';
 import Schemes from './pages/Schemes';
 import NewsMedia from './pages/NewsMedia';
 import Contact from './pages/Contact';
-import JoinUs from './pages/JoinUs';
 import Leadership from './pages/Leadership';
 import Overview from './pages/About/Overview';
 import PoliticalCareer from './pages/About/PoliticalCareer';
@@ -27,11 +27,14 @@ import './App.css';
 import './pages/Achievements/achievement-hero-heights.css';
 
 function App() {
+  const [showLogin, setShowLogin] = useState(false);
+
   return (
     <Router>
       <ScrollToTop />
       <div className="App">
-        <Navbar />
+        <Navbar onLoginClick={() => setShowLogin(true)} />
+        {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -55,7 +58,7 @@ function App() {
             <Route path="/schemes/:schemeSlug" element={<SchemesLegacyRedirect />} />
             <Route path="/news-media" element={<NewsMedia />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/join-us" element={<JoinUs />} />
+            <Route path="/join-us" element={<Contact defaultView="member" />} />
           </Routes>
         </main>
         <Footer />

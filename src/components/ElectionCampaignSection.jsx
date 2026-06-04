@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import campaignImage from '../assets/election_campaign_extension.png';
 import './ElectionCampaignSection.css';
 
@@ -9,6 +10,7 @@ const campaignCards = [
       'A developed Telangana with quality education, healthcare, jobs and opportunities for all.',
     cta: 'Know Our Vision',
     icon: '◉',
+    path: '/vision-mission',
   },
   {
     title: 'Campaign Events',
@@ -16,6 +18,7 @@ const campaignCards = [
       'Join us at public meetings, roadshows and events across Telangana.',
     cta: 'View Schedule',
     icon: '◉',
+    path: '/leadership',
   },
   {
     title: 'Volunteer With Us',
@@ -23,6 +26,7 @@ const campaignCards = [
       "Be a part of the movement. Together, let's win the future of Telangana.",
     cta: 'Join the Movement',
     icon: '◉',
+    path: '/join-us',
   },
 ];
 
@@ -44,6 +48,7 @@ const formatCountdown = (totalSeconds) => {
 
 const ElectionCampaignSection = () => {
   const [secondsLeft, setSecondsLeft] = useState(INITIAL_COUNTDOWN_SECONDS);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -99,7 +104,9 @@ const ElectionCampaignSection = () => {
             <div className="campaign-card-icon">{card.icon}</div>
             <h3>{card.title}</h3>
             <p>{card.description}</p>
-            <button type="button">{card.cta}</button>
+            <button type="button" onClick={() => navigate(card.path)}>
+              {card.cta}
+            </button>
           </article>
         ))}
       </div>

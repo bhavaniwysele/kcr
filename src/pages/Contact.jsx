@@ -117,9 +117,15 @@ const MemberSubmitIcon = (props) => (
   </svg>
 );
 
-const Contact = () => {
-  const [view, setView] = useState('message'); // 'message' | 'member'
-  const [displayedView, setDisplayedView] = useState('message');
+const Contact = ({ defaultView = 'message' }) => {
+  const [view, setView] = useState(defaultView); // 'message' | 'member'
+  const [displayedView, setDisplayedView] = useState(defaultView);
+
+  // Sync state if defaultView changes
+  useEffect(() => {
+    setView(defaultView);
+    setDisplayedView(defaultView);
+  }, [defaultView]);
 
   // Message form state
   const [name, setName] = useState('');

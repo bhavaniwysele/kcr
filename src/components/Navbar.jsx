@@ -26,7 +26,7 @@ const MARQUEE_ITEMS = [
   'Rythu Bandhu, Mission Bhagiratha & Dalit Bandhu — Welfare At The Heart Of Governance',
 ];
 
-const Navbar = () => {
+const Navbar = ({ onLoginClick }) => {
   const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState('en');
   const [langMenuOpen, setLangMenuOpen] = useState(false);
@@ -312,6 +312,35 @@ const Navbar = () => {
                 <rect x="0" y="0" width="100%" height="100%" rx="999" ry="999" />
               </svg>
             </Link>
+            <button
+              type="button"
+              className="nav-link nav-login-btn nav-icon-btn"
+              aria-label="Login"
+              title="Login"
+              onClick={onLoginClick}
+            >
+              <span className="nav-icon-btn-inner">
+                <svg
+                  className="nav-icon-svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </span>
+              <svg className="nav-icon-btn-outline" width="100%" height="100%" aria-hidden="true" focusable="false">
+                <rect x="0" y="0" width="100%" height="100%" rx="999" ry="999" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectCreative, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -156,6 +157,13 @@ const Hero = () => {
                         : undefined
                     }
                   />
+                  {slide.id === 1 && (
+                    <Link
+                      to="/achievements/state-formation"
+                      className="hero-journey-link-overlay"
+                      aria-label="The Journey to Telangana Statehood"
+                    />
+                  )}
                 </div>
               </div>
             </div>
