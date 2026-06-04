@@ -45,6 +45,7 @@ function App() {
             <Route path="/about-kcr/timeline" element={<Timeline />} />
             <Route path="/leadership" element={<Leadership />} />
             <Route path="/vision-mission" element={<VisionMission />} />
+            <Route path="/know-our-vision" element={<Navigate to="/vision-mission" replace />} />
             <Route path="/achievements" element={<Navigate to="/achievements/irrigation" replace />} />
             <Route path="/achievements/irrigation" element={<AchievementDetail />} />
             <Route path="/achievements/agriculture" element={<AgricultureFarmers />} />

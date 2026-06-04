@@ -10,7 +10,7 @@ const campaignCards = [
       'A developed Telangana with quality education, healthcare, jobs and opportunities for all.',
     cta: 'Know Our Vision',
     icon: '◉',
-    path: '/vision-mission',
+    path: '/know-our-vision',
   },
   {
     title: 'Campaign Events',
